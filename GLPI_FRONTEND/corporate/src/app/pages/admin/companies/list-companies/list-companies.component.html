@@ -1,0 +1,220 @@
+<div class="companies-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Gestión de Tenants</h1>
+      <p class="sm-page-sub">Control y monitoreo de organizaciones en la plataforma</p>
+    </div>
+    <button class="btn btn-primary btn-md" (click)="onCreateTenant()">
+      <lucide-angular name="building-2" class="btn-icon"></lucide-angular>
+      <span>Nueva Organización</span>
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="full-page-loading">
+      <div class="sm-loading-container">
+        <lucide-angular name="loader" class="spinner" [size]="48"></lucide-angular>
+        <p>Sincronizando datos de organizaciones...</p>
+      </div>
+    </div>
+  } @else {
+    <!-- Métricas Rápidas -->
+    <div class="stats-grid">
+      <div class="sm-card stat-card">
+        <div class="stat-content">
+          <span class="stat-label">Total Clientes</span>
+          <h2 class="stat-value">{{ tenants().length }}</h2>
+        </div>
+        <lucide-angular name="building" class="stat-icon" [size]="32"></lucide-angular>
+      </div>
+      <div class="sm-card stat-card">
+        <div class="stat-content">
+          <span class="stat-label">Usuarios Activos</span>
+          <h2 class="stat-value">{{ totalUsers() }}</h2>
+        </div>
+        <lucide-angular name="users" class="stat-icon" [size]="32"></lucide-angular>
+      </div>
+      <div class="sm-card stat-card">
+        <div class="stat-content">
+          <span class="stat-label">Activos TI</span>
+          <h2 class="stat-value">{{ totalAssets() }}</h2>
+        </div>
+        <lucide-angular name="server" class="stat-icon" [size]="32"></lucide-angular>
+      </div>
+    </div>
+
+    <!-- Grid de Tenants -->
+    <div class="tenants-grid">
+      @for (tenant of pagedTenants(); track tenant.id) {
+        <div class="sm-card tenant-card" [class.is-suspended]="!tenant.isActive">
+          <div class="tenant-card-header">
+            <div class="tenant-visual">
+              @if (tenant.logoUrl) {
+                <img [src]="tenant.logoUrl" alt="">
+              } @else {
+                <div class="tenant-logo-placeholder">
+                  <span style="font-weight:800; font-size:18px; color:var(--teal-600);">{{ getInitials(tenant.name) }}</span>
+                </div>
+              }
+            </div>
+            <div class="tenant-header-main">
+              <h3 class="tenant-name">
+                {{ tenant.name }}
+                @if (tenant.isOwner) {
+                  <lucide-angular name="shield-check" [size]="14" style="color:var(--teal-500)"></lucide-angular>
+                }
+              </h3>
+              <p class="tenant-domain">{{ tenant.website }}</p>
+            </div>
+            <div class="tenant-actions-trigger">
+               <div class="role-actions-trigger" 
+                   [class.active]="openMenuId() === tenant.id"
+                   (click)="toggleMenu(tenant.id, $event)">
+                <lucide-angular name="more-vertical" [size]="18"></lucide-angular>
+                @if (openMenuId() === tenant.id) {
+                  <div class="role-context-menu">
+                    <button (click)="onEditTenant(tenant); openMenuId.set('')">
+                      <lucide-angular name="settings" [size]="14"></lucide-angular>
+                      <span>Configurar</span>
+                    </button>
+                    <button (click)="onSuspendTenant(tenant); openMenuId.set('')">
+                      <lucide-angular [name]="tenant.isActive ? 'pause' : 'play'" [size]="14"></lucide-angular>
+                      <span>{{ tenant.isActive ? 'Suspender' : 'Reactivar' }}</span>
+                    </button>
+                    <div class="sm-divider" style="margin: 4px 0;"></div>
+                    <button class="is-danger" (click)="onConfirmDelete(tenant); openMenuId.set('')">
+                      <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+                      <span>Eliminar</span>
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="tenant-metrics">
+            <div class="metric-box">
+              <span class="metric-val">{{ tenant.userCount }}</span>
+              <span class="metric-lab">Usuarios</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val">{{ tenant.assetCount }}</span>
+              <span class="metric-lab">Activos</span>
+            </div>
+            <div class="metric-box">
+              <span class="metric-val">{{ tenant.ticketCount }}</span>
+              <span class="metric-lab">Tickets</span>
+            </div>
+          </div>
+
+          <div class="tenant-footer-info">
+            <div class="info-row">
+              <lucide-angular name="hash" [size]="14"></lucide-angular>
+              <span>RUC: <strong>{{ tenant.ruc }}</strong></span>
+            </div>
+            <div class="info-row">
+              <lucide-angular name="calendar" [size]="14"></lucide-angular>
+              <span>Cliente desde {{ tenant.since }}</span>
+            </div>
+          </div>
+
+          <div class="tenant-card-actions">
+            <span class="badge" [class]="getStatusBadge(tenant.status)">{{ tenant.status }}</span>
+            <button class="btn btn-ghost btn-sm" (click)="onEditTenant(tenant)">
+              <span>Ver Detalles</span>
+              <lucide-angular name="arrow-right" [size]="12"></lucide-angular>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="sm-card list-pagination-card">
+      <app-pagination
+        [totalItems]="tenants().length"
+        [page]="page()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[6, 12, 24, 48]"
+        (setPage)="setPage($event)"
+        (setPageSize)="setPageSize($event)">
+      </app-pagination>
+    </div>
+  }
+</div>
+
+<!-- Formulario (Modal) -->
+@if (showCompanyForm()) {
+  <app-company-form
+    [tenant]="selectedTenant()"
+    (close)="onCloseForm()"
+    (saved)="onTenantSaved()">
+  </app-company-form>
+}
+
+<!-- Modal confirmación eliminación -->
+@if (showDeleteConfirm()) {
+  <app-modal
+    [title]="'Eliminar Organización'"
+    [subtitle]="'Esta acción requiere confirmación administrativa'"
+    [icon]="'alert-triangle'"
+    [dangerIcon]="true"
+    (close)="cancelDelete()"
+  >
+    <div class="sm-confirm-content">
+      <p style="margin-bottom: var(--s-3);">
+        Estás a punto de eliminar la organización <span class="tenant-tag">{{ tenantToDelete()?.name }}</span>. 
+        Esta acción es irreversible y afectará a todos los usuarios y recursos asociados.
+      </p>
+      <div class="sm-alert warning">
+        <lucide-angular name="info" [size]="16" style="flex-shrink: 0;"></lucide-angular>
+        <span>Se recomienda suspender el tenant antes de proceder con la eliminación definitiva.</span>
+      </div>
+    </div>
+
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <button class="btn btn-ghost" (click)="cancelDelete()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>No, cancelar</span>
+      </button>
+      <button class="btn btn-danger" (click)="executeDelete()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="trash-2" [size]="16"></lucide-angular>
+        <span>Sí, eliminar ahora</span>
+      </button>
+    </div>
+  </app-modal>
+}
+
+<!-- Modal confirmación suspensión -->
+@if (showSuspendConfirm()) {
+  <app-modal
+    [title]="tenantToSuspend()?.status === 'Suspendido' ? 'Reactivar Acceso' : 'Suspender Acceso'"
+    [subtitle]="'Confirmación de cambio de estado'"
+    [icon]="tenantToSuspend()?.status === 'Suspendido' ? 'play' : 'pause'"
+    (close)="cancelSuspend()"
+  >
+    <div class="sm-confirm-content">
+      <p>
+        ¿Estás seguro que deseas <strong>{{ tenantToSuspend()?.status === 'Suspendido' ? 'reactivar' : 'suspender' }}</strong> el acceso para 
+        <span class="tenant-tag">{{ tenantToSuspend()?.name }}</span>?
+      </p>
+      @if (tenantToSuspend()?.status !== 'Suspendido') {
+        <div class="sm-alert info">
+          <lucide-angular name="info" [size]="16" style="flex-shrink: 0;"></lucide-angular>
+          <span>Los usuarios de esta organización no podrán iniciar sesión mientras el tenant esté suspendido.</span>
+        </div>
+      }
+    </div>
+
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <button class="btn btn-ghost" (click)="cancelSuspend()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>Cancelar</span>
+      </button>
+      <button class="btn" [class.btn-primary]="tenantToSuspend()?.status === 'Suspendido'" [class.btn-danger]="tenantToSuspend()?.status !== 'Suspendido'" (click)="executeSuspend()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular [name]="tenantToSuspend()?.status === 'Suspendido' ? 'play' : 'pause'" [size]="16"></lucide-angular>
+        <span>Sí, {{ tenantToSuspend()?.status === 'Suspendido' ? 'Reactivar' : 'Suspender' }}</span>
+      </button>
+    </div>
+  </app-modal>
+}

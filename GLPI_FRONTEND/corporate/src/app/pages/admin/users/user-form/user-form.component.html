@@ -1,0 +1,176 @@
+<app-modal
+  [title]="user() ? 'Editar Colaborador' : 'Nuevo Colaborador'"
+  [subtitle]="'Configura el acceso y perfil del usuario'"
+  [icon]="user() ? 'pencil' : 'user-plus'"
+  [loading]="loading()"
+  [maxWidth]="640"
+  (close)="onClose()"
+>
+  <form [formGroup]="userForm" class="user-form-grid">
+    <app-input-field
+      label="Nombre(s)"
+      formControlName="firstName"
+      [error]="getFieldError('firstName')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Apellido(s)"
+      formControlName="lastName"
+      [error]="getFieldError('lastName')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Correo Electrónico (Usuario)"
+      type="email"
+      icon="mail"
+      formControlName="email"
+      [fullWidth]="true"
+      [error]="getFieldError('email')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Teléfono / Móvil"
+      icon="phone"
+      formControlName="phone"
+      [optional]="true"
+      [error]="getFieldError('phone')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Rol de Acceso</label>
+      <select class="sm-input" formControlName="roleId" [class.input-error]="getFieldError('roleId')" (change)="onRoleChange()">
+        <option value="" disabled>Seleccione un rol</option>
+        @for (role of roles(); track role.id) {
+          <option [value]="role.id">{{ role.name }}</option>
+        }
+      </select>
+      @if (getFieldError('roleId')) { <span class="field-error">{{ getFieldError('roleId') }}</span> }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Empresa / Tenant</label>
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left" style="display:flex;">
+          <lucide-angular name="building-2" [size]="16"></lucide-angular>
+        </span>
+        <select class="sm-input with-icon-left" formControlName="companyId" [class.input-error]="getFieldError('companyId')">
+          <option value="" disabled>Seleccione una empresa</option>
+          @for (co of availableCompaniesForRole(); track co.id) {
+            <option [value]="co.id">{{ co.name }}</option>
+          }
+        </select>
+      </div>
+      <p class="field-help" style="margin: 4px 0 0 0;">{{ companyHelpText() }}</p>
+      @if (getFieldError('companyId')) { <span class="field-error">{{ getFieldError('companyId') }}</span> }
+    </div>
+
+    <div class="sm-field full-width">
+      <label class="sm-label">Imagen de Perfil (Avatar)</label>
+      <div
+        class="avatar-upload-wrap"
+        tabindex="0"
+        (dragover)="onAvatarDragOver($event)"
+        (drop)="onAvatarDrop($event)"
+        (paste)="onAvatarPaste($event)"
+      >
+        <div class="avatar-preview">
+          @if (previewUrl()) {
+            <img [src]="previewUrl()" alt="Avatar">
+          } @else {
+            <lucide-angular name="user" [size]="32"></lucide-angular>
+          }
+        </div>
+        <div class="avatar-upload-actions">
+          <label class="btn btn-ghost btn-sm avatar-file-label">
+            <lucide-angular name="upload-cloud" [size]="14"></lucide-angular>
+            <span>Cambiar Foto</span>
+            <input
+              type="file"
+              class="avatar-native-input"
+              (change)="onUploadAvatar($event)"
+            >
+          </label>
+          <p class="field-help" style="margin: 4px 0 0 0;">Formatos JPG, PNG, WEBP, GIF o HEIC. Máx 2MB. También puedes arrastrar o pegar la imagen en este recuadro.</p>
+          @if (avatarError()) {
+            <span class="field-error">{{ avatarError() }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-field full-width password-update-field" [class.is-armed]="user() && hasPasswordValue()">
+      <div class="password-label-row">
+        <label class="sm-label">{{ user() ? 'Nueva Contraseña' : 'Contraseña Inicial' }}</label>
+        @if (user()) {
+          <span class="badge badge-xs" [class.is-warning]="hasPasswordValue()" [class.is-neutral]="!hasPasswordValue()">
+            {{ hasPasswordValue() ? 'Se actualizará' : 'Opcional' }}
+          </span>
+        }
+      </div>
+
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left">
+          <lucide-angular name="lock" [size]="16"></lucide-angular>
+        </span>
+        <input
+          class="sm-input with-icon-left with-icon-right"
+          [class.input-error]="getFieldError('password')"
+          [type]="showPassword() ? 'text' : 'password'"
+          formControlName="password"
+          [placeholder]="user() ? 'Déjalo vacío para conservar la contraseña actual' : 'Ingresa la contraseña inicial'"
+        >
+        <button type="button" class="sm-input-icon right btn-icon-wrap" (click)="togglePasswordVisibility()" aria-label="Mostrar u ocultar contraseña">
+          <lucide-angular [name]="showPassword() ? 'eye-off' : 'eye'" [size]="16"></lucide-angular>
+        </button>
+      </div>
+
+      @if (user() && !hasPasswordValue()) {
+        <p class="field-help">Si no escribes una contraseña, el usuario conserva la actual.</p>
+      }
+      @if (!user() || hasPasswordValue()) {
+        <div class="password-rules">
+          <span [class]="passwordRuleClass('length')">
+            <lucide-angular name="check-circle-2" [size]="13"></lucide-angular>
+            Mínimo 8 caracteres
+          </span>
+          <span [class]="passwordRuleClass('upper')">
+            <lucide-angular name="check-circle-2" [size]="13"></lucide-angular>
+            1 mayúscula
+          </span>
+          <span [class]="passwordRuleClass('lower')">
+            <lucide-angular name="check-circle-2" [size]="13"></lucide-angular>
+            1 minúscula
+          </span>
+          <span [class]="passwordRuleClass('number')">
+            <lucide-angular name="check-circle-2" [size]="13"></lucide-angular>
+            1 número
+          </span>
+          <span [class]="passwordRuleClass('special')">
+            <lucide-angular name="check-circle-2" [size]="13"></lucide-angular>
+            1 carácter especial
+          </span>
+        </div>
+      }
+      @if (user() && hasPasswordValue()) {
+        <div class="sm-alert warning password-change-alert">
+          <lucide-angular name="alert-triangle" [size]="15"></lucide-angular>
+          <span>Al guardar, esta nueva contraseña reemplazará la contraseña actual del usuario.</span>
+        </div>
+      }
+      @if (getFieldError('password')) {
+        <span class="field-error">{{ getFieldError('password') }}</span>
+      }
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="saveUser()" [disabled]="userForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (user() ? 'Guardar Cambios' : 'Crear Usuario') }}</span>
+    </button>
+  </div>
+</app-modal>

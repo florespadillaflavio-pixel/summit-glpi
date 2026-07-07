@@ -1,0 +1,470 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Progress Bar Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/progress-bar</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em><b>app-progress-bar</b></em>
+    [<em><b>mode</b></em>]=<em class="app-warning">"'buffer'"</em>
+    [<em><b>value</b></em>]=<em class="app-warning">"</em>control.value<em class="app-warning">"</em>
+    [<em><b>bufferValue</b></em>]=<em class="app-warning">"</em>buffer.value<em class="app-warning">"</em>
+    [<em><b>color</b></em>]=<em class="app-warning">"'default'"</em>
+&gt;
+&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppProgressBar</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-progress-bar</em></samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appProgressBar</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-progress-bar #progressBar value="69" borderRadius="8"
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                    >
+                                        <app-stack orientation="horizontal" gap="4" align="center" padding="8">
+                                            <app-icon fill fontSize="24">mood</app-icon>
+                                            {{ progressBar.value / 100 | percent }}
+                                        </app-stack>
+                                    </app-progress-bar>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em><b>mode</b></em>:
+                                    <em class="app-warning">'determinate'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'indeterminate'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'buffer'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'query'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'determinate'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em><b>value</b></em>:
+                                    <em class="app-hint">number</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-hint">0</em>
+                                </samp> (Con coerción)
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em><b>bufferValue</b></em>:
+                                    <em class="app-hint">number</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-hint">0</em>
+                                </samp> (Con coerción)
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em><b>color</b></em>:
+                                    <em class="app-warning">'main'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'accent'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'info'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'success'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'warning'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'danger'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'default'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'default'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <h3>Modes</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Determinate Progress Bar (default)</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+    Progreso: 
+    &lt;<em class="app-danger">app-slider</em> <em class="app-main">discrete</em>&gt;
+        &lt;<em class="app-danger">input</em> <em class="app-main">appSliderThumb</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>percentage<em class="app-warning">"</em>&gt;
+    &lt;/<em class="app-danger">app-slider</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em><b>app-progress-bar</b></em> [<em><b>value</b></em>]=<em class="app-warning">"</em>percentage.value<em class="app-warning">"</em>&gt;&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts1" (copied)="onCopy('ts1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts1>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl, Validators &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+
+    percentage = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">45</em>, [<em class="app-main">Validators</em>.<em class="app-main">min</em>(<em class="app-hint">0</em>), <em class="app-main">Validators</em>.<em class="app-main">max</em>(<em class="app-hint">100</em>)]);
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" align="center">
+                            Progreso: 
+                            <app-slider discrete>
+                                <input appSliderThumb [formControl]="percentage">
+                            </app-slider>
+                        </app-stack>
+
+                        <app-progress-bar [value]="percentage.value"></app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Indeterminate Progress Bar</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em><b>app-progress-bar</b></em> <em><b>mode</b></em>=<em class="app-warning">"indeterminate"</em>&gt;&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-progress-bar mode="indeterminate"></app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Buffer Progress Bar</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+    Progreso-Buffer: 
+    &lt;<em class="app-danger">app-slider</em> <em class="app-main">discrete</em>&gt;
+        &lt;<em class="app-danger">input</em> <em class="app-main">appSliderStartThumb</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>progress<em class="app-warning">"</em>&gt;
+        &lt;<em class="app-danger">input</em> <em class="app-main">appSliderEndThumb</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>buffer<em class="app-warning">"</em>&gt;
+    &lt;/<em class="app-danger">app-slider</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em><b>app-progress-bar</b></em> <em><b>mode</b></em>=<em class="app-warning">"buffer"</em> [<em><b>value</b></em>]=<em class="app-warning">"</em>progress.value<em class="app-warning">"</em> [<em><b>bufferValue</b></em>]=<em class="app-warning">"</em>buffer.value<em class="app-warning">"</em>&gt;&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl, Validators &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+
+    progress = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">40</em>, [<em class="app-main">Validators</em>.<em class="app-main">min</em>(<em class="app-hint">0</em>), <em class="app-main">Validators</em>.<em class="app-main">max</em>(<em class="app-hint">100</em>)]);
+    buffer = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">60</em>, [<em class="app-main">Validators</em>.<em class="app-main">min</em>(<em class="app-hint">0</em>), <em class="app-main">Validators</em>.<em class="app-main">max</em>(<em class="app-hint">100</em>)]);
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-grid min="200">
+                            <app-stack orientation="horizontal" align="center">
+                                Progreso-Buffer: 
+                                <app-slider discrete>
+                                    <input appSliderStartThumb [formControl]="progress">
+                                    <input appSliderEndThumb [formControl]="buffer">
+                                </app-slider>
+                            </app-stack>
+                        </app-grid>
+
+                        <app-progress-bar mode="buffer" [value]="progress.value" [bufferValue]="buffer.value"></app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Query Progress Bar</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em><b>app-progress-bar</b></em> <em><b>mode</b></em>=<em class="app-warning">"query"</em>&gt;&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-progress-bar mode="query"></app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Custom</h3>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Custom Progress Bar 1</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+    Progreso: 
+    &lt;<em class="app-danger">app-slider</em>&gt;
+        &lt;<em class="app-danger">input</em> <em class="app-main">appSliderThumb</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>progress<em class="app-warning">"</em>&gt;
+    &lt;/<em class="app-danger">app-slider</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em><b>app-progress-bar</b></em>
+    [<em><b>value</b></em>]=<em class="app-warning">"</em>progress.value<em class="app-warning">"</em>
+    [<em><b>color</b></em>]=<em class="app-warning">"</em>progress.value <em class="app-danger">===</em> <em class="app-hint">100</em> <em class="app-danger">?</em> <em class="app-warning">'success'</em> <em class="app-danger">:</em> progress.value <em class="app-danger">>=</em> <em class="app-hint">50</em> <em class="app-danger">?</em> <em class="app-warning">'warning'</em> <em class="app-danger">:</em> <em class="app-warning">'danger'"</em>
+    <em class="app-main">borderRadius</em>=<em class="app-warning">"4"</em>
+&gt;
+    &#123;&#123; progress.value <em class="app-danger">/</em> <em class="app-hint">100</em> <em class="app-danger">|</em> <em class="app-main">percent</em> &#125;&#125;
+&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5" (copied)="onCopy('ts5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts5>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl, Validators &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+
+    progress = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">45</em>, [<em class="app-main">Validators</em>.<em class="app-main">min</em>(<em class="app-hint">0</em>), <em class="app-main">Validators</em>.<em class="app-main">max</em>(<em class="app-hint">100</em>)]);
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" align="center">
+                            Progreso: 
+                            <app-slider>
+                                <input appSliderThumb [formControl]="progress2">
+                            </app-slider>
+                        </app-stack>
+
+                        <app-progress-bar
+                            [value]="progress2.value"
+                            [color]="progress2.value === 100 ? 'success' : progress2.value >= 50 ? 'warning' : 'danger'"
+                            borderRadius="4"
+                        >
+                            {{ progress2.value / 100 | percent }}
+                        </app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Custom Progress Bar 2</app-card-title>
+                    <app-card-subtitle>Progress Bar</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+    Progreso: 
+    &lt;<em class="app-danger">app-slider</em>&gt;
+        &lt;<em class="app-danger">input</em> <em class="app-main">appSliderThumb</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>progress<em class="app-warning">"</em>&gt;
+    &lt;/<em class="app-danger">app-slider</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em><b>app-progress-bar</b></em>
+    [<em><b>value</b></em>]=<em class="app-warning">"</em>progress.value<em class="app-warning">"</em>
+    [<em><b>color</b></em>]=<em class="app-warning">"</em>progress.value <em class="app-danger">===</em> <em class="app-hint">100</em> <em class="app-danger">?</em> <em class="app-warning">'info'</em> <em class="app-danger">:</em> progress.value <em class="app-danger">>=</em> <em class="app-hint">80</em> <em class="app-danger">?</em> <em class="app-warning">'success'</em> <em class="app-danger">:</em> progress.value <em class="app-danger">>=</em> <em class="app-hint">40</em> <em class="app-danger">?</em> <em class="app-warning">'warning'</em> <em class="app-danger">:</em> <em class="app-warning">'danger'"</em>
+    <em class="app-main">borderRadius</em>=<em class="app-warning">"4"</em>
+&gt;
+    &lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">gap</em>=<em class="app-warning">"4"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em> <em class="app-main">padding</em>=<em class="app-warning">"8"</em>&gt;
+        &lt;<em class="app-danger">app-icon</em> <em class="app-main">fill</em> <em class="app-main">fontSize</em>=<em class="app-warning">"24"</em>&gt;&#123;&#123; progress.value <em class="app-danger">===</em> <em class="app-hint">100</em> <em class="app-danger">?</em> <em class="app-warning">'sentiment_very_satisfied'</em> <em class="app-danger">:</em> progress.value <em class="app-danger">&gt;=</em> <em class="app-hint">80</em> <em class="app-danger">?</em> <em class="app-warning">'sentiment_satisfied'</em> <em class="app-danger">:</em> progress.value <em class="app-danger">&gt;=</em> <em class="app-hint">40</em> <em class="app-danger">?</em> <em class="app-warning">'sentiment_neutral'</em> <em class="app-danger">:</em> <em class="app-warning">'sentiment_dissatisfied'</em> &#125;&#125;&lt;/<em class="app-danger">app-icon</em>&gt;
+        &#123;&#123; progress.value <em class="app-danger">/</em> <em class="app-hint">100</em> <em class="app-danger">|</em> <em class="app-main">percent</em> &#125;&#125;
+    &lt;/<em class="app-danger">app-stack</em>&gt;
+&lt;/<em><b>app-progress-bar</b></em>&gt;
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6" (copied)="onCopy('ts6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts6>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl, Validators &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+
+    progress = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">45</em>, [<em class="app-main">Validators</em>.<em class="app-main">min</em>(<em class="app-hint">0</em>), <em class="app-main">Validators</em>.<em class="app-main">max</em>(<em class="app-hint">100</em>)]);
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" align="center">
+                            Progreso: 
+                            <app-slider>
+                                <input appSliderThumb [formControl]="progress3">
+                            </app-slider>
+                        </app-stack>
+                        
+                        <app-progress-bar
+                            [value]="progress3.value"
+                            [color]="progress3.value === 100 ? 'info' : progress3.value >= 80 ? 'success' : progress3.value >= 40 ? 'warning' : 'danger'"
+                            borderRadius="8"
+                        >
+                            <app-stack orientation="horizontal" gap="4" align="center" padding="8">
+                                <app-icon fill fontSize="24">{{ progress3.value === 100 ? 'sentiment_very_satisfied' : progress3.value >= 80 ? 'sentiment_satisfied' : progress3.value >= 40 ? 'sentiment_neutral' : 'sentiment_dissatisfied' }}</app-icon>
+                                {{ progress3.value / 100 | percent }}
+                            </app-stack>
+                        </app-progress-bar>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

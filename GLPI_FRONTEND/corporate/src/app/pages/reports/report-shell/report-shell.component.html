@@ -1,0 +1,47 @@
+<div class="reports-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Reportes</h1>
+      <p class="sm-page-sub">Gestión de reportes programados y generación ad-hoc</p>
+    </div>
+    @if (activeTab() === 'programados') {
+      <div class="sm-page-actions">
+        <button class="btn btn-primary">
+          <lucide-angular name="plus" class="btn-icon"></lucide-angular>
+          Nuevo Reporte
+        </button>
+      </div>
+    }
+  </div>
+
+  <!-- Tabs -->
+  <div class="sm-tabs">
+    <button class="sm-tab" [class.active]="activeTab() === 'programados'" (click)="activeTab.set('programados')">
+      <lucide-angular name="clock" class="tab-icon"></lucide-angular>
+      Programados
+    </button>
+    <button class="sm-tab" [class.active]="activeTab() === 'ejecutados'" (click)="activeTab.set('ejecutados')">
+      <lucide-angular name="check-circle" class="tab-icon"></lucide-angular>
+      Ejecutados
+    </button>
+    <button class="sm-tab" [class.active]="activeTab() === 'adhoc'" (click)="activeTab.set('adhoc')">
+      <lucide-angular name="zap" class="tab-icon"></lucide-angular>
+      Ad-hoc
+    </button>
+  </div>
+
+  <div class="reports-content">
+    @if (activeTab() === 'programados') {
+      <app-report-scheduled></app-report-scheduled>
+    } @else if (activeTab() === 'ejecutados') {
+      <div class="empty-tab">
+        <lucide-angular name="check-circle" class="empty-icon"></lucide-angular>
+        <p>Historial de reportes ejecutados</p>
+        <span class="empty-sub">Aquí aparecerán los reportes que han sido generados.</span>
+      </div>
+    } @else if (activeTab() === 'adhoc') {
+      <app-report-adhoc></app-report-adhoc>
+    }
+  </div>
+</div>

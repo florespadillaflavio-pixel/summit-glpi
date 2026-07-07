@@ -1,0 +1,534 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Drawer Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-drawer-container</em>
+    <em>hasBackdrop</em>="false"
+    <em>width</em>="300" <em>height</em>="300"
+    (<em>backdropClick</em>)="onBackdropClick()"
+&gt;
+    &lt;<em>app-drawer</em> #drawer
+        <em>mode</em>="side"
+        <em>position</em>="start"
+        <em>fixedInViewport</em>="false"
+        <em>fixedTopGab</em>="0"
+        <em>fixedBottomGap</em>="0"
+        <em>opened</em>="false"
+        <em>disableClose</em>="false"
+        (<em>openedChange</em>)="onOpenedChange($event)"
+    &gt;
+        Drawer
+        &lt;button appFab (click)="drawer.<em>close</em>()"&gt;Close&lt;/button&gt;
+    &lt;/<em>app-drawer</em>&gt;
+
+    &lt;<em>app-drawer-content</em>&gt;
+        Content
+        &lt;button appFab (click)="drawer.<em>open</em>()"&gt;Open&lt;/button&gt;
+        &lt;button appFab (click)="drawer.<em>toggle</em>()"&gt;Toggle&lt;/button&gt;
+    &lt;/<em>app-drawer-content</em>&gt;
+&lt;/<em>app-drawer-container</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-drawer-container</em>, <em>app-sidenav-container</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>app-drawer</em>, <em>app-sidenav</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>app-drawer-content</em>, <em>app-sidenav-content</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-drawer-container</em>, <em>app-sidenav-container</em></h4></samp>
+                    <ul>
+                        <li><samp>[<em>hasBackdrop</em>]: boolean = false</samp></li>
+                    </ul>
+                </app-stack>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-drawer</em>, <em>app-sidenav</em></h4></samp>
+                    <ul>
+                        <li><samp>[<em>mode</em>]: 'over' | 'side' = 'side'</samp></li>
+                        <li><samp>[<em>position</em>]: 'start' | 'end' = 'start'</samp></li>
+                        <li><samp>[<em>fixedInViewport</em>]: boolean = false</samp></li>
+                        <li><samp>[<em>fixedTopGap</em>]: number = 0</samp></li>
+                        <li><samp>[<em>fixedBottomGap</em>]: number = 0</samp></li>
+                        <li><samp>[<em>opened</em>]: boolean = false</samp></li>
+                        <li><samp>[<em>disableClose</em>]: boolean = false</samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-drawer-container</em>, <em>app-sidenav-container</em></h4></samp>
+                    <ul>
+                        <li><samp>(<em>backdropClick</em>): <em>EventEmitter</em>&lt;<em>void</em>&gt;</samp></li>
+                    </ul>
+                </app-stack>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-drawer</em>, <em>app-sidenav</em></h4></samp>
+                    <ul>
+                        <li><samp>(<em>openedChange</em>): <em>EventEmitter</em>&lt;<em>boolean</em>&gt;</samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Actions</h3>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-drawer</em>, <em>app-sidenav</em></h4></samp>
+                    <ul>
+                        <li><samp><em>open</em>()</samp> - Opens drawer</li>
+                        <li><samp><em>close</em>()</samp> - Closes drawer</li>
+                        <li><samp><em>toggle</em>()</samp> - Toggles drawer</li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <h3>Modes</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Side Mode</app-card-title>
+                    <app-card-subtitle>Drawer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-drawer-container</em> <em>height</em>="300" border&gt;
+    &lt;<em>app-drawer</em> #drawer appStack padding&gt;
+        Drawer Side
+        &lt;button appFab (click)="drawer.<em>close</em>()"&gt;Close&lt;/button&gt;
+    &lt;/<em>app-drawer</em>&gt;
+
+    &lt;<em>app-drawer-content</em> appStack padding&gt;
+        Content
+        &lt;button appFab (click)="drawer.<em>open</em>()"&gt;Open&lt;/button&gt;
+        &lt;button appFab (click)="drawer.<em>toggle</em>()"&gt;Toggle&lt;/button&gt;
+    &lt;/<em>app-drawer-content</em>&gt;
+&lt;/<em>app-drawer-container</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-drawer-container height="300" border>
+                            <app-drawer #drawer1 appStack padding>
+                                Drawer Side
+                                <button appFab (click)="drawer1.close()">Close</button>
+                            </app-drawer>
+
+                            <app-drawer-content appStack padding>
+                                Content
+                                <button appFab (click)="drawer1.open()">Open</button>
+                                <button appFab (click)="drawer1.toggle()">Toggle</button>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Over Mode</app-card-title>
+                    <app-card-subtitle>Drawer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-drawer-container</em> [<em>hasBackdrop</em>]="backdrop.checked" <em>height</em>="300" border&gt;
+    &lt;<em>app-drawer</em> #drawer <em>mode</em>="over" appStack padding&gt;
+        Drawer Over
+        &lt;button appFab (click)="drawer.<em>close</em>()"&gt;Close&lt;/button&gt;
+    &lt;/<em>app-drawer</em>&gt;
+
+    &lt;<em>app-drawer-content</em> appStack padding&gt;
+        Content
+        &lt;button appFab (click)="drawer.<em>open</em>()"&gt;Open&lt;/button&gt;
+        &lt;button appFab (click)="drawer.<em>toggle</em>()"&gt;Toggle&lt;/button&gt;
+        &lt;app-slide-toggle #backdrop&gt;Has Backdrop&lt;/app-slide-toggle&gt;
+    &lt;/<em>app-drawer-content</em>&gt;
+&lt;/<em>app-drawer-container</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-drawer-container [hasBackdrop]="backdrop.checked" height="300" border>
+                            <app-drawer #drawer2 mode="over" appStack padding>
+                                Drawer Over
+                                <button appFab (click)="drawer2.close()">Close</button>
+                            </app-drawer>
+
+                            <app-drawer-content appStack padding>
+                                Content
+                                <button appFab (click)="drawer2.open()">Open</button>
+                                <button appFab (click)="drawer2.toggle()">Toggle</button>
+                                <app-slide-toggle #backdrop>Has Backdrop</app-slide-toggle>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                        
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>lightbulb</app-icon>
+                            <strong>SUGERENCIA:</strong> Es preferible mantener '[<samp><em>hasBackdrop</em></samp>]' activado para el modo "over".
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Position</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Position End</app-card-title>
+                    <app-card-subtitle>Drawer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em>app-drawer-container</em> <em>height</em>="300" border&gt;
+    &lt;<em>app-drawer</em> #drawer <em>position</em>="end" appStack padding&gt;
+        Drawer End
+        &lt;button appFab (click)="drawer.<em>close</em>()"&gt;Close&lt;/button&gt;
+    &lt;/<em>app-drawer</em>&gt;
+
+    &lt;<em>app-drawer-content</em> appStack padding&gt;
+        Content
+        &lt;button appFab (click)="drawer.<em>open</em>()"&gt;Open&lt;/button&gt;
+        &lt;button appFab (click)="drawer.<em>toggle</em>()"&gt;Toggle&lt;/button&gt;
+    &lt;/<em>app-drawer-content</em>&gt;
+&lt;/<em>app-drawer-container</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap paddingTop>
+                        <app-drawer-container height="300" border>
+                            <app-drawer #drawer3 position="end" appStack padding>
+                                Drawer End
+                                <button appFab (click)="drawer3.close()">Close</button>
+                            </app-drawer>
+
+                            <app-drawer-content appStack padding>
+                                Content
+                                <button appFab (click)="drawer3.open()">Open</button>
+                                <button appFab (click)="drawer3.toggle()">Toggle</button>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Fixed Gaps</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Fixed Top and Bottom Gaps</app-card-title>
+                    <app-card-subtitle>Drawer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em>app-drawer-container</em> <em>hasBackdrop</em> <em>height</em>="300" border&gt;
+    &lt;<em>app-drawer</em> #drawer appStack padding borderRadius="0 16px 16px 0"
+        <em>mode</em>="over"
+        [<em>fixedTopGap</em>]="top.value"
+        [<em>fixedBottomGap</em>]="bottom.value"
+        [<em>fixedInViewport</em>]="fixedInViewport.checked"
+    &gt;
+        Drawer
+        &lt;button appFab (click)="drawer.<em>close</em>()"&gt;Close&lt;/button&gt;
+    &lt;/<em>app-drawer</em>&gt;
+
+    &lt;<em>app-drawer-content</em> appStack padding&gt;
+        Content
+        &lt;button appFab (click)="drawer.<em>open</em>()"&gt;Open&lt;/button&gt;
+        &lt;button appFab (click)="drawer.<em>toggle</em>()"&gt;Toggle&lt;/button&gt;
+        &lt;app-stack orientation="horizontal"&gt;
+            &lt;app-form-field&gt;
+                &lt;app-label&gt;Top&lt;/app-label&gt;
+                &lt;button appPrefix appIconButton variant="tertiary" (click)="top.value = +top.value - 5"&gt;&lt;app-icon&gt;remove&lt;/app-icon&gt;&lt;/button&gt;
+                &lt;input #top appInput appBoxBase textAlign="center" type="text" value="30"&gt;
+                &lt;button appSuffix appIconButton variant="tertiary" (click)="top.value = +top.value + 5"&gt;&lt;app-icon&gt;add&lt;/app-icon&gt;&lt;/button&gt;
+            &lt;/app-form-field&gt;
+            &lt;app-form-field&gt;
+                &lt;app-label&gt;Bottom&lt;/app-label&gt;
+                &lt;button appPrefix appIconButton variant="tertiary" (click)="bottom.value = +bottom.value - 5"&gt;&lt;app-icon&gt;remove&lt;/app-icon&gt;&lt;/button&gt;
+                &lt;input #bottom appInput appBoxBase textAlign="center" type="text" value="30"&gt;
+                &lt;button appSuffix appIconButton variant="tertiary" (click)="bottom.value = +bottom.value + 5"&gt;&lt;app-icon&gt;add&lt;/app-icon&gt;&lt;/button&gt;
+            &lt;/app-form-field&gt;
+        &lt;/app-stack&gt;
+        &lt;app-slide-toggle #fixedInViewport&gt;Fixed in Viewport&lt;/app-slide-toggle&gt;
+    &lt;/<em>app-drawer-content</em>&gt;
+&lt;/<em>app-drawer-container</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-drawer-container hasBackdrop height="300" border>
+                            <app-drawer #drawer4 appStack padding borderRadius="0 16px 16px 0"
+                                mode="over"
+                                [fixedTopGap]="top.value"
+                                [fixedBottomGap]="bottom.value"
+                                [fixedInViewport]="fixedInViewport.checked"
+                            >
+                                Drawer
+                                <button appFab (click)="drawer4.close()">Close</button>
+                            </app-drawer>
+
+                            <app-drawer-content appStack padding>
+                                Content
+                                <button appFab (click)="drawer4.open()">Open</button>
+                                <button appFab (click)="drawer4.toggle()">Toggle</button>
+                                <app-stack orientation="horizontal">
+                                    <app-form-field>
+                                        <app-label>Top</app-label>
+                                        <button appPrefix appIconButton variant="tertiary" (click)="top.value = +top.value - 5"><app-icon>remove</app-icon></button>
+                                        <input #top appInput textAlign="center" type="text" value="30">
+                                        <button appSuffix appIconButton variant="tertiary" (click)="top.value = +top.value + 5"><app-icon>add</app-icon></button>
+                                    </app-form-field>
+                                    <app-form-field>
+                                        <app-label>Bottom</app-label>
+                                        <button appPrefix appIconButton variant="tertiary" (click)="bottom.value = +bottom.value - 5"><app-icon>remove</app-icon></button>
+                                        <input #bottom appInput textAlign="center" type="text" value="30">
+                                        <button appSuffix appIconButton variant="tertiary" (click)="bottom.value = +bottom.value + 5"><app-icon>add</app-icon></button>
+                                    </app-form-field>
+                                </app-stack>
+                                <app-slide-toggle #fixedInViewport>Fixed in Viewport</app-slide-toggle>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                        
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> El '[<samp><em>fixedInViewport</em></samp>]' posiciona a '<samp><em>app-drawer</em></samp>' fuera del contenedor en el padre relativo más próximo. Usar con precausión.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Navigation</h3>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Side Navigation with Toolbar</app-card-title>
+                    <app-card-subtitle>Drawer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;<em>app-sidenav-container</em> <em>hasBackdrop</em> <em>height</em>="300" border&gt;
+    &lt;<em>app-sidenav</em> #snav <em>width</em>="200" <em>mode</em>="over" borderRight&gt;
+        &lt;app-nav-list&gt;
+            &lt;button *ngFor="let item of menu"
+                appListItem [variant]="item.variant"
+                [active]="selection.isSelected(item)"
+                (click)="selection.select(item); snav.<em>close</em>()"
+            &gt;
+                &lt;app-icon appListItemIcon&gt;&#123;&#123; item.icon &#125;&#125;&lt;/app-icon&gt;
+                &#123;&#123; item.name &#125;&#125;
+            &lt;/button&gt;
+        &lt;/app-nav-list&gt;
+    &lt;/<em>app-sidenav</em>&gt;
+
+    &lt;<em>app-sidenav-content</em> #content&gt;
+        &lt;app-toolbar paddingHorizontal [scrollTarget]="content"&gt;
+            &lt;button appIconButton variant="tertiary" (click)="snav.<em>toggle</em>()"&gt;&lt;app-icon&gt;menu&lt;/app-icon&gt;&lt;/button&gt;
+            &lt;span&gt;&#123;&#123; selection.selected[0]?.name || 'Toolbar' &#125;&#125;&lt;/span&gt;
+        &lt;/app-toolbar&gt;
+
+        &lt;app-stack padding&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+            &lt;p&gt;&#123;&#123; selection.selected[0]?.content || 'Empty Content' &#125;&#125;&lt;/p&gt;
+        &lt;/app-stack&gt;
+    &lt;/<em>app-sidenav-content</em>&gt;
+&lt;/<em>app-sidenav-container</em>&gt;
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5" (copied)="onCopy('ts5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts5>
+import &#123; SelectionModel &#125; from '&#64;angular/cdk/collections';
+import &#123; Component &#125; from '&#64;angular/core';
+
+type MenuItem = &#123;
+    name: string;
+    icon: string;
+    variant: string;
+    content: string;
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    selection = new SelectionModel&lt;MenuItem&gt;(false);
+
+    menu: MenuItem[] = [
+        &#123; name: 'Item A', icon: 'home', variant: 'menu', content: 'Content A' &#125;,
+        &#123; name: 'Item B', icon: 'settings', variant: 'menu', content: 'Content B' &#125;,
+        &#123; name: 'Item C', icon: 'favorite', variant: 'submenu', content: 'Content C' &#125;,
+        &#123; name: 'Item D', icon: 'star', variant: 'submenu', content: 'Content D' &#125;,
+        &#123; name: 'Item E', icon: 'map', variant: 'submenu', content: 'Content E' &#125;,
+        &#123; name: 'Item F', icon: 'eco', variant: 'submenu', content: 'Content F' &#125;,
+        &#123; name: 'Item G', icon: 'casino', variant: 'submenu', content: 'Content G' &#125;,
+    ];
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap paddingTop>
+                        <app-sidenav-container hasBackdrop height="300" border>
+                            <app-sidenav #snav width="200" mode="over" borderRight>
+                                <app-nav-list>
+                                    <button *ngFor="let item of menu"
+                                        appListItem [variant]="item.variant"
+                                        [active]="selection.isSelected(item)"
+                                        (click)="selection.select(item); snav.close()"
+                                    >
+                                        <app-icon appListItemIcon>{{ item.icon }}</app-icon>
+                                        {{ item.name }}
+                                    </button>
+                                </app-nav-list>
+                            </app-sidenav>
+
+                            <app-sidenav-content #content>
+                                <app-toolbar paddingHorizontal [scrollTarget]="content">
+                                    <button appIconButton variant="tertiary" (click)="snav.toggle()"><app-icon>menu</app-icon></button>
+                                    <h4>{{ selection.selected[0]?.name || 'Toolbar' }}</h4>
+                                </app-toolbar>
+
+                                <app-stack padding>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                    <p>{{ selection.selected[0]?.content || 'Empty Content' }}</p>
+                                </app-stack>
+                            </app-sidenav-content>
+                        </app-sidenav-container>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

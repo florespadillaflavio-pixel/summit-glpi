@@ -1,0 +1,50 @@
+// Summit GLPI — Global Styles
+
+@use 'styles/tokens';
+@use 'styles/mixins' as *;
+@use 'styles/components';
+@use 'styles/shell';
+@use 'styles/utilities';
+@use 'styles/legacy-component-styles';
+
+// ─── Material Theme ─────────────────────────────────────────────────────────
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+// ─── Reset base ──────────────────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: var(--font-ui);
+  background: var(--canvas);
+  color: var(--ink-900);
+  font-size: var(--t-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--navy-700); text-decoration: none; &:hover { text-decoration: underline; } }
+button { font-family: var(--font-ui); }
+input, select, textarea { font-family: var(--font-ui); }
+h1, h2, h3, h4, h5, h6 { margin: 0; }
+
+// ─── Scrollbar global ────────────────────────────────────────────────────────
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ink-200); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
+
+// ─── Animaciones de página ───────────────────────────────────────────────────
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.page-enter { animation: fade-in 100ms ease-out; }
+
+// ─── Lucide icons reset ──────────────────────────────────────────────────────
+lucide-icon svg {
+  display: block;
+  stroke-width: 1.7;
+}

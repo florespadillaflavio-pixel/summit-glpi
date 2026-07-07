@@ -1,0 +1,62 @@
+<div class="config-section-content">
+  <div class="section-header">
+    <div class="icon-box">
+      <lucide-angular name="clock" [size]="20"></lucide-angular>
+    </div>
+    <div>
+      <h2 class="section-title">Políticas de ANS (SLA)</h2>
+      <p class="section-desc">Define los tiempos de compromiso para la atención de tickets.</p>
+    </div>
+  </div>
+
+  <div class="sm-divider"></div>
+
+  @if (loading()) {
+    <div class="config-loading-state">
+      <lucide-angular name="loader" class="spinner" [size]="22"></lucide-angular>
+      <span>Cargando políticas SLA...</span>
+    </div>
+  }
+
+  <form [formGroup]="slaForm" class="config-form" [class.config-loading-dim]="loading()">
+    <div class="config-grid">
+      <div class="sm-field">
+        <label class="sm-label">Tiempo de Respuesta (Horas)</label>
+        <input type="number" class="sm-input" formControlName="defaultResponseTime" [class.input-error]="fieldError('defaultResponseTime')">
+        @if (fieldError('defaultResponseTime')) { <span class="field-error">{{ fieldError('defaultResponseTime') }}</span> }
+      </div>
+
+      <div class="sm-field">
+        <label class="sm-label">Tiempo de Resolución (Horas)</label>
+        <input type="number" class="sm-input" formControlName="defaultResolveTime" [class.input-error]="fieldError('defaultResolveTime') || rangeError()">
+        @if (fieldError('defaultResolveTime')) { <span class="field-error">{{ fieldError('defaultResolveTime') }}</span> }
+      </div>
+
+      @if (rangeError()) {
+        <div class="sm-field full-width">
+          <span class="field-error">{{ rangeError() }}</span>
+        </div>
+      }
+
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="businessHoursOnly">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Contar solo horas hábiles</span>
+            <p class="field-help">Si está activo, los fines de semana y feriados no afectan el SLA.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="saving() || slaForm.invalid">
+        <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+        <span>Guardar Políticas SLA</span>
+      </button>
+    </div>
+  </form>
+</div>

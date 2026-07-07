@@ -1,0 +1,102 @@
+<app-modal
+  [title]="item() ? 'Editar Ítem de Catálogo' : 'Nuevo Ítem de Catálogo'"
+  [subtitle]="'Administra los valores del sistema'"
+  [icon]="item() ? 'pencil' : 'plus-circle'"
+  [loading]="saving()"
+  (close)="onClose()"
+>
+  <form [formGroup]="itemForm" class="catalog-form-grid">
+    <app-input-field
+      label="Etiqueta Visible (Nombre)"
+      placeholder="Ej: Urgente, Laptop, etc."
+      formControlName="name"
+      [fullWidth]="true"
+      [error]="getFieldError('name', 'El nombre')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Código Interno"
+      placeholder="CODIGO_UNICO"
+      formControlName="code"
+      [error]="getFieldError('code', 'El código')"
+    ></app-input-field>
+
+    <div class="sm-field full-width">
+      <label class="sm-label">Seleccionar Icono</label>
+      <div class="sm-icon-picker">
+        @for (icon of availableIcons; track icon) {
+          <button 
+            type="button" 
+            class="sm-icon-btn" 
+            [class.active]="selectedIcon() === icon"
+            (click)="selectIcon(icon)"
+            [title]="icon"
+          >
+            <lucide-angular [name]="icon" [size]="18"></lucide-angular>
+          </button>
+        }
+      </div>
+      <div class="sm-icon-preview">
+        <span>Icono seleccionado: </span>
+        <div class="preview-box">
+          <lucide-angular [name]="selectedIcon()" [size]="16"></lucide-angular>
+          <code>{{ selectedIcon() }}</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-field full-width">
+      <label class="sm-label">Descripción Detallada</label>
+      <textarea class="sm-input role-textarea" formControlName="description" rows="2" placeholder="Notas sobre el uso de este valor..."></textarea>
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Color de Identificación</label>
+      <div class="color-input-wrap">
+        <input type="color" class="sm-input color-picker" formControlName="color">
+        <span class="color-hex">{{ itemForm.get('color')?.value }}</span>
+      </div>
+    </div>
+
+    <app-input-field
+      label="Orden de Visualización"
+      type="number"
+      placeholder="0"
+      formControlName="sortOrder"
+      [error]="getFieldError('sortOrder', 'El orden de visualización')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Estado de Activación</label>
+      <div class="switch-row">
+        <label class="sm-switch">
+          <input type="checkbox" formControlName="isActive">
+          <span class="sm-switch-slider"></span>
+        </label>
+        <span class="switch-text">{{ itemForm.get('isActive')?.value ? 'Activo' : 'Inactivo' }}</span>
+      </div>
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Valor por Defecto</label>
+      <div class="switch-row">
+        <label class="sm-switch">
+          <input type="checkbox" formControlName="isDefault">
+          <span class="sm-switch-slider"></span>
+        </label>
+        <span class="switch-text">{{ itemForm.get('isDefault')?.value ? 'Sí' : 'No' }}</span>
+      </div>
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="saveItem()" [disabled]="itemForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : 'Guardar Cambios' }}</span>
+    </button>
+  </div>
+</app-modal>

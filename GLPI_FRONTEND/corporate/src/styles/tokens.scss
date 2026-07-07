@@ -1,0 +1,102 @@
+// Summit GLPI — Design Tokens
+// Paleta extraída del logo Summit Consulting: navy #143F5C + teal #5AAFB8
+
+:root {
+  // ─── Navy ────────────────────────────────────────────────────────────────
+  --navy-900: #0a2032;
+  --navy-800: #0e2e44;
+  --navy-700: #143f5c;
+  --navy-600: #1c5478;
+  --navy-500: #256899;
+  --navy-400: #3a7fad;
+  --navy-300: #6aa3c4;
+  --navy-200: #a2c6db;
+  --navy-100: #e2edf3;
+  --navy-50:  #f1f6f9;
+
+  // ─── Teal ────────────────────────────────────────────────────────────────
+  --teal-700: #2b8a93;
+  --teal-500: #5aafb8;
+  --teal-300: #8fcdd3;
+  --teal-100: #d6ecee;
+  --teal-50:  #edf6f7;
+
+  // ─── Neutrales (cool grey) ───────────────────────────────────────────────
+  --ink-900: #0d1b26;
+  --ink-800: #1a2b38;
+  --ink-700: #2c3e4d;
+  --ink-600: #4a5d6d;
+  --ink-500: #6c7e8d;
+  --ink-400: #94a3b1;
+  --ink-300: #b8c4cf;
+  --ink-200: #d8e0e7;
+  --ink-100: #ebeff3;
+  --ink-50:  #f5f7f9;
+  --canvas:  #fafbfc;
+  --surface: #ffffff;
+
+  // ─── Status ──────────────────────────────────────────────────────────────
+  --success-700: #18794e;
+  --success-500: #2faa6f;
+  --success-100: #d6f1e1;
+  --success-50:  #ecf8f1;
+
+  --danger-700: #b42318;
+  --danger-600: #c23117;
+  --danger-500: #f04438;
+  --danger-100: #fde2e0;
+  --danger-50:  #fef3f2;
+
+  --warn-700: #b54708;
+  --warn-500: #f79009;
+  --warn-100: #fef0c7;
+  --warn-50:  #fffaeb;
+
+  --info-700: #175cd3;
+  --info-500: #2e90fa;
+  --info-100: #d1e9ff;
+  --info-50:  #eff8ff;
+
+  // ─── Tipografía ──────────────────────────────────────────────────────────
+  --font-ui:   'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  --t-2xs: 11px;
+  --t-xs:  12px;
+  --t-sm:  13px;
+  --t-md:  14px;
+  --t-lg:  16px;
+  --t-xl:  18px;
+  --t-2xl: 22px;
+  --t-3xl: 28px;
+  --t-4xl: 32px;
+
+  // ─── Espaciado ───────────────────────────────────────────────────────────
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-7:  32px;
+  --s-8:  40px;
+  --s-9:  48px;
+  --s-10: 64px;
+
+  // ─── Border Radius ───────────────────────────────────────────────────────
+  --r-xs:   4px;
+  --r-sm:   6px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-xl:   16px;
+  --r-full: 999px;
+
+  // ─── Sombras ─────────────────────────────────────────────────────────────
+  --sh-xs: 0 1px 2px rgba(13, 27, 38, .04);
+  --sh-sm: 0 1px 2px rgba(13, 27, 38, .06), 0 1px 3px rgba(13, 27, 38, .08);
+  --sh-md: 0 4px 12px -2px rgba(13, 27, 38, .10), 0 2px 6px -2px rgba(13, 27, 38, .06);
+  --sh-lg: 0 16px 32px -8px rgba(13, 27, 38, .16), 0 4px 12px -2px rgba(13, 27, 38, .08);
+
+  // ─── Transiciones ────────────────────────────────────────────────────────
+  --transition: .15s ease-out;
+}

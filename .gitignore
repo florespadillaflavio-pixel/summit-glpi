@@ -1,0 +1,29 @@
+# ===== Secretos / configuración local (NUNCA subir) =====
+**/appsettings.Development.json
+**/appsettings.*.Local.json
+*.env
+.env
+.env.*
+
+# ===== .NET =====
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.suo
+
+# ===== Angular / Node =====
+**/node_modules/
+**/dist/
+**/.angular/
+**/*.log
+npm-debug.log*
+
+# ===== Archivos SQL legados (respaldo local; schema.sql los reemplaza) =====
+_sql_legacy/
+GLPI_BACKEND/_sql_legacy/
+
+# ===== Sistema =====
+.DS_Store
+**/.DS_Store
+Thumbs.db

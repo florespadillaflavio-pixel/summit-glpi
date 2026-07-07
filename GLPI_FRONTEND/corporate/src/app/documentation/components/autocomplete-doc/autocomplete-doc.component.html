@@ -1,0 +1,383 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Autocomplete Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/autocomplete</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em class="app-danger">app-form-field</em>&gt;
+    &lt;<em class="app-danger">app-label</em>&gt;Número&lt;/<em class="app-danger">app-label</em>&gt;
+    &lt;<em class="app-danger">input</em> <em class="app-main">appInput</em> <em class="app-main">type</em>=<em class="app-warning">"text"</em> <em class="app-main">placeholder</em>=<em class="app-warning">"Escoge un número"</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>numero<em class="app-warning">"</em> [<em><b>appAutocomplete</b></em>]=<em class="app-warning">"</em>auto<em class="app-warning">"</em>&gt;
+    &lt;<em><b>app-autocomplete</b></em> <em class="app-info">#auto</em> (<em class="app-main">optionSelected</em>)=<em class="app-warning">"</em><em class="app-main">onOptionSelected</em>($event)<em class="app-warning">"</em>&gt;
+        &lt;<em class="app-danger">app-option</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> opcion <em class="app-danger">of</em> opciones$ <em class="app-danger">|</em> <em class="app-main">async</em><em class="app-warning">"</em> [<em class="app-main">value</em>]=<em class="app-warning">"</em>opcion<em class="app-warning">"</em>&gt;{{ opcion }}&lt;/<em class="app-danger">app-option</em>&gt;
+    &lt;/<em><b>app-autocomplete</b></em>&gt;
+    &lt;<em class="app-danger">app-hint</em>&gt;Escriba para filtrar resultados&lt;/<em class="app-danger">app-hint</em>&gt;
+&lt;/<em class="app-danger">app-form-field</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppAutocomplete</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-autocomplete</em></samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appAutocomplete</em></samp></p>
+                            
+                            <app-stack justify="center">
+                                <app-stack gap="4" justify="start" minWidth="200">
+                                    <app-list-item width="100%" height="42" padding="0 16px" borderRadius="12" border backgroundColor>
+                                        Escriba y seleccione una opción
+                                    </app-list-item>
+
+                                    <app-stack noGap
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        width="100%" paddingVertical="8" borderRadius="8" boxShadow backgroundColor
+                                    >
+                                        <app-list-item borderBottom borderRadius="0" padding="8px 16px" height="48">Opcion 1</app-list-item>
+                                        <app-list-item borderBottom borderRadius="0" padding="8px 16px" height="48">Opcion 2</app-list-item>
+                                        <app-list-item borderRadius="0" padding="8px 16px" height="48">Opcion 3</app-list-item>
+                                    </app-stack>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Outputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Output</em>()
+                                    <em><b>optionSelected</b></em>:
+                                    <em class="app-main">EventEmitter</em>&lt;<em class="app-hint">T</em>&gt;
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppAutocompleteTrigger</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appAutocomplete</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appAutocompleteTrigger</em></samp></p>
+                            
+                            <app-stack justify="center">
+                                <app-stack gap="4" justify="start" minWidth="200">
+                                    <app-list-item appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        width="100%" height="42" padding="0 16px" borderRadius="12" border backgroundColor
+                                    >
+                                        Escriba y seleccione una opción
+                                    </app-list-item>
+
+                                    <app-stack noGap width="100%" paddingVertical="8" borderRadius="8" boxShadow backgroundColor>
+                                        <app-list-item borderBottom borderRadius="0" padding="8px 16px" height="48">Opcion 1</app-list-item>
+                                        <app-list-item borderBottom borderRadius="0" padding="8px 16px" height="48">Opcion 2</app-list-item>
+                                        <app-list-item borderRadius="0" padding="8px 16px" height="48">Opcion 3</app-list-item>
+                                    </app-stack>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>(<em class="app-warning">'appAutocomplete'</em>)
+                                    <em>autocomplete</em>!:
+                                    <em><b>AppAutocomplete</b></em>&lt;<em class="app-hint">T</em>&gt;
+                                </samp>
+                            </p>
+                            
+                            <h6><b>Methods</b></h6>
+                            <p>
+                                <samp><em class="app-main">open</em>()</samp> - Abre la lista de opciones.<br>
+                                <samp><em class="app-main">close</em>()</samp> - Cierra la lista de opciones.
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Autocompletado Simple</app-card-title>
+                    <app-card-subtitle>Autocomplete</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em class="app-danger">app-form-field</em>&gt;
+    &lt;<em class="app-danger">app-label</em>&gt;Número&lt;/<em class="app-danger">app-label</em>&gt;
+    &lt;<em class="app-danger">input</em> <em class="app-main">appInput</em> <em class="app-main">type</em>=<em class="app-warning">"text"</em> <em class="app-main">placeholder</em>=<em class="app-warning">"Escoge un número"</em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>numero<em class="app-warning">"</em> [<em><b>appAutocomplete</b></em>]=<em class="app-warning">"</em>auto<em class="app-warning">"</em>&gt;
+    &lt;<em><b>app-autocomplete</b></em> <em class="app-info">#auto</em>&gt;
+        &lt;<em class="app-danger">app-option</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> opcion <em class="app-danger">of</em> opciones$ <em class="app-danger">|</em> <em class="app-main">async</em><em class="app-warning">"</em> [<em class="app-main">value</em>]=<em class="app-warning">"</em>opcion<em class="app-warning">"</em>&gt;{{ opcion }}&lt;/<em class="app-danger">app-option</em>&gt;
+    &lt;/<em><b>app-autocomplete</b></em>&gt;
+    &lt;<em class="app-danger">app-hint</em>&gt;Escriba para filtrar resultados&lt;/<em class="app-danger">app-hint</em>&gt;
+&lt;/<em class="app-danger">app-form-field</em>&gt;
+
+&lt;<em class="app-danger">b</em>&gt;Valor seleccionado:&lt;/<em class="app-danger">b</em>&gt;
+&#123;&#123; numero.value <em class="app-danger">||</em> <em class="app-warning">'null'</em> &#125;&#125;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts1" (copied)="onCopy('ts1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts1>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+<em class="app-danger">import</em> &#123; TableDataSource &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;app/shared/material/table'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+    numero = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-warning">''</em>);
+    
+    opciones: <em class="app-hint">string</em>[] = [<em class="app-warning">'Cero'</em>, <em class="app-warning">'Uno'</em>, <em class="app-warning">'Dos'</em>, <em class="app-warning">'Tres'</em>, <em class="app-warning">'Cuatro'</em>, <em class="app-warning">'Cinco'</em>, <em class="app-warning">'Seis'</em>, <em class="app-warning">'Siete'</em>, <em class="app-warning">'Ocho'</em>, <em class="app-warning">'Nueve'</em>];
+    dsOpciones = <em class="app-danger">new</em> <em class="app-main">TableDataSource</em>&lt;<em class="app-hint">string</em>&gt;();
+    opciones$ = <em class="app-danger">this</em>.dsOpciones.<em class="app-main">connect</em>();
+
+    <em class="app-main">ngOnInit</em>() &#123;
+        <em class="app-danger">this</em>.dsOpciones.data = <em class="app-danger">this</em>.opciones;
+        <em class="app-danger">this</em>.numero.valueChanges.<em class="app-main">subscribe</em>(<em class="app-hint">value</em> => <em class="app-danger">this</em>.dsOpciones.filter = <em class="app-info">String</em>(<em class="app-hint">value</em> <em class="app-danger">??</em> <em class="app-warning">''</em>));
+    &#125;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Número</app-label>
+                            <input appInput type="text" placeholder="Escoge un número" [formControl]="numero" [appAutocomplete]="auto">
+                            <app-autocomplete #auto>
+                                <app-option *ngFor="let opcion of opciones$ | async" [value]="opcion">{{ opcion }}</app-option>
+                            </app-autocomplete>
+                            <app-hint>Escriba para filtrar resultados</app-hint>
+                        </app-form-field>
+
+                        <b>Valor seleccionado:</b>
+                        {{ numero.value || 'null' }}
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Autocompletado con grupos de opciones</app-card-title>
+                    <app-card-subtitle>Autocomplete</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-stack [<b>formGroup</b>]="departamentoForm"&gt;
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;Departamento&lt;/app-label&gt;
+        &lt;input appInput
+            type="text"
+            placeholder="Seleccionar"
+            <b>formControlName</b>="departamento"
+            [<em>appAutocomplete</em>]="autoGroup"
+        &gt;
+        &lt;<em>app-autocomplete</em> <b>#autoGroup</b>&gt;
+            &lt;app-optgroup *ngFor="let grupo of filtroGruposDepartamento | <b>async</b>"
+                [label]="grupo.letra"
+            &gt;
+                &lt;app-option *ngFor="let departamento of grupo.departamentos"
+                    [value]="departamento"
+                &gt;
+                    &#123;&#123; departamento &#125;&#125;
+                &lt;/app-option&gt;
+            &lt;/app-optgroup&gt;
+        &lt;/<em>app-autocomplete</em>&gt;
+        &lt;app-hint&gt;Escriba para filtrar resultados&lt;/app-hint&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;b&gt;Valor seleccionado:&lt;/b&gt;
+    &#123;&#123; departamentoForm.value | json &#125;&#125;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts2" (copied)="onCopy('ts2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts2>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormBuilder, FormControl, Validators &#125; from '&#64;angular/forms';
+import &#123; Observable &#125; from 'rxjs';
+import &#123; map, startWith &#125; from 'rxjs/operators';
+
+export interface GrupoDepartamento &#123;
+    letra: string;
+    departamentos: string[];
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+    
+    departamentoForm = this.formBuilder.group(&#123;
+        departamento: new FormControl('', Validators.required),
+    &#125;);
+
+    grupos: GrupoDepartamento[] = [
+        &#123;
+            letra: 'A',
+            departamentos: ['Amazonas', 'Ancash', 'Apurímac', 'Arequipa', 'Ayacucho'],
+        &#125;,
+        &#123;
+            letra: 'C',
+            departamentos: ['Cajamarca', 'Callao', 'Cusco'],
+        &#125;,
+        &#123;
+            letra: 'H',
+            departamentos: ['Huancavelica', 'Huánuco'],
+        &#125;,
+        &#123;
+            letra: 'I',
+            departamentos: ['Ica'],
+        &#125;,
+        &#123;
+            letra: 'J',
+            departamentos: ['Junín'],
+        &#125;,
+        &#123;
+            letra: 'L',
+            departamentos: ['La Libertad', 'Lambayeque', 'Lima', 'Loreto'],
+        &#125;,
+        &#123;
+            letra: 'M',
+            departamentos: ['Madre de Dios', 'Moquegua'],
+        &#125;,
+        &#123;
+            letra: 'P',
+            departamentos: ['Pasco', 'Piura', 'Puno'],
+        &#125;,
+        &#123;
+            letra: 'S',
+            departamentos: ['San Martín'],
+        &#125;,
+        &#123;
+            letra: 'T',
+            departamentos: ['Tacna', 'Tumbes'],
+        &#125;,
+        &#123;
+            letra: 'U',
+            departamentos: ['Ucayali'],
+        &#125;,
+    ];
+
+    filtroGruposDepartamento: Observable&lt;GrupoDepartamento[]&gt;;
+
+    constructor(private formBuilder: FormBuilder) &#123; &#125;
+
+    ngOnInit() &#123;
+        this.filtroGruposDepartamento = this.departamentoForm.get('departamento')!.valueChanges.pipe(
+            startWith(''),
+            map(value =&gt; this._filtroGrupo(value || '')),
+        );
+    &#125;
+
+    private _filtroGrupo(valor: string): GrupoDepartamento[] &#123;
+        if (valor) &#123;
+            return this.grupos
+                .map(grupo =&gt; (&#123; letra: grupo.letra, departamentos: this._filtroDepartamento(grupo.departamentos, valor) &#125;))
+                .filter(grupo =&gt; grupo.departamentos.length &gt; 0);
+        &#125;
+        return this.grupos;
+    &#125;
+
+    private _filtroDepartamento(opciones: string[], valor: string): string[] &#123;
+        const filtro = valor.toLowerCase();
+        return opciones.filter(opcion =&gt; opcion.toLowerCase().includes(filtro));
+    &#125;;
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-stack [formGroup]="departamentoForm">
+                            <app-form-field>
+                                <app-label>Departamento</app-label>
+                                <input appInput
+                                    type="text"
+                                    placeholder="Seleccionar"
+                                    formControlName="departamento"
+                                    [appAutocomplete]="autoGroup"
+                                >
+                                <app-autocomplete #autoGroup>
+                                    <app-optgroup *ngFor="let grupo of filtroGruposDepartamento | async"
+                                        [label]="grupo.letra"
+                                    >
+                                        <app-option *ngFor="let departamento of grupo.departamentos"
+                                            [value]="departamento"
+                                        >
+                                            {{ departamento }}
+                                        </app-option>
+                                    </app-optgroup>
+                                </app-autocomplete>
+                                <app-hint>Escriba para filtrar resultados</app-hint>
+                            </app-form-field>
+
+                            <b>Valor seleccionado:</b>
+                            {{ departamentoForm.value | json }}
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

@@ -1,0 +1,247 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Stack Module</h2>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-stack</em>
+    <em>orientation</em>="vertical"
+    <em>wrap</em>="nowrap"
+    <em>gap</em>="16"
+    <em>noGap</em>="false"
+    <em>justify</em>="stretch"
+    <em>align</em>="stretch"
+&gt;
+&lt;/<em>app-stack</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-stack</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>orientation</em>]: 'vertical' | 'horizontal' | 'vertical-reverse' | 'horizontal-reverse' = 'vertical'</samp></li>
+                    <li><samp>[<em>wrap</em>]: 'wrap' | 'nowrap' | 'wrap-reverse' = 'nowrap'</samp></li>
+                    <li><samp>[<em>gap</em>]: string | number = '16px'</samp></li>
+                    <li><samp>[<em>noGap</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>justify</em>]: 'center' | 'start' | 'end' | 'stretch' = 'stretch'</samp></li>
+                    <li><samp>[<em>align</em>]: 'center' | 'start' | 'end' | 'stretch' = 'stretch'</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Vertical Stack</app-card-title>
+                    <app-card-subtitle>Stack</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-stack</em>&gt;
+    &lt;app-card *ngFor="let c of 'ABCDE'.split('')"
+        appRipple appButtonBase
+        appearance="raised" height="100" backgroundColor
+    &gt;
+        {{ c }}
+    &lt;/app-card&gt;
+&lt;/<em>app-stack</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack>
+                            <app-card *ngFor="let c of 'ABCDE'.split('')"
+                                appRipple appButtonBase
+                                appearance="raised" height="100" backgroundColor
+                            >
+                                {{ c }}
+                            </app-card>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Horizontal Stack</app-card-title>
+                    <app-card-subtitle>Stack</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-slide-toggle #wrap&gt;Wrap&lt;/app-slide-toggle&gt;
+
+&lt;<em>app-stack</em> <em>orientation</em>="horizontal" [<em>wrap</em>]="wrap.checked ? 'wrap' : 'nowrap'"&gt;
+    &lt;app-card *ngFor="let c of 'ABCDEFGH'.split('')"
+        appRipple appButtonBase
+        appearance="raised" height="100" minWidth="150" backgroundColor
+    &gt;
+        {{ c }}
+    &lt;/app-card&gt;
+&lt;/<em>app-stack</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-slide-toggle #wrap>Wrap</app-slide-toggle>
+
+                        <app-stack orientation="horizontal" [wrap]="wrap.checked ? 'wrap' : 'nowrap'">
+                            <app-card *ngFor="let c of 'ABCDEFGH'.split('')"
+                                appRipple appButtonBase
+                                appearance="raised" height="100" minWidth="150" backgroundColor
+                            >
+                                {{ c }}
+                            </app-card>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Custom Stack</app-card-title>
+                    <app-card-subtitle>Stack</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em>app-stack</em> <em>orientation</em>="horizontal" <em>wrap</em>="wrap" <em>align</em>="end"&gt;
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;Gap&lt;/app-label&gt;
+        &lt;button appPrefix appIconButton variant="tertiary"
+            [disabled]="gap.value &lt; 10"
+            (click)="gap.value = +gap.value - 10"
+        &gt;
+            &lt;app-icon&gt;remove&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;input appInput textAlign="center" min="0" max="50" value="16" #gap&gt;
+        &lt;button appSuffix appIconButton variant="tertiary"
+            [disabled]="gap.value &gt; 40"
+            (click)="gap.value = +gap.value + 10"
+        &gt;
+            &lt;app-icon&gt;add&lt;/app-icon&gt;
+        &lt;/button&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;app-slide-toggle #noGap&gt;No Gap&lt;/app-slide-toggle&gt;
+    &lt;app-slide-toggle #horizontal&gt;Horizontal&lt;/app-slide-toggle&gt;
+    &lt;app-slide-toggle #wrap&gt;Wrap&lt;/app-slide-toggle&gt;
+&lt;/<em>app-stack</em>&gt;
+
+&lt;<em>app-stack</em> [<em>orientation</em>]="horizontal.checked ? 'horizontal' : 'vertical'"
+    [<em>wrap</em>]="wrap.checked ? 'wrap' : 'nowrap'" [<em>gap</em>]="gap.value" [<em>noGap</em>]="noGap.checked"
+&gt;
+    &lt;app-card *ngFor="let c of 'ABCDEFGH'.split('')"
+        appRipple appButtonBase
+        appearance="raised" height="100" minWidth="150" backgroundColor
+    &gt;
+        {{ c }}
+    &lt;/app-card&gt;
+&lt;/<em>app-stack</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" wrap="wrap" align="end">
+                            <app-form-field>
+                                <app-label>Gap</app-label>
+                                <button appPrefix appIconButton variant="tertiary"
+                                    [disabled]="gap.value < 10"
+                                    (click)="gap.value = +gap.value - 10"
+                                >
+                                    <app-icon>remove</app-icon>
+                                </button>
+                                <input appInput textAlign="center" min="0" max="50" value="16" #gap>
+                                <button appSuffix appIconButton variant="tertiary"
+                                    [disabled]="gap.value > 40"
+                                    (click)="gap.value = +gap.value + 10"
+                                >
+                                    <app-icon>add</app-icon>
+                                </button>
+                            </app-form-field>
+
+                            <app-slide-toggle #noGap>No Gap</app-slide-toggle>
+                            <app-slide-toggle #horizontal>Horizontal</app-slide-toggle>
+                            <app-slide-toggle #wrap2>Wrap</app-slide-toggle>
+                        </app-stack>
+
+                        <app-stack [orientation]="horizontal.checked ? 'horizontal' : 'vertical'"
+                            [wrap]="wrap2.checked ? 'wrap' : 'nowrap'" [gap]="gap.value" [noGap]="noGap.checked"
+                        >
+                            <app-card *ngFor="let c of 'ABCDEFGH'.split('')"
+                                appRipple appButtonBase
+                                appearance="raised" height="100" minWidth="150" backgroundColor
+                            >
+                                {{ c }}
+                            </app-card>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

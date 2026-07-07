@@ -1,0 +1,232 @@
+<div class="roles-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Roles y Permisos</h1>
+      <p class="sm-page-sub">Gestiona los niveles de acceso y perfiles de seguridad</p>
+    </div>
+    <button class="btn btn-primary btn-md" (click)="onCreateRole()">
+      <lucide-angular name="plus" class="btn-icon"></lucide-angular>
+      <span>Nuevo Rol</span>
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="full-page-loading">
+      <div class="sm-loading-container">
+        <lucide-angular name="loader" class="spinner" [size]="48"></lucide-angular>
+        <p>Cargando configuración de roles...</p>
+      </div>
+    </div>
+  } @else {
+    <div class="sm-split-layout">
+      <!-- Columna izquierda: Lista de roles -->
+      <div class="sm-side-col">
+        <div class="sm-side-list">
+          @for (role of pagedRoles(); track role.id) {
+            <div
+              class="sm-side-item"
+              [class.active]="selectedRoleId() === role.id"
+              (click)="onSelectRole(role.id)"
+            >
+              <div class="item-header">
+                <span class="item-title">{{ role.name }}</span>
+                <div class="role-badges-actions" (click)="$event.stopPropagation()">
+                  @if (role.isSystem) {
+                    <span class="badge is-navy badge-xs">Sistema</span>
+                  } @else {
+                    <span class="badge is-teal badge-xs">Personalizado</span>
+                  }
+                  
+                  @if (!role.isSystem) {
+                    <div class="role-actions-trigger" 
+                         [class.active]="openMenuId() === role.id"
+                         (click)="toggleRoleMenu(role.id, $event)">
+                      <lucide-angular name="more-vertical" [size]="16"></lucide-angular>
+                      @if (openMenuId() === role.id) {
+                        <div class="role-context-menu">
+                          <button (click)="onEditRole(role); openMenuId.set('')">
+                            <lucide-angular name="pencil" [size]="12"></lucide-angular>
+                            <span>Editar Perfil</span>
+                          </button>
+                          <div class="sm-divider" style="margin: 4px 0;"></div>
+                          <button class="is-danger" (click)="onConfirmDelete(role); openMenuId.set('')">
+                            <lucide-angular name="trash-2" [size]="12"></lucide-angular>
+                            <span>Eliminar</span>
+                          </button>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              <p class="item-desc">{{ role.description }}</p>
+              <div class="item-meta">
+                <lucide-angular name="users" [size]="12"></lucide-angular>
+                <span>{{ role.userCount }} {{ role.userCount === 1 ? 'usuario' : 'usuarios' }}</span>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="sm-card list-pagination-card role-pagination-card">
+          <app-pagination
+            [totalItems]="roles().length"
+            [page]="page()"
+            [pageSize]="pageSize()"
+            [pageSizeOptions]="[8, 16, 32]"
+            (setPage)="setPage($event)"
+            (setPageSize)="setPageSize($event)">
+          </app-pagination>
+        </div>
+      </div>
+
+      <!-- Columna derecha: Matriz de permisos -->
+      <div class="sm-main-col">
+        @if (selectedRole()) {
+          <div class="sm-main-card">
+            <div class="sm-main-header">
+              <div class="header-flex">
+                <div>
+                  <h2 class="header-title">Configuración de Privilegios</h2>
+                  <p class="header-subtitle">Gestionando accesos para: <strong>{{ selectedRole()!.name }}</strong></p>
+                </div>
+                @if (!selectedRole()?.isSystem) {
+                  <button class="btn btn-ghost btn-sm" (click)="onEditRole(selectedRole()!)">
+                    <lucide-angular name="pencil" [size]="14"></lucide-angular>
+                    <span>Editar Perfil</span>
+                  </button>
+                }
+              </div>
+
+              @if (selectedRoleIsClient()) {
+                <div class="sm-alert info" style="margin: var(--s-4) 0 0;">
+                  <lucide-angular name="shield" [size]="16"></lucide-angular>
+                  <span>Rol cliente: solo se muestran permisos seguros para usuarios de empresas atendidas. Administración, configuración, usuarios y acciones internas quedan bloqueadas.</span>
+                </div>
+              }
+
+              <!-- Tabs de Navegación por Módulo -->
+              <div class="sm-tab-bar">
+                @for (mod of currentPermissions(); track mod.module) {
+                  <button 
+                    class="sm-tab-btn" 
+                    [class.active]="activeModuleTab() === mod.module"
+                    (click)="activeModuleTab.set(mod.module)"
+                  >
+                    <lucide-angular [name]="safeIcon(mod.icon)" [size]="14"></lucide-angular>
+                    <span>{{ mod.module }}</span>
+                  </button>
+                }
+              </div>
+            </div>
+            
+            <div class="sm-content-area">
+              @if (permLoading()) {
+                <div class="sm-loading-container" style="height: 300px;">
+                  <lucide-angular name="loader" class="spinner" [size]="32"></lucide-angular>
+                  <p>Sincronizando privilegios...</p>
+                </div>
+              } @else {
+                @if (activeModule()) {
+                  <div class="sm-module-pane">
+                    <div class="sm-module-header">
+                      <div class="icon-box">
+                        <lucide-angular [name]="safeIcon(activeModule()!.icon)" [size]="18"></lucide-angular>
+                      </div>
+                      <span class="title">{{ activeModule()!.module }}</span>
+                    </div>
+                    
+                    <div class="sm-perms-grid">
+                      @for (perm of activeModule()!.permissions; track perm.code) {
+                        <label class="sm-perm-item" [class.is-disabled]="selectedRole()?.isSystem">
+                          <div class="sm-switch">
+                            <input
+                              type="checkbox"
+                              [checked]="perm.granted"
+                              [disabled]="selectedRole()?.isSystem"
+                              (change)="togglePermission(activeModule()!.module, perm.code)"
+                            />
+                            <span class="sm-switch-slider"></span>
+                          </div>
+                          <span class="name">{{ perm.name }}</span>
+                        </label>
+                      }
+                    </div>
+                  </div>
+                }
+              }
+            </div>
+
+            <div class="sm-main-footer">
+              @if (!selectedRole()?.isSystem) {
+                <button class="btn btn-ghost" (click)="onRestorePermissions()">
+                  <lucide-angular name="refresh-cw" [size]="16"></lucide-angular>
+                  <span>Restaurar Original</span>
+                </button>
+                <button class="btn btn-primary" (click)="savePermissions()" [disabled]="savingPerms()">
+                  <lucide-angular [name]="savingPerms() ? 'loader' : 'save'" [class.spinner]="savingPerms()" [size]="16"></lucide-angular>
+                  <span>{{ savingPerms() ? 'Guardando...' : 'Guardar Cambios' }}</span>
+                </button>
+              } @else {
+                <div class="sm-alert info" style="width: 100%; margin: 0;">
+                  <lucide-angular name="shield" [size]="16"></lucide-angular>
+                  <span>Este es un perfil de sistema y sus permisos están protegidos.</span>
+                </div>
+              }
+            </div>
+          </div>
+        } @else {
+          <div class="sm-empty-state sm-main-card" style="justify-content: center; gap: 16px;">
+            <div class="empty-icon-box">
+              <lucide-angular name="shield" [size]="48"></lucide-angular>
+            </div>
+            <h3 class="header-title">Selección Requerida</h3>
+            <p class="header-subtitle">Elige un perfil de la lista para configurar sus accesos y privilegios.</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Modal confirmación eliminación -->
+@if (showDeleteConfirm()) {
+  <app-modal
+    [title]="'Eliminar Perfil Permanente'"
+    [subtitle]="'Esta acción requiere confirmación administrativa'"
+    [icon]="'alert-triangle'"
+    [dangerIcon]="true"
+    (close)="cancelDelete()"
+  >
+    <div class="sm-confirm-content">
+      <p style="margin-bottom: var(--s-3); color: var(--ink-700); line-height: 1.5;">
+        Estás a punto de eliminar el rol <span class="role-tag">{{ roleToDelete()?.name }}</span>. 
+        Los usuarios actualmente asignados a este rol perderán sus permisos asociados.
+      </p>
+      <div class="sm-alert warning">
+        <lucide-angular name="info" [size]="16" style="flex-shrink: 0;"></lucide-angular>
+        <span>El rol dejará de estar disponible para futuras asignaciones inmediatamente.</span>
+      </div>
+    </div>
+
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <button class="btn btn-ghost" (click)="cancelDelete()">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>No, cancelar</span>
+      </button>
+      <button class="btn btn-danger" (click)="executeDelete()">
+        <lucide-angular name="trash-2" [size]="16"></lucide-angular>
+        <span>Sí, eliminar ahora</span>
+      </button>
+    </div>
+  </app-modal>
+}
+
+<!-- Componente Formulario (Modal) -->
+@if (showRoleForm()) {
+  <app-role-form 
+    [role]="editingRole()" 
+    (close)="onCloseForm()"
+    (saved)="onRoleSaved()">
+  </app-role-form>
+}

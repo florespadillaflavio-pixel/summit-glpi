@@ -1,0 +1,109 @@
+<app-modal
+  [title]="asset() ? 'Editar Activo TI' : 'Registrar Nuevo Activo'"
+  [subtitle]="'Gestión de inventario y activos tecnológicos'"
+  [icon]="asset() ? 'pencil' : 'package-plus'"
+  [loading]="loading()"
+  [maxWidth]="640"
+  (close)="onClose()"
+>
+  <form [formGroup]="assetForm" class="asset-form-grid">
+    <div class="sm-field full-width">
+      <label class="sm-label">Cliente / Empresa propietaria</label>
+      <select
+        class="sm-input"
+        formControlName="companyId"
+        [class.input-error]="isFieldInvalid('companyId')"
+        [disabled]="!!asset() || !isInternal()">
+        <option value="" disabled>Seleccione cliente...</option>
+        @for (company of companies(); track company.id) {
+          <option [value]="company.id">{{ company.name }}</option>
+        }
+      </select>
+      @if (asset()) {
+        <span class="field-help">El cliente propietario del activo no se modifica desde edición para evitar mezclar inventario.</span>
+      }
+      @if (isFieldInvalid('companyId')) { <span class="field-error">Seleccione el cliente del activo.</span> }
+    </div>
+
+    <app-input-field
+      label="Código de Activo / Tag"
+      placeholder="Ej: GLPI-2026-001"
+      formControlName="assetTag"
+      [error]="getFieldError('assetTag', 'El código de activo')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Número de Serie"
+      placeholder="SN-XXXXXXX"
+      formControlName="serialNumber"
+      [error]="getFieldError('serialNumber', 'El número de serie')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Categoría / Tipo</label>
+      <select class="sm-input" formControlName="assetTypeItemId" [class.input-error]="isFieldInvalid('assetTypeItemId')">
+        <option value="" disabled>Seleccione...</option>
+        @for (cat of assetTypes(); track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+      @if (isFieldInvalid('assetTypeItemId')) { <span class="field-error">Requerido</span> }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Estado de Operación</label>
+      <select class="sm-input" formControlName="statusItemId" [class.input-error]="isFieldInvalid('statusItemId')">
+        <option value="" disabled>Seleccione...</option>
+        @for (s of assetStatuses(); track s.id) {
+          <option [value]="s.id">{{ s.name }}</option>
+        }
+      </select>
+      @if (isFieldInvalid('statusItemId')) { <span class="field-error">Requerido</span> }
+    </div>
+
+    <div class="sm-field full-width">
+      <label class="sm-label">Foto del activo</label>
+      <div class="asset-photo-field" (drop)="onDropImage($event)" (dragover)="onDragOverImage($event)">
+        <div class="asset-photo-preview">
+          @if (photoPreview()) {
+            <img [src]="photoPreview()" alt="Foto del activo">
+          } @else {
+            <lucide-angular name="image" [size]="28"></lucide-angular>
+          }
+        </div>
+        <div class="asset-photo-input">
+          <label class="btn btn-secondary btn-sm asset-file-label">
+            <lucide-angular name="cloud-upload" [size]="15"></lucide-angular>
+            <span>{{ selectedFile ? 'Cambiar imagen' : 'Subir imagen' }}</span>
+            <input type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/heic,image/heif,.jpg,.jpeg,.png,.webp,.gif,.heic,.heif" (change)="onUploadImage($event)">
+          </label>
+          @if (photoPreview()) {
+            <button type="button" class="btn btn-ghost btn-sm" (click)="removeImage()">
+              <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+              <span>Quitar</span>
+            </button>
+          }
+          <span class="field-help">La foto se sube a Cloudinary y se guarda como URL. Formatos: JPG, PNG, WEBP, GIF, HEIC o HEIF. Máx. 3MB.</span>
+          @if (imageError()) { <span class="field-error">{{ imageError() }}</span> }
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-field full-width">
+      <label class="sm-label">Notas Técnicas</label>
+      <textarea class="sm-input role-textarea" formControlName="notes" rows="2" placeholder="Información adicional del equipo..." [class.input-error]="isFieldInvalid('notes')"></textarea>
+      @if (getFieldError('notes', 'Las notas')) { <span class="field-error">{{ getFieldError('notes', 'Las notas') }}</span> }
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="onSave()" [disabled]="assetForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (asset() ? 'Guardar Cambios' : 'Registrar Activo') }}</span>
+    </button>
+  </div>
+</app-modal>

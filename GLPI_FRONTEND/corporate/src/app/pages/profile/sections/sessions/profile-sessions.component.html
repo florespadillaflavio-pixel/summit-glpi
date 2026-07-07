@@ -1,0 +1,39 @@
+<div class="sm-card pf-tab-card">
+  <h3 class="pf-section-title">Sesiones activas</h3>
+  <p class="pf-section-sub">Dispositivos que actualmente tienen acceso a tu cuenta</p>
+
+  <div class="pf-sessions">
+    @for (session of sessions(); track session.id) {
+      <div class="pf-session-row" [class.pf-session-current]="session.isCurrent">
+        <div class="pf-session-icon">
+          @if (session.deviceType === 'mobile') {
+            <lucide-angular name="smartphone" [size]="18"></lucide-angular>
+          } @else {
+            <lucide-angular name="laptop" [size]="18"></lucide-angular>
+          }
+        </div>
+        <div class="pf-session-info">
+          <div class="pf-session-device">
+            {{ session.device }}
+            @if (session.isCurrent) {
+              <span class="badge is-resolved pf-current-badge">Sesión actual</span>
+            }
+          </div>
+          <div class="pf-session-meta">
+            <span>{{ session.ip }}</span>
+            <span class="pf-meta-dot">·</span>
+            <span>{{ session.location }}</span>
+            <span class="pf-meta-dot">·</span>
+            <span>{{ session.lastSeen }}</span>
+          </div>
+        </div>
+        @if (!session.isCurrent) {
+          <button class="btn btn-ghost btn-sm" (click)="onCloseSession(session.id)">
+            <lucide-angular name="log-out" [size]="13"></lucide-angular>
+            <span>Cerrar</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>

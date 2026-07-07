@@ -1,0 +1,711 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Select Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Label&lt;/<em>app-label</em>&gt;
+    &lt;app-icon <em>appPrefix</em>&gt;search&lt;/app-icon&gt;
+    &lt;<em>app-select</em> [formControl]="toppings" [<em>multiple</em>]&gt;
+        &lt;<em>app-option</em> *ngFor="let topping of toppingLista" [<em>value</em>]="topping"&gt;
+            {{ topping }}
+        &lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+    &lt;<em>app-hint</em>&gt;Hint Message&lt;/<em>app-hint</em>&gt;
+    &lt;<em>app-error</em>&gt;Custom Error Message&lt;/<em>app-error</em>&gt;
+    &lt;<em>app-warning</em>&gt;Warning Message&lt;/<em>app-warning</em>&gt;
+    &lt;<em>app-success</em>&gt;Success Message&lt;/<em>app-success</em>&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><code><em>app-select</em></code> extends <code><em>BoxBase</em></code></samp></li>
+                    <li><samp><code><em>app-optgroup</em></code> extends <code><em>BoxBase</em></code></samp></li>
+                    <li><samp><code><em>app-option</em></code> extends <code><em>BoxBase</em></code></samp></li>
+                    <li><samp><code>[<em>appOptionView</em>]</code></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+
+                <app-stack noGap>
+                    <h4><code><em>app-select</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>placeholder</em>]: string = ''</code></samp></li>
+                        <li><samp><code>[<em>canSelectNullableOptions</em>]: boolean = false</code></samp></li>
+                        <li><samp><code>[<em>required</em>]: boolean = false</code></samp></li>
+                        <li><samp><code>[<em>disabled</em>]: boolean = false</code></samp></li>
+                        <li><samp><code>[<em>multiple</em>]: boolean = false</code></samp></li>
+                        <li><samp><code>[<em>value</em>]: T | T[] | null = null</code></samp></li>
+                    </ul>
+                </app-stack>
+                
+                <app-stack noGap>
+                    <h4><code><em>app-optgroup</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>label</em>]!: string</code></samp></li>
+                        <li><samp><code>[<em>disabled</em>]: boolean = false</code></samp></li>
+                    </ul>
+                </app-stack>
+                
+                <app-stack noGap>
+                    <h4><code><em>app-option</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>value</em>]?: T</code></samp></li>
+                        <li><samp><code>[<em>selected</em>]: boolean = false</code></samp></li>
+                        <li><samp><code>[<em>disabled</em>]: boolean = false</code></samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+
+                <app-stack noGap>
+                    <h4><code><em>app-select</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>change</em>]: EventEmitter&lt;<em>AppSelectChange</em>&lt;T&gt;&gt;</code></samp></li>
+                        <li><samp><code>[<em>openedChange</em>]: EventEmitter&lt;boolean&gt;</code></samp></li>
+                    </ul>
+                </app-stack>
+                
+                <app-stack noGap>
+                    <h4><code><em>app-option</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>value</em>]?: T</code></samp></li>
+                        <li><samp><code>[<em>selectedChange</em>]: EventEmitter&lt;T&gt;</code></samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Actions</h3>
+
+                <app-stack noGap>
+                    <h4><code><em>app-select</em></code></h4>
+                    <ul>
+                        <li><samp><code><em>toggle</em>()</code></samp> - Abre o cierra la lista de opciones.</li>
+                        <li><samp><code><em>open</em>()</code></samp> - Abre la lista de opciones.</li>
+                        <li><samp><code><em>close</em>()</code></samp> - Cierra la lista de opciones.</li>
+                    </ul>
+                </app-stack>
+                
+                <app-stack noGap>
+                    <h4><code><em>app-option</em></code></h4>
+                    <ul>
+                        <li><samp><code><em>select</em>()</code></samp> - Emite el valor a seleccionar</li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+            
+            <app-stack padding>
+                <h3>Clases</h3>
+
+                <app-stack noGap>
+                    <h4><code><em>AppSelectChange</em>&lt;T&gt;</code></h4>
+                    <ul>
+                        <li><samp><code><em>source</em>: <em>SelectComponent</em>&lt;T&gt;</code></samp></li>
+                        <li><samp><code><em>value</em>: T | T[] | null</code></samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select Simple</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;b&gt;&lt;code&gt;&lt;em&gt;app-select&lt;/em&gt;&lt;/code&gt;&lt;/b&gt;
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Opciones&lt;/app-label&gt;
+    &lt;<em>app-select</em> placeholder="-- Elija una opción --"&gt;
+        &lt;<em>app-option</em>&gt;-- Ninguno --&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-option</em> <em>value</em>="1"&gt;Opción 1&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-option</em> <em>value</em>="2" <em>disabled</em>&gt;Opción 2&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-option</em> <em>value</em>="3"&gt;Opción 3&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-option</em> <em>value</em>="4"&gt;Opción 4&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-option</em> <em>value</em>="5"&gt;Opción 5&lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+
+&lt;b&gt;Native HTML Select&lt;/b&gt;
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Opciones&lt;/app-label&gt;
+    &lt;select <em>appNativeControl</em>&gt;
+        &lt;option value="1"&gt;Opción 1&lt;/option&gt;
+        &lt;option value="2" disabled&gt;Opción 2&lt;/option&gt;
+        &lt;option value="3"&gt;Opción 3&lt;/option&gt;
+        &lt;option value="4"&gt;Opción 4&lt;/option&gt;
+        &lt;option value="5"&gt;Opción 5&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <b><code><em>app-select</em></code></b>
+                        <app-form-field>
+                            <app-label>Opciones</app-label>
+                            <app-select placeholder="-- Elija una opción --">
+                                <app-option>-- Ninguno --</app-option>
+                                <app-option value="1">Opción 1</app-option>
+                                <app-option value="2" disabled>Opción 2</app-option>
+                                <app-option value="3">Opción 3</app-option>
+                                <app-option value="4">Opción 4</app-option>
+                                <app-option value="5">Opción 5</app-option>
+                            </app-select>
+                        </app-form-field>
+
+                        <b>Native HTML Select</b>
+                        <app-form-field>
+                            <app-label>Opciones</app-label>
+                            <select appNativeControl>
+                                <option value="1">Opción 1</option>
+                                <option value="2" disabled>Opción 2</option>
+                                <option value="3">Opción 3</option>
+                                <option value="4">Opción 4</option>
+                                <option value="5">Opción 5</option>
+                            </select>
+                        </app-form-field>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> Las opciones del select nativo de HTML no son estilables ni personalizables.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select con opciones personalizadas</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Género&lt;/app-label&gt;
+    &lt;<em>app-select</em> <em>placeholder</em>="Escoger" minWidth="100"&gt;
+        &lt;<em>app-option</em> *ngFor="let genero of generoLista" #gen&gt;
+            &lt;app-icon&gt;{{ genero.icono }}&lt;/app-icon&gt;
+            &lt;span <em>appOptionView</em> appEllipsis&gt;{{ genero.nombre }}&lt;/span&gt;
+            &lt;app-spacer justify="end" paddingLeft *ngIf="gen.selected"&gt;
+                &lt;app-icon textColor="--main"&gt;check&lt;/app-icon&gt;
+            &lt;/app-spacer&gt;
+        &lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts2" (copied)="onCopy('ts2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts2>
+import &#123; Component &#125; from '&#64;angular/core';
+
+type Genero = &#123;
+    nombre: string;
+    icono: string;
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    generoLista: Genero[] = [
+        &#123; nombre: 'Femenino', icono: 'Female' &#125;,
+        &#123; nombre: 'Masculino', icono: 'Male' &#125;,
+        &#123; nombre: 'Otro', icono: 'transgender' &#125;,
+    ];
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Género</app-label>
+                            <app-select placeholder="Escoger" minWidth="150">
+                                <app-option [value]="genero.nombre" *ngFor="let genero of generoLista" #gen>
+                                    <app-icon>{{ genero.icono }}</app-icon>
+                                    <span appOptionView appEllipsis>{{ genero.nombre }}</span>
+                                    <app-spacer justify="end" paddingLeft *ngIf="gen.selected">
+                                        <app-icon textColor="--main">check</app-icon>
+                                    </app-spacer>
+                                </app-option>
+                            </app-select>
+                        </app-form-field>
+
+                        <app-alert color="main">
+                            <app-icon appAlertIcon>priority_high</app-icon>
+                            <strong>OJO:</strong> La directiva <code>[<em>appOptionView</em>]</code> se usa para especificar el texto a mostrar en la selección.
+                            Si no se especifica, la componente intentará mostrar todo el contenido interno de la opción seleccionada.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select con selección múltiple y reactive forms</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Toppings&lt;/app-label&gt;
+    &lt;<em>app-select</em> <em>multiple</em> [formControl]="toppings" width="200"&gt;
+        &lt;<em>app-option</em> appRipple *ngFor="let topping of toppingLista" [<em>value</em>]="topping" #option&gt;
+            &lt;app-stack orientation="horizontal" align="center"&gt;
+                &lt;app-icon [textColor]="option.selected ? '--main' : '--text-color'" [fill]="option.selected"&gt;
+                    &#123;&#123; option.selected ? 'check_box' : 'check_box_outline_blank' &#125;&#125;
+                &lt;/app-icon&gt;
+                &lt;span <em>appOptionView</em>&gt;&#123;&#123; topping &#125;&#125;&lt;/span&gt;
+            &lt;/app-stack&gt;
+        &lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+
+&lt;b&gt;Seleccionados:&lt;/b&gt;
+&#123;&#123; toppings.value | json &#125;&#125;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+type Genero = &#123;
+    nombre: string;
+    icono: string;
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    toppings = new FormControl('', Validators.required);
+    toppingLista: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Toppings</app-label>
+                            <app-select [formControl]="toppings" multiple width="200">
+                                <app-option appRipple *ngFor="let topping of toppingLista" [value]="topping" #option>
+                                    <app-stack orientation="horizontal" align="center">
+                                        <app-icon [textColor]="option.selected ? '--main' : '--text-color'" [fill]="option.selected">
+                                            {{ option.selected ? 'check_box' : 'check_box_outline_blank' }}
+                                        </app-icon>
+                                        <span appOptionView>{{ topping }}</span>
+                                    </app-stack>
+                                </app-option>
+                            </app-select>
+                        </app-form-field>
+
+                        <b>Seleccionados:</b>
+                        {{ toppings.value | json }}
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select con valor inicial</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Género&lt;/app-label&gt;
+    &lt;<em>app-select</em> [<em>value</em>]="generoLista[1].nombre" <em>placeholder</em>="Escoger" minWidth="100"&gt;
+        &lt;<em>app-option</em> [<em>value</em>]="genero.nombre" *ngFor="let snack of snackLista"&gt;
+            &lt;app-icon&gt;{{ snack.icono }}&lt;/app-icon&gt;
+            &lt;span <em>appOptionView</em> appEllipsis&gt;{{ snack.nombre }}&lt;/span&gt;
+        &lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts4" (copied)="onCopy('ts4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts4>
+import &#123; Component &#125; from '&#64;angular/core';
+
+type Snack = &#123;
+    nombre: string;
+    icono: string;
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    snackLista: Snack[] = [
+        &#123; nombre: 'Pizza', icono: 'local_pizza' &#125;,
+        &#123; nombre: 'Hamburguesa', icono: 'lunch_dining' &#125;,
+        &#123; nombre: 'Kebab', icono: 'kebab_dining' &#125;,
+        &#123; nombre: 'Galleta', icono: 'cookie' &#125;,
+        &#123; nombre: 'Helado', icono: 'icecream' &#125;,
+    ];
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Snack favorito</app-label>
+                            <app-select [value]="snackLista[1].nombre" placeholder="Escoger" minWidth="100">
+                                <app-option [value]="snack.nombre" *ngFor="let snack of snackLista">
+                                    <app-icon>{{ snack.icono }}</app-icon>
+                                    <span appOptionView appEllipsis>{{ snack.nombre }}</span>
+                                </app-option>
+                            </app-select>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select con Option Groups</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;b&gt;&lt;code&gt;&lt;em&gt;app-select&lt;/em&gt;&lt;/code&gt;&lt;/b&gt;
+&lt;app-form-field&gt;
+    &lt;app-label&gt;¿Quién es ese pokémon?&lt;/app-label&gt;
+    &lt;<em>app-select</em> <em>placeholder</em>="-- Escoger --" [formControl]="pokemonControl"&gt;
+        &lt;<em>app-option</em>&gt;-- None --&lt;/<em>app-option</em>&gt;
+        &lt;<em>app-optgroup</em> *ngFor="let group of pokemonGroups"
+            [<em>label</em>]="group.name"
+            [<em>disabled</em>]="group.disabled"
+        &gt;
+            &lt;<em>app-option</em> *ngFor="let pokemon of group.pokemon"
+                [<em>value</em>]="pokemon.value"
+            &gt;
+                {{ pokemon.viewValue }}
+            &lt;/<em>app-option</em>&gt;
+        &lt;/<em>app-optgroup</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+
+&lt;b&gt;Native HTML Select&lt;/b&gt;
+&lt;app-form-field&gt;
+    &lt;app-label&gt;¿Quién es ese pokémon?&lt;/app-label&gt;
+    &lt;select <em>appNativeControl</em> [formControl]="pokemonNativeControl"&gt;
+        &lt;optgroup *ngFor="let group of pokemonGroups"
+            [label]="group.name"
+            [disabled]="group.disabled"
+        &gt;
+            &lt;option *ngFor="let pokemon of group.pokemon"
+                [value]="pokemon.value"
+            &gt;
+                {{ pokemon.viewValue }}
+            &lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5" (copied)="onCopy('ts5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts5>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+interface Pokemon &#123;
+    value: string;
+    viewValue: string;
+&#125;
+
+interface PokemonGroup &#123;
+    disabled?: boolean;
+    name: string;
+    pokemon: Pokemon[];
+&#125;
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    pokemonControl = new FormControl('');
+    pokemonNativeControl = new FormControl('');
+    pokemonGroups: PokemonGroup[] = [
+        &#123;
+            name: 'TIpo Planta',
+            pokemon: [
+                &#123; value: 'bulbasaur-0', viewValue: 'Bulbasaur' &#125;,
+                &#123; value: 'oddish-1', viewValue: 'Oddish' &#125;,
+                &#123; value: 'bellsprout-2', viewValue: 'Bellsprout' &#125;,
+            ],
+        &#125;,
+        &#123;
+            name: 'Tipo Agua',
+            pokemon: [
+                &#123; value: 'squirtle-3', viewValue: 'Squirtle' &#125;,
+                &#123; value: 'psyduck-4', viewValue: 'Psyduck' &#125;,
+                &#123; value: 'horsea-5', viewValue: 'Horsea' &#125;,
+            ],
+        &#125;,
+        &#123;
+            name: 'Tipo Fuego',
+            disabled: true,
+            pokemon: [
+                &#123; value: 'charmander-6', viewValue: 'Charmander' &#125;,
+                &#123; value: 'vulpix-7', viewValue: 'Vulpix' &#125;,
+                &#123; value: 'flareon-8', viewValue: 'Flareon' &#125;,
+        ],
+        &#125;,
+        &#123;
+            name: 'Tipo Psíquico',
+            pokemon: [
+                &#123; value: 'mew-9', viewValue: 'Mew' &#125;,
+                &#123; value: 'mewtwo-10', viewValue: 'Mewtwo' &#125;,
+            ],
+        &#125;,
+    ];
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <b><code><em>app-select</em></code></b>
+                        <app-form-field>
+                            <app-label>¿Quién es ese pokémon?</app-label>
+                            <app-select placeholder="-- Escoger --" [formControl]="pokemonControl">
+                                <app-option>-- None --</app-option>
+                                <app-optgroup *ngFor="let group of pokemonGroups"
+                                    [label]="group.name"
+                                    [disabled]="group.disabled"
+                                >
+                                    <app-option *ngFor="let pokemon of group.pokemon"
+                                        [value]="pokemon.value"
+                                    >
+                                        {{ pokemon.viewValue }}
+                                    </app-option>
+                                </app-optgroup>
+                            </app-select>
+                        </app-form-field>
+
+                        <b>Native HTML Select</b>
+                        <app-form-field>
+                            <app-label>¿Quién es ese pokémon?</app-label>
+                            <select appNativeControl [formControl]="pokemonNativeControl">
+                                <optgroup *ngFor="let group of pokemonGroups"
+                                    [label]="group.name"
+                                    [disabled]="group.disabled"
+                                >
+                                    <option *ngFor="let pokemon of group.pokemon"
+                                        [value]="pokemon.value"
+                                    >
+                                        {{ pokemon.viewValue }}
+                                    </option>
+                                </optgroup>
+                            </select>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Select con opciones nulas seleccionables</app-card-title>
+                    <app-card-subtitle>Select</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;app-form-field&gt;
+    &lt;app-label&gt;¿Qué tipo de mascota tienes?&lt;/app-label&gt;
+    &lt;<em>app-select</em> <em>canSelectNullableOptions</em> <em>placeholder</em>="-- Escoger --"&gt;
+        &lt;<em>app-option</em> *ngFor="let mascota of mascotas"
+            [<em>value</em>]="mascota.valor"
+        &gt;
+            {{ mascota.nombre }}
+        &lt;/<em>app-option</em>&gt;
+    &lt;/<em>app-select</em>&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6" (copied)="onCopy('ts6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts6>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    mascotas = [
+        &#123; nombre: 'Ninguna', valor: null &#125;,
+        &#123; nombre: 'Perro', valor: 1 &#125;,
+        &#123; nombre: 'Gato', valor: 2 &#125;,
+        &#123; nombre: 'Pájaro', valor: 3 &#125;,
+        &#123; nombre: 'Hamster', valor: 4 &#125;,
+        &#123; nombre: 'Orangután', valor: 5 &#125;,
+    ];
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>¿Qué tipo de mascota tienes?</app-label>
+                            <app-select canSelectNullableOptions placeholder="-- Escoger --">
+                                <app-option *ngFor="let mascota of mascotas"
+                                    [value]="mascota.valor"
+                                >
+                                    {{ mascota.nombre }}
+                                </app-option>
+                            </app-select>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

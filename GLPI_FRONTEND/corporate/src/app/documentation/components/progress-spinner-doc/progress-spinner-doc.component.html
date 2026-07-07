@@ -1,0 +1,286 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Progress Spinner Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-spinner</em>
+    <em>mode</em>="indeterminate"
+    <em>value</em>="0"
+    <em>diameter</em>="100"
+    <em>strokeWidth</em>="" /&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-spinner</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>mode</em>]: 'determinate' | 'indeterminate' = 'indeterminate'</samp></li>
+                    <li><samp>[<em>value</em>]: number = 0</samp></li>
+                    <li><samp>[<em>diameter</em>]: number = 100</samp></li>
+                    <li><samp>[<em>strokeWidth</em>]: number</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Indeterminate Spinner (Default)</app-card-title>
+                    <app-card-subtitle>Progress Spinner</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-spinner</em> /&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-spinner />
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Determinate Spinner</app-card-title>
+                    <app-card-subtitle>Progress Spinner</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-spinner</em> <em>mode</em>="determinate" [<em>value</em>]="percentage.value" /&gt;
+
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Porcentaje&lt;/app-label&gt;
+    &lt;button appPrefix appIconButton variant="tertiary"
+        [disabled]="+percentage.value &lt; 5"
+        (click)="percentage.setValue(+percentage.value - 5)"
+    &gt;
+        &lt;app-icon&gt;remove&lt;/app-icon&gt;
+    &lt;/button&gt;
+    &lt;input appInput textAlign="center" min="0" max="100" [formControl]="percentage"&gt;
+    &lt;button appSuffix appIconButton variant="tertiary"
+        [disabled]="+percentage.value &gt; 95"
+        (click)="percentage.setValue(+percentage.value + 5)"
+    &gt;
+        &lt;app-icon&gt;add&lt;/app-icon&gt;
+    &lt;/button&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts2" (copied)="onCopy('ts2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts2>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+@Component(&#123;...&#125;)
+export class MyComponent &#123;
+    percentage = new FormControl(45, [Validators.min(0), Validators.max(100)]);
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-spinner mode="determinate" [value]="percentage.value" />
+
+                        <app-form-field>
+                            <app-label>Porcentaje</app-label>
+                            <button appPrefix appIconButton variant="tertiary"
+                                [disabled]="+percentage.value < 5"
+                                (click)="percentage.setValue(+percentage.value - 5)"
+                            >
+                                <app-icon>remove</app-icon>
+                            </button>
+                            <input appInput textAlign="center" min="0" max="100" [formControl]="percentage">
+                            <button appSuffix appIconButton variant="tertiary"
+                                [disabled]="+percentage.value > 95"
+                                (click)="percentage.setValue(+percentage.value + 5)"
+                            >
+                                <app-icon>add</app-icon>
+                            </button>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dimensions</app-card-title>
+                    <app-card-subtitle>Progress Spinner</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em>app-spinner</em> [<em>diameter</em>]="diameter.value" [<em>strokeWidth</em>]="strokeWidth.value" /&gt;
+
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Diámetro&lt;/app-label&gt;
+    &lt;button appPrefix appIconButton variant="tertiary"
+        [disabled]="+diameter.value &lt; 5"
+        (click)="diameter.setValue(+diameter.value - 5)"
+    &gt;
+        &lt;app-icon&gt;remove&lt;/app-icon&gt;
+    &lt;/button&gt;
+    &lt;input appInput textAlign="center" min="0" max="100" [formControl]="diameter"&gt;
+    &lt;button appSuffix appIconButton variant="tertiary"
+        [disabled]="+diameter.value &gt; 95"
+        (click)="diameter.setValue(+diameter.value + 5)"
+    &gt;
+        &lt;app-icon&gt;add&lt;/app-icon&gt;
+    &lt;/button&gt;
+&lt;/app-form-field&gt;
+
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Grosor de línea&lt;/app-label&gt;
+    &lt;button appPrefix appIconButton variant="tertiary"
+        [disabled]="+strokeWidth.value &lt; 5"
+        (click)="strokeWidth.setValue(+strokeWidth.value - 5)"
+    &gt;
+        &lt;app-icon&gt;remove&lt;/app-icon&gt;
+    &lt;/button&gt;
+    &lt;input appInput textAlign="center" min="0" max="50" [formControl]="strokeWidth"&gt;
+    &lt;button appSuffix appIconButton variant="tertiary"
+        [disabled]="+strokeWidth.value &gt; 45"
+        (click)="strokeWidth.setValue(+strokeWidth.value + 5)"
+    &gt;
+        &lt;app-icon&gt;add&lt;/app-icon&gt;
+    &lt;/button&gt;
+&lt;/app-form-field&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+@Component(&#123;...&#125;)
+export class MyComponent &#123;
+    diameter = new FormControl(0, [Validators.min(0), Validators.max(100)]);
+    strokeWidth = new FormControl(0, [Validators.min(0), Validators.max(50)]);
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-spinner [diameter]="diameter.value" [strokeWidth]="strokeWidth.value" />
+
+                        <app-form-field>
+                            <app-label>Diámetro</app-label>
+                            <button appPrefix appIconButton variant="tertiary"
+                                [disabled]="+diameter.value < 5"
+                                (click)="diameter.setValue(+diameter.value - 5)"
+                            >
+                                <app-icon>remove</app-icon>
+                            </button>
+                            <input appInput textAlign="center" min="0" max="100" [formControl]="diameter">
+                            <button appSuffix appIconButton variant="tertiary"
+                                [disabled]="+diameter.value > 95"
+                                (click)="diameter.setValue(+diameter.value + 5)"
+                            >
+                                <app-icon>add</app-icon>
+                            </button>
+                        </app-form-field>
+
+                        <app-form-field>
+                            <app-label>Grosor de línea</app-label>
+                            <button appPrefix appIconButton variant="tertiary"
+                                [disabled]="+strokeWidth.value < 5"
+                                (click)="strokeWidth.setValue(+strokeWidth.value - 5)"
+                            >
+                                <app-icon>remove</app-icon>
+                            </button>
+                            <input appInput textAlign="center" min="0" max="50" [formControl]="strokeWidth">
+                            <button appSuffix appIconButton variant="tertiary"
+                                [disabled]="+strokeWidth.value > 45"
+                                (click)="strokeWidth.setValue(+strokeWidth.value + 5)"
+                            >
+                                <app-icon>add</app-icon>
+                            </button>
+                        </app-form-field>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> El grosor de línea '<samp>[<em>strokeWidth</em>]</samp>' con un valor de <samp>0</samp> o <samp>null</samp>, se reconfigura al 10% del diámetro. Ambos valores están dados en 'px'.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

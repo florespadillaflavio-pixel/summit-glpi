@@ -1,0 +1,40 @@
+<div class="cfg-root">
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Configuración</h1>
+      <p class="sm-page-sub">Ajustes generales del tenant</p>
+    </div>
+  </div>
+
+  <div class="cfg-layout">
+    <!-- Sidebar nav -->
+    <aside class="cfg-nav">
+      @for (s of sections; track s.id) {
+        <button class="cfg-nav-item" [class.active]="activeSection() === s.id" (click)="activeSection.set(s.id)">
+          <lucide-angular [name]="s.icon" [size]="16"></lucide-angular>
+          <span>{{ s.label }}</span>
+          <lucide-angular name="chevron-right" [size]="14" style="margin-left:auto;color:var(--ink-300)"></lucide-angular>
+        </button>
+      }
+    </aside>
+
+    <!-- Content -->
+    <div class="cfg-content">
+      @if (activeSection() === 'general') {
+        <app-config-general></app-config-general>
+      } @else if (activeSection() === 'email') {
+        <app-config-email></app-config-email>
+      } @else if (activeSection() === 'ai') {
+        <app-config-ai></app-config-ai>
+      } @else if (activeSection() === 'storage') {
+        <app-config-storage></app-config-storage>
+      } @else if (activeSection() === 'sla') {
+        <app-config-sla></app-config-sla>
+      } @else if (activeSection() === 'notifications') {
+        <app-config-notifications></app-config-notifications>
+      } @else if (activeSection() === 'security') {
+        <app-config-security></app-config-security>
+      }
+    </div>
+  </div>
+</div>

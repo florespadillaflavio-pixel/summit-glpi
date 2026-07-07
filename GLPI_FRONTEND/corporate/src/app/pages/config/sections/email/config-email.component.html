@@ -1,0 +1,62 @@
+<div class="sm-card">
+  <div class="sm-card-header">
+    <h2 class="sm-card-title">Configuración de correo (SMTP)</h2>
+  </div>
+  @if (loading()) {
+    <div class="config-loading-state">
+      <lucide-angular name="loader" class="spinner" [size]="22"></lucide-angular>
+      <span>Cargando configuración SMTP...</span>
+    </div>
+  }
+  <form [formGroup]="smtpForm" class="cfg-form" [class.config-loading-dim]="loading()">
+    <div class="cfg-grid">
+      <div class="sm-field">
+        <label class="sm-label">Servidor SMTP</label>
+        <input class="sm-input" formControlName="host" placeholder="smtp.empresa.pe" [class.input-error]="fieldError('host')">
+        @if (fieldError('host')) { <span class="field-error">{{ fieldError('host') }}</span> }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Puerto</label>
+        <input class="sm-input" type="number" formControlName="port" placeholder="587" [class.input-error]="fieldError('port')">
+        @if (fieldError('port')) { <span class="field-error">{{ fieldError('port') }}</span> }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Usuario</label>
+        <input class="sm-input" formControlName="user" placeholder="notificaciones@empresa.pe">
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Contraseña</label>
+        <input class="sm-input" type="password" formControlName="password" placeholder="••••••••">
+        <p class="field-help">Usa una clave de aplicación. Se guarda cifrada en la base de datos.</p>
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Nombre remitente</label>
+        <input class="sm-input" formControlName="fromName" placeholder="Summit GLPI">
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Email remitente</label>
+        <input class="sm-input" formControlName="fromEmail" placeholder="noreply@empresa.pe" [class.input-error]="fieldError('fromEmail')">
+        @if (fieldError('fromEmail')) { <span class="field-error">{{ fieldError('fromEmail') }}</span> }
+      </div>
+      <label class="sm-check-row">
+        <input type="checkbox" formControlName="enableSsl">
+        <span>Usar TLS/SSL para SMTP</span>
+      </label>
+    </div>
+    <div class="cfg-actions">
+      <button type="button" class="btn btn-secondary" (click)="onTestSmtp()" [disabled]="smtpForm.invalid">
+        <lucide-angular name="test-tube" [size]="16"></lucide-angular>
+        Probar conexión
+      </button>
+      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="saving() || smtpForm.invalid">
+        <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+        {{ saving() ? 'Guardando...' : 'Guardar' }}
+      </button>
+    </div>
+    @if (smtpTested()) {
+      <div class="cfg-alert" [class.success]="smtpOk()" [class.error]="!smtpOk()">
+        {{ smtpOk() ? '✓ Conexión exitosa. Email de prueba enviado.' : '✗ No se pudo conectar al servidor SMTP.' }}
+      </div>
+    }
+  </form>
+</div>

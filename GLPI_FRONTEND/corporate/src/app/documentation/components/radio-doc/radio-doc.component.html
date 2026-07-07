@@ -1,0 +1,349 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Radio Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/radio</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em><b>app-radio-group</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"1"</em>&gt;Opción 1&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"2"</em>&gt;Opción 2&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"3"</em>&gt;Opción 3&lt;/<em><b>app-radio-button</b></em>&gt;
+&lt;/<em><b>app-radio-group</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppRadioButton</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-radio-button</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal">
+                                    <app-radio-group>
+                                        <app-radio-button value="1" backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            Opción 1
+                                        </app-radio-button>
+                                        <app-radio-button value="2">Opción 2</app-radio-button>
+                                        <app-radio-button value="3">Opción 3</app-radio-button>
+                                    </app-radio-group>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>checked</em>:
+                                    <em class="app-hint">boolean</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">false</em>
+                                </samp> (Con coerción)
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>disabled</em>:
+                                    <em class="app-hint">boolean</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">false</em>
+                                </samp> (Con coerción)
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>labelPosition</em>:
+                                    <em class="app-warning">'before'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'after'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'before'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>name</em>:
+                                    <em class="app-hint">string</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-info">null</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">null</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>value</em>:
+                                    <em class="app-hint">any</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">null</em>
+                                </samp>
+                            </p>
+                            
+                            <h6><b>Outputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Output</em>()
+                                    <em><b>change</b></em>:
+                                    <em class="app-main">EventEmitter</em>&lt;<em><b>AppRadioChange</b></em>&gt;
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppRadioGroup</b></em> extends <em>AppStack</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-radio-group</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal">
+                                    <app-radio-group backgroundColor="--white"
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                    >
+                                        <app-radio-button value="1">Opción 1</app-radio-button>
+                                        <app-radio-button value="2">Opción 2</app-radio-button>
+                                        <app-radio-button value="3">Opción 3</app-radio-button>
+                                    </app-radio-group>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>disabled</em>:
+                                    <em class="app-hint">boolean</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">false</em>
+                                </samp> (Con coerción)
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>name</em>:
+                                    <em class="app-hint">string</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-info">null</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">null</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>value</em>:
+                                    <em class="app-hint">any</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">null</em>
+                                </samp>
+                            </p>
+                            
+                            <h6><b>Outputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Output</em>()
+                                    <em><b>change</b></em>:
+                                    <em class="app-main">EventEmitter</em>&lt;<em><b>AppRadioChange</b></em>&gt;
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Classes</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppRadioChange</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <h6><b>Properties</b></h6>
+                            <p>
+                                <samp>
+                                    source:
+                                    <em><b>AppRadioButton</b></em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    value:
+                                    <em class="app-hint">any</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Radio simple</app-card-title>
+                    <app-card-subtitle>Radio</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em><b>app-radio-group</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"1"</em>&gt;Opción 1&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"2"</em>&gt;Opción 2&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>value</b></em>=<em class="app-warning">"3"</em>&gt;Opción 3&lt;/<em><b>app-radio-button</b></em>&gt;
+&lt;/<em><b>app-radio-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-radio-group>
+                            <app-radio-button value="1">Opción 1</app-radio-button>
+                            <app-radio-button value="2">Opción 2</app-radio-button>
+                            <app-radio-button value="3">Opción 3</app-radio-button>
+                        </app-radio-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Disabled and before label radios</app-card-title>
+                    <app-card-subtitle>Radio</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em><b>app-radio-group</b></em> <em class="app-main">justify</em>=<em class="app-warning">"end"</em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>labelPosition</b></em>=<em class="app-warning">"before"</em> <em><b>value</b></em>=<em class="app-warning">"1"</em>&gt;Opción 1&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>labelPosition</b></em>=<em class="app-warning">"before"</em> <em><b>value</b></em>=<em class="app-warning">"2"</em>&gt;Opción 2&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>labelPosition</b></em>=<em class="app-warning">"before"</em> <em><b>value</b></em>=<em class="app-warning">"3"</em>&gt;Opción 3&lt;/<em><b>app-radio-button</b></em>&gt;
+    &lt;<em><b>app-radio-button</b></em> <em><b>labelPosition</b></em>=<em class="app-warning">"before"</em> <em><b>value</b></em>=<em class="app-warning">"4"</em> <em><b>disabled</b></em>&gt;Opción 4&lt;/<em><b>app-radio-button</b></em>&gt;
+&lt;/<em><b>app-radio-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-radio-group justify="end">
+                            <app-radio-button labelPosition="before" value="1">Opción 1</app-radio-button>
+                            <app-radio-button labelPosition="before" value="2">Opción 2</app-radio-button>
+                            <app-radio-button labelPosition="before" value="3">Opción 3</app-radio-button>
+                            <app-radio-button labelPosition="before" value="4" disabled>Opción 4</app-radio-button>
+                        </app-radio-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Radios with Reactive Forms</app-card-title>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em class="app-danger">b</em>&gt;Seleccione método de pago:&lt;/<em class="app-danger">b</em>&gt;
+&lt;<em><b>app-radio-group</b></em> [<em class="app-main">formControl</em>]=<em class="app-warning">"</em>metodoSeleccionado<em class="app-warning">"</em>&gt;
+    &lt;<em><b>app-radio-button</b></em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> metodo <em class="app-danger">of</em> metodosPago<em class="app-warning">"</em>
+        [<em><b>value</b></em>]=<em class="app-warning">"</em>metodo<em class="app-warning">"</em>
+    &gt;
+        {{ metodo }}
+    &lt;/<em><b>app-radio-button</b></em>&gt;
+&lt;/<em><b>app-radio-group</b></em>&gt;
+
+&lt;<em class="app-danger">b</em>&gt;Método seleccionado:&lt;/<em class="app-danger">b</em>&gt;
+{{ metodoSeleccionado.value }}
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormBuilder, FormControl &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+
+&#64;<em class="app-main">Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+    metodosPago = [<em class="app-warning">'Efectivo'</em>, <em class="app-warning">'Tarjeta'</em>, <em class="app-warning">'Billetera digital'</em>];
+    metodoSeleccionado = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-danger">this</em>.metodosPago[<em class="app-hint">0</em>]);
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <b>Seleccione método de pago:</b>
+                        <app-radio-group [formControl]="metodoSeleccionado">
+                            <app-radio-button *ngFor="let metodo of metodosPago"
+                                [value]="metodo"
+                            >
+                                {{ metodo }}
+                            </app-radio-button>
+                        </app-radio-group>
+                        
+                        <b>Método seleccionado:</b>
+                        {{ metodoSeleccionado.value }}
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

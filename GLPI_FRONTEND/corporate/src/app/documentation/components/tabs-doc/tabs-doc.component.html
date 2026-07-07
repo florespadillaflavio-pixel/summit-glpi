@@ -1,0 +1,456 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Tabs Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em><b>app-tab-group</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><code><em>app-autocomplete</em></code></samp></li>
+                    <li><samp><code>[<em>appAutocomplete</em>]</code></samp> - Autocomplete Trigger</li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+
+                <app-stack noGap>
+                    <h4><code>[<em>appAutocomplete</em>]</code></h4>
+                    <ul>
+                        <li><samp><code>[<em>appAutocomplete</em>]!: <em>AutocompleteComponent</em></code></samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+
+                <app-stack noGap>
+                    <h4><code><em>app-autocomplete</em></code></h4>
+                    <ul>
+                        <li><samp><code>[<em>optionSelected</em>]: EventEmitter&lt;T&gt;</code></samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Actions</h3>
+
+                <app-stack noGap>
+                    <h4><code>[<em>appAutocomplete</em>]</code></h4>
+                    <ul>
+                        <li><samp><code><em>open</em>()</code></samp> - Abre la lista de opciones.</li>
+                        <li><samp><code><em>close</em>()</code></samp> - Cierra la lista de opciones.</li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas básicas</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em><b>app-tab-group</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-tab-group>
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                        </app-tab-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas con etiquetas alineadas</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em><b>app-tab-group</b></em> <em><b>stretchTabs</b></em>=<em class="app-warning">"false"</em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+
+&lt;<em><b>app-tab-group</b></em> <em><b>stretchTabs</b></em>=<em class="app-warning">"false"</em> <em><b>alignTabs</b></em>=<em class="app-warning">"center"</em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+
+&lt;<em><b>app-tab-group</b></em> <em><b>stretchTabs</b></em>=<em class="app-warning">"false"</em> <em><b>alignTabs</b></em>=<em class="app-warning">"end"</em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-tab-group stretchTabs="false">
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                        </app-tab-group>
+                        
+                        <app-tab-group stretchTabs="false" alignTabs="center">
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                        </app-tab-group>
+                        
+                        <app-tab-group stretchTabs="false" alignTabs="end">
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                        </app-tab-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas con etiquetas personalizables</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em><b>app-tab-group</b></em>&gt;
+    &lt;<em><b>app-tab</b></em>&gt;
+        &lt;<em><b>app-tab-label</b></em> *<em><b>appTabLabelDef</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em>&gt;counter_1&lt;/<em class="app-danger">app-icon</em>&gt;
+            Primero
+        &lt;/<em><b>app-tab-label</b></em>&gt;
+        Contenido 1
+    &lt;/<em><b>app-tab</b></em>&gt;
+
+    &lt;<em><b>app-tab</b></em>&gt;
+        &lt;<em><b>app-tab-label</b></em> *<em><b>appTabLabelDef</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em>&gt;counter_2&lt;/<em class="app-danger">app-icon</em>&gt;
+            Segundo
+        &lt;/<em><b>app-tab-label</b></em>&gt;
+        Contenido 2
+    &lt;/<em><b>app-tab</b></em>&gt;
+
+    &lt;<em><b>app-tab</b></em>&gt;
+        &lt;<em><b>app-tab-label</b></em> *<em><b>appTabLabelDef</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em>&gt;counter_3&lt;/<em class="app-danger">app-icon</em>&gt;
+            Tercero
+            &lt;<em class="app-danger">app-chip</em>&gt;18&lt;/<em class="app-danger">app-chip</em>&gt;
+        &lt;/<em><b>app-tab-label</b></em>&gt;
+        Contenido 3
+    &lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-tab-group>
+                            <app-tab>
+                                <app-tab-label *appTabLabelDef>
+                                    <app-icon>counter_1</app-icon>
+                                    Primero
+                                </app-tab-label>
+                                Contenido 1
+                            </app-tab>
+
+                            <app-tab>
+                                <app-tab-label *appTabLabelDef>
+                                    <app-icon>counter_2</app-icon>
+                                    Segundo
+                                </app-tab-label>
+                                Contenido 2
+                            </app-tab>
+
+                            <app-tab>
+                                <app-tab-label *appTabLabelDef>
+                                    <app-icon>counter_3</app-icon>
+                                    Tercero
+                                    <app-chip>18</app-chip>
+                                </app-tab-label>
+                                Contenido 3
+                            </app-tab>
+                        </app-tab-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas con etiquetas abajo</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em><b>app-tab-group</b></em> <em><b>headerPosition</b></em>=<em class="app-warning">"below"</em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-tab-group headerPosition="below">
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                        </app-tab-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas deshabilitadas</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;<em><b>app-tab-group</b></em> <em><b>headerPosition</b></em>=<em class="app-warning">"below"</em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Primero"</em>&gt;Contenido 1&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Segundo"</em>&gt;Contenido 2&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Tercero"</em>&gt;Contenido 3&lt;/<em><b>app-tab</b></em>&gt;
+    &lt;<em><b>app-tab</b></em> <em><b>label</b></em>=<em class="app-warning">"Cuarto"</em> <em><b>disabled</b></em>&gt;Contenido 4&lt;/<em><b>app-tab</b></em>&gt;
+&lt;/<em><b>app-tab-group</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-tab-group>
+                            <app-tab label="Primero">Contenido 1</app-tab>
+                            <app-tab label="Segundo">Contenido 2</app-tab>
+                            <app-tab label="Tercero">Contenido 3</app-tab>
+                            <app-tab label="Cuarto" disabled>Contenido 4</app-tab>
+                        </app-tab-group>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Pestañas dinámicas</app-card-title>
+                    <app-card-subtitle>Tabs</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6" (copied)="onCopy('ts6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts6>
+<em class="app-danger">import</em> &#123; SelectionModel &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/cdk/collections'</em>;
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; FormControl &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/forms'</em>;
+<em class="app-danger">import</em> &#123; fade &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;app/shared/animations'</em>;
+
+&#64;Component(&#123;
+    ...
+    animations: [fade]
+&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> <em class="app-main">MyComponent</em> &#123;
+
+    tabs = [<em class="app-warning">'Primero'</em>, <em class="app-warning">'Segundo'</em>, <em class="app-warning">'Tercero'</em>];
+    selected = <em class="app-danger">new</em> <em class="app-main">FormControl</em>(<em class="app-hint">0</em>);
+    hovered = <em class="app-danger">new</em> <em class="app-main">SelectionModel</em>(<em class="app-hint">false</em>);
+
+    <em class="app-main">addTab</em>(selectAfterAdding: <em class="app-hint">boolean</em>) &#123;
+        <em class="app-danger">this</em>.tabs.<em class="app-main">push</em>(<em class="app-warning">'Nueva Pestaña'</em>);
+        <em class="app-info">if</em> (selectAfterAdding) <em class="app-danger">this</em>.selected.<em class="app-main">setValue</em>(<em class="app-danger">this</em>.tabs.length <em class="app-danger">-</em> <em class="app-hint">1</em>);
+    &#125;
+
+    <em class="app-main">removeTab</em>(index: <em class="app-hint">number</em>) &#123;
+        <em class="app-danger">this</em>.tabs.<em class="app-main">splice</em>(index, <em class="app-hint">1</em>);
+        <em class="app-danger">this</em>.selected.<em class="app-main">setValue</em>(<em class="app-info">Math</em>.<em class="app-main">min</em>(index, <em class="app-danger">this</em>.tabs.length));
+    &#125;
+    
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" wrap="wrap">
+                            <app-form-field minWidth="150">
+                                <app-select [formControl]="selected">
+                                    <app-option *ngFor="let tab of tabs; let i = index" [value]="i">
+                                        {{ tab }}
+                                    </app-option>
+                                </app-select>
+                            </app-form-field>
+
+                            <app-stack orientation="horizontal" wrap="wrap" align="center">
+                                <button appFab variant="primary" (click)="addTab(selectAfterAdding.checked)">
+                                    <app-icon>add</app-icon>Nueva Pestaña
+                                </button>
+
+                                <app-slide-toggle #selectAfterAdding>Seleccionar después de abrir</app-slide-toggle>
+                            </app-stack>
+                        </app-stack>
+
+                        <app-tab-group stretchTabs="false"
+                            [selectedIndex]="selected.value"
+                            (selectedIndexChange)="selected.setValue($event)"
+                        >
+                            <app-tab *ngFor="let tab of tabs; let i = index">
+                                <app-tab-label *appTabLabelDef
+                                    (mouseenter)="hovered.select(i)"
+                                    (mouseleave)="hovered.clear()"
+                                >
+                                    {{ tab }}
+                                    <app-spacer></app-spacer>
+                                    <button *ngIf="hovered.isSelected(i)" @fade
+                                        appIconButton color="danger" size="small"
+                                        (click)="removeTab(i)"
+                                    >
+                                        <app-icon>close</app-icon>
+                                    </button>
+                                </app-tab-label>
+                                Contenido de la pestaña '{{ tab }}'
+                            </app-tab>
+                        </app-tab-group>
+
+                        <app-alert color="warning">
+                            <app-icon appAlertIcon fill>warning</app-icon>
+                            <strong>ADVERTENCIA:</strong> Esta solución aún no es estable.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

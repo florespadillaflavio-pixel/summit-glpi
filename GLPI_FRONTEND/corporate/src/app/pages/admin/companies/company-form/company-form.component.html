@@ -1,0 +1,90 @@
+<app-modal
+  [title]="tenant() ? 'Configurar Organización' : 'Nuevo Cliente'"
+  [subtitle]="'Establece la identidad y límites del tenant'"
+  [icon]="tenant() ? 'pencil' : 'building-2'"
+  [loading]="loading()"
+  [maxWidth]="600"
+  (close)="onClose()"
+>
+  <form [formGroup]="tenantForm" class="tenant-form-grid">
+    <app-input-field
+      label="Razón Social"
+      icon="building-2"
+      placeholder="Ej: Corporación Tech SAC"
+      formControlName="name"
+      [fullWidth]="true"
+      [error]="getFieldError('name')"
+    ></app-input-field>
+
+    <app-input-field
+      label="RUC / ID Tributario"
+      placeholder="20XXXXXXXXX"
+      formControlName="ruc"
+      [error]="getFieldError('ruc')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Teléfono de Contacto"
+      icon="phone"
+      placeholder="+51 9XX XXX XXX"
+      formControlName="phone"
+      [error]="getFieldError('phone')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Correo Administrativo"
+      type="email"
+      icon="mail"
+      placeholder="admin@empresa.com"
+      formControlName="email"
+      [fullWidth]="true"
+      [error]="getFieldError('email')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Dominio / Sitio Web"
+      icon="globe"
+      placeholder="techcorp.com"
+      formControlName="website"
+      [error]="getFieldError('website')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Logo de la Organización</label>
+      <div class="logo-upload-wrap">
+        <div class="logo-preview">
+          @if (previewUrl()) {
+            <img [src]="previewUrl()" alt="Logo">
+          } @else {
+            <lucide-angular name="image" [size]="24"></lucide-angular>
+          }
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="logoInput.click()">
+          <lucide-angular name="upload-cloud" [size]="14"></lucide-angular>
+          <span>Subir Logo</span>
+        </button>
+        <input #logoInput type="file" style="display:none" (change)="onUploadLogo($event)" accept="image/*">
+      </div>
+    </div>
+
+    <app-input-field
+      label="Dirección Fiscal / Principal"
+      icon="map-pin"
+      placeholder="Av. Principal 123, Ciudad"
+      formControlName="address"
+      [fullWidth]="true"
+      [error]="getFieldError('address')"
+    ></app-input-field>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="saveTenant()" [disabled]="tenantForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (tenant() ? 'Guardar Cambios' : 'Registrar Empresa') }}</span>
+    </button>
+  </div>
+</app-modal>

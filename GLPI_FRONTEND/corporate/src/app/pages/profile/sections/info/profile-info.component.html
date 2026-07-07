@@ -1,0 +1,84 @@
+<div class="sm-card pf-tab-card">
+  <h3 class="pf-section-title">Datos personales</h3>
+
+  @if (infoSuccess()) {
+    <div class="pf-alert pf-alert-success">
+      <lucide-angular name="check-circle-2" [size]="15"></lucide-angular>
+      Cambios guardados correctamente
+    </div>
+  }
+  @if (infoError()) {
+    <div class="pf-alert pf-alert-error">
+      <lucide-angular name="alert-circle" [size]="15"></lucide-angular>
+      {{ infoError() }}
+    </div>
+  }
+
+  <form [formGroup]="infoForm" (ngSubmit)="onSave()" class="pf-form">
+    <div class="pf-grid-2">
+      <div class="sm-field">
+        <label class="sm-label" for="pf-first">Nombre</label>
+        <input id="pf-first" class="sm-input" type="text"
+          formControlName="firstName" placeholder="Tu nombre">
+        @if (getFieldError('firstName', 'El nombre')) {
+          <span class="pf-field-error">{{ getFieldError('firstName', 'El nombre') }}</span>
+        }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label" for="pf-last">Apellido</label>
+        <input id="pf-last" class="sm-input" type="text"
+          formControlName="lastName" placeholder="Tu apellido">
+        @if (getFieldError('lastName', 'El apellido')) {
+          <span class="pf-field-error">{{ getFieldError('lastName', 'El apellido') }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label" for="pf-email-f">Correo electrónico</label>
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left" style="display:flex;">
+          <lucide-angular name="mail" [size]="16"></lucide-angular>
+        </span>
+        <input id="pf-email-f" class="sm-input with-icon-left" type="email"
+          formControlName="email" placeholder="correo@empresa.pe">
+      </div>
+      @if (getFieldError('email', 'El correo')) {
+        <span class="pf-field-error">{{ getFieldError('email', 'El correo') }}</span>
+      }
+    </div>
+
+    <div class="pf-grid-2">
+      <div class="sm-field">
+        <label class="sm-label" for="pf-phone">Teléfono</label>
+        <input id="pf-phone" class="sm-input" type="tel"
+          formControlName="phone" placeholder="+51 999 999 999">
+        @if (getFieldError('phone', 'El teléfono')) {
+          <span class="pf-field-error">{{ getFieldError('phone', 'El teléfono') }}</span>
+        }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label" for="pf-position">Cargo</label>
+        <input id="pf-position" class="sm-input" type="text"
+          formControlName="position" placeholder="Tu cargo">
+        @if (getFieldError('position', 'El cargo')) {
+          <span class="pf-field-error">{{ getFieldError('position', 'El cargo') }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="pf-form-footer">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="infoLoading() || infoForm.invalid">
+        @if (infoLoading()) {
+          <span class="pf-spinner"></span> Guardando…
+        } @else {
+          <lucide-angular name="save" [size]="15"></lucide-angular>
+          <span>Guardar cambios</span>
+        }
+      </button>
+    </div>
+  </form>
+</div>

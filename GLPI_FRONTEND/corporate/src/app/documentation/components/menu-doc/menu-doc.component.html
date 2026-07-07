@@ -1,0 +1,223 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Menu Module</h2>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;button appFab [<em>appMenuTriggerFor</em>]="menu"&gt;&lt;app-icon&gt;menu&lt;/app-icon&gt;Menu&lt;/button&gt;
+
+&lt;<em>app-menu</em> #menu&gt;
+    &lt;a <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;person&lt;/app-icon&gt;Mi cuenta&lt;/a&gt;
+    &lt;a <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;help&lt;/app-icon&gt;Soporte&lt;/a&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;dark_mode&lt;/app-icon&gt;Modo Oscuro&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-menu</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>app-menu-item</em> extends <em>ListItemComponent</em></samp></li>
+                    <li><samp>[<em>appMenuTriggerFor</em>]</samp></li>
+                    <li><samp>[<em>appMenuItemIcon</em>]</samp></li>
+                </ul>
+            </app-stack>
+            
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Simple Menu</app-card-title>
+                    <app-card-subtitle>Menu</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;button appFab variant="secondary" appearance="raised" [<em>appMenuTriggerFor</em>]="menu"&gt;&lt;app-icon&gt;menu&lt;/app-icon&gt;Menu&lt;/button&gt;
+
+&lt;<em>app-menu</em> #menu&gt;
+    &lt;a <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;person&lt;/app-icon&gt;Mi cuenta&lt;/a&gt;
+    &lt;a <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;help&lt;/app-icon&gt;Soporte&lt;/a&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;fullscreen&lt;/app-icon&gt;Pantalla Completa&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;dark_mode&lt;/app-icon&gt;Modo Oscuro&lt;/button&gt;
+
+    &lt;app-divider&gt;&lt;/app-divider&gt;
+
+    &lt;div appBoxBase paddingTop="10" paddingHorizontal&gt;Has iniciado sesión como Rigoberto Prado&lt;/div&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="menu"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;logout&lt;/app-icon&gt;Cerrar Sesión&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <button appFab variant="secondary" appearance="raised" [appMenuTriggerFor]="menu"><app-icon>menu</app-icon>Menu</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Nested Submenus</app-card-title>
+                    <app-card-subtitle>Menu</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;button appFab variant="secondary" appearance="raised" [<em>appMenuTriggerFor</em>]="animals"&gt;&lt;app-icon&gt;pets&lt;/app-icon&gt;Animal index&lt;/button&gt;
+
+&lt;<em>app-menu</em> #animals&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" [<em>appMenuTriggerFor</em>]="vertebrates"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;hand_bones&lt;/app-icon&gt;Vertebrates&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" [<em>appMenuTriggerFor</em>]="invertebrates"&gt;&lt;app-icon <em>appMenuItemIcon</em>&gt;bug_report&lt;/app-icon&gt;Invertebrates&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+
+&lt;<em>app-menu</em> #vertebrates&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" [<em>appMenuTriggerFor</em>]="fish"&gt;Fishes&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" [<em>appMenuTriggerFor</em>]="amphibians"&gt;Amphibians&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" [<em>appMenuTriggerFor</em>]="reptiles"&gt;Reptiles&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Birds&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Mammals&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+
+&lt;<em>app-menu</em> #invertebrates&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Insects&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Molluscs&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Crustaceans&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Corals&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Arachnids&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Velvet worms&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Horseshoe crabs&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+
+&lt;<em>app-menu</em> #fish&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Baikal oilfish&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Bala shark&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Ballan wrasse&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Bamboo shark&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Banded killifish&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+
+&lt;<em>app-menu</em> #amphibians&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Sonoran desert toad&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Western toad&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Arroyo toad&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Yosemite toad&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+
+&lt;<em>app-menu</em> #reptiles&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Banded Day Gecko&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Banded Gila Monster&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Black Tree Monitor&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu"&gt;Blue Spiny Lizard&lt;/button&gt;
+    &lt;button <em>appMenuItem</em> <em>variant</em>="submenu" <em>disabled</em>&gt;Velociraptor&lt;/button&gt;
+&lt;/<em>app-menu</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <button appFab variant="secondary" appearance="raised" [appMenuTriggerFor]="animals"><app-icon>pets</app-icon>Animal index</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>
+
+<app-menu #menu>
+    <a appMenuItem variant="submenu"><app-icon appMenuItemIcon>person</app-icon>Mi cuenta</a>
+    <a appMenuItem variant="submenu"><app-icon appMenuItemIcon>help</app-icon>Soporte</a>
+    <button appMenuItem variant="submenu"><app-icon appMenuItemIcon>fullscreen</app-icon>Pantalla Completa</button>
+    <button appMenuItem variant="submenu"><app-icon appMenuItemIcon>dark_mode</app-icon>Modo Oscuro</button>
+
+    <app-divider></app-divider>
+
+    <div appBoxBase paddingTop="10" paddingHorizontal>Has iniciado sesión como Rigoberto Prado</div>
+    <button appMenuItem variant="menu"><app-icon appMenuItemIcon>logout</app-icon>Cerrar Sesión</button>
+</app-menu>
+
+<app-menu #animals>
+    <button appMenuItem variant="submenu" [appMenuTriggerFor]="vertebrates"><app-icon appMenuItemIcon>hand_bones</app-icon>Vertebrates</button>
+    <button appMenuItem variant="submenu" [appMenuTriggerFor]="invertebrates"><app-icon appMenuItemIcon>bug_report</app-icon>Invertebrates</button>
+</app-menu>
+
+<app-menu #vertebrates>
+    <button appMenuItem variant="submenu" [appMenuTriggerFor]="fish">Fishes</button>
+    <button appMenuItem variant="submenu" [appMenuTriggerFor]="amphibians">Amphibians</button>
+    <button appMenuItem variant="submenu" [appMenuTriggerFor]="reptiles">Reptiles</button>
+    <button appMenuItem variant="submenu">Birds</button>
+    <button appMenuItem variant="submenu">Mammals</button>
+</app-menu>
+
+<app-menu #invertebrates>
+    <button appMenuItem variant="submenu">Insects</button>
+    <button appMenuItem variant="submenu">Molluscs</button>
+    <button appMenuItem variant="submenu">Crustaceans</button>
+    <button appMenuItem variant="submenu">Corals</button>
+    <button appMenuItem variant="submenu">Arachnids</button>
+    <button appMenuItem variant="submenu">Velvet worms</button>
+    <button appMenuItem variant="submenu">Horseshoe crabs</button>
+</app-menu>
+
+<app-menu #fish>
+    <button appMenuItem variant="submenu">Baikal oilfish</button>
+    <button appMenuItem variant="submenu">Bala shark</button>
+    <button appMenuItem variant="submenu">Ballan wrasse</button>
+    <button appMenuItem variant="submenu">Bamboo shark</button>
+    <button appMenuItem variant="submenu">Banded killifish</button>
+</app-menu>
+
+<app-menu #amphibians>
+    <button appMenuItem variant="submenu">Sonoran desert toad</button>
+    <button appMenuItem variant="submenu">Western toad</button>
+    <button appMenuItem variant="submenu">Arroyo toad</button>
+    <button appMenuItem variant="submenu">Yosemite toad</button>
+</app-menu>
+
+<app-menu #reptiles>
+    <button appMenuItem variant="submenu">Banded Day Gecko</button>
+    <button appMenuItem variant="submenu">Banded Gila Monster</button>
+    <button appMenuItem variant="submenu">Black Tree Monitor</button>
+    <button appMenuItem variant="submenu">Blue Spiny Lizard</button>
+    <button appMenuItem variant="submenu" disabled>Velociraptor</button>
+</app-menu>

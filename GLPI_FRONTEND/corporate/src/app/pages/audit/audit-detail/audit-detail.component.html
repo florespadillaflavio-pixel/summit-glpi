@@ -1,0 +1,87 @@
+<div class="sm-overlay" (click)="onClose()"></div>
+<div class="sm-modal detail-modal audit-detail-modal">
+  <div class="audit-detail-head">
+    <div class="audit-detail-title-row">
+      <span class="audit-detail-icon" [ngClass]="actionBadgeClass(entry()?.action)">
+        <lucide-angular [name]="actionIcon(entry()?.action)" [size]="20"></lucide-angular>
+      </span>
+      <div class="audit-detail-title">
+        <div class="audit-detail-eyebrow">Evento de auditoría</div>
+        <h2 class="modal-title">{{ actionLabel(entry()?.action) }} en {{ displayEntity(entry()?.entity) }}</h2>
+        <p>{{ entry()?.summary || 'Registro de cambio capturado por la auditoría del sistema.' }}</p>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-sm audit-detail-close" (click)="onClose()" title="Cerrar">
+      <lucide-angular name="x" class="btn-icon"></lucide-angular>
+    </button>
+  </div>
+
+  <div class="sm-modal-body audit-detail-body">
+    <div class="audit-detail-meta-grid">
+      <div class="audit-detail-meta-card">
+        <span>Acción</span>
+        <strong>
+          <span class="badge audit-action-badge" [ngClass]="actionBadgeClass(entry()?.action)">
+            <lucide-angular [name]="actionIcon(entry()?.action)" [size]="12"></lucide-angular>
+            {{ entry()?.action || 'EVENTO' }}
+          </span>
+        </strong>
+      </div>
+      <div class="audit-detail-meta-card">
+        <span>Usuario</span>
+        <strong>{{ entry()?.user || 'Sistema' }}</strong>
+      </div>
+      <div class="audit-detail-meta-card">
+        <span>Fecha y hora</span>
+        <strong class="mono">{{ formatDate(entry()?.timestamp) }}</strong>
+      </div>
+      <div class="audit-detail-meta-card">
+        <span>Entidad</span>
+        <strong>{{ displayEntity(entry()?.entity) }}</strong>
+      </div>
+      <div class="audit-detail-meta-card is-wide">
+        <span>ID del registro</span>
+        <div class="audit-full-id-row">
+          <strong class="mono audit-full-id" [title]="entry()?.entityId || ''">{{ entry()?.entityId || '-' }}</strong>
+          @if (entry()?.entityId) {
+            <button type="button" class="audit-copy-btn" (click)="copyId()" [title]="copiedId() ? 'Copiado' : 'Copiar ID'">
+              <lucide-angular name="copy" [size]="14"></lucide-angular>
+              <span>{{ copiedId() ? 'Copiado' : 'Copiar' }}</span>
+            </button>
+          }
+        </div>
+      </div>
+      <div class="audit-detail-meta-card">
+        <span>IP origen</span>
+        <strong class="mono">{{ entry()?.ip || '-' }}</strong>
+      </div>
+    </div>
+
+    <div class="audit-json-title">
+      <div>
+        <h3>Comparación de datos</h3>
+        <p>Valores antes y después de la operación registrada.</p>
+      </div>
+    </div>
+
+    <div class="diff-columns">
+      <div class="diff-col">
+        <div class="diff-col-header diff-old">
+          <lucide-angular name="database" class="diff-icon"></lucide-angular>
+          Valores anteriores
+        </div>
+        <pre class="json-block">{{ formatJson(entry()?.oldValues) }}</pre>
+      </div>
+      <div class="diff-col">
+        <div class="diff-col-header diff-new">
+          <lucide-angular name="arrow-right" class="diff-icon"></lucide-angular>
+          Valores nuevos
+        </div>
+        <pre class="json-block">{{ formatJson(entry()?.newValues) }}</pre>
+      </div>
+    </div>
+  </div>
+  <div class="sm-modal-footer audit-detail-footer">
+    <button class="btn btn-secondary" (click)="onClose()">Cerrar</button>
+  </div>
+</div>

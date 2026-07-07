@@ -1,0 +1,120 @@
+<div class="adhoc-section">
+  <div class="adhoc-cards">
+    <!-- Card Tickets -->
+    <div class="sm-card adhoc-card">
+      <div class="adhoc-icon-wrap adhoc-icon-tickets">
+        <lucide-angular name="ticket" class="adhoc-icon"></lucide-angular>
+      </div>
+      <h3 class="adhoc-title">Reporte de Tickets</h3>
+      <p class="adhoc-desc">Exporta un reporte completo de tickets con filtros de estado, prioridad y técnico.</p>
+      <form class="adhoc-form" [formGroup]="forms.tickets" (ngSubmit)="onGenerate('tickets')">
+        <div class="adhoc-filters">
+          <div class="sm-field">
+            <label class="sm-label">Desde</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateFrom"
+                   [class.input-error]="dateError('tickets')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Hasta</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateTo"
+                   [class.input-error]="dateError('tickets')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Formato</label>
+            <select class="sm-input sm-compact" formControlName="format">
+              <option value="PDF">PDF</option>
+              <option value="EXCEL">Excel</option>
+            </select>
+          </div>
+        </div>
+        @if (dateError('tickets')) {
+          <span class="field-error">{{ dateError('tickets') }}</span>
+        }
+        <button type="submit" class="btn btn-primary btn-sm w-full"
+                [disabled]="forms.tickets.invalid || anyLoading">
+          <lucide-angular [name]="isLoading('tickets') ? 'loader' : 'download'"
+                          [class.spinner]="isLoading('tickets')" class="btn-icon"></lucide-angular>
+          {{ isLoading('tickets') ? 'Generando...' : 'Generar' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Card Activos -->
+    <div class="sm-card adhoc-card">
+      <div class="adhoc-icon-wrap adhoc-icon-assets">
+        <lucide-angular name="server" class="adhoc-icon"></lucide-angular>
+      </div>
+      <h3 class="adhoc-title">Reporte de Activos</h3>
+      <p class="adhoc-desc">Inventario completo de activos CMDB con estado, ubicación y responsable.</p>
+      <form class="adhoc-form" [formGroup]="forms.assets" (ngSubmit)="onGenerate('assets')">
+        <div class="adhoc-filters">
+          <div class="sm-field">
+            <label class="sm-label">Desde</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateFrom"
+                   [class.input-error]="dateError('assets')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Hasta</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateTo"
+                   [class.input-error]="dateError('assets')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Formato</label>
+            <select class="sm-input sm-compact" formControlName="format">
+              <option value="PDF">PDF</option>
+              <option value="EXCEL">Excel</option>
+            </select>
+          </div>
+        </div>
+        @if (dateError('assets')) {
+          <span class="field-error">{{ dateError('assets') }}</span>
+        }
+        <button type="submit" class="btn btn-primary btn-sm w-full"
+                [disabled]="forms.assets.invalid || anyLoading">
+          <lucide-angular [name]="isLoading('assets') ? 'loader' : 'download'"
+                          [class.spinner]="isLoading('assets')" class="btn-icon"></lucide-angular>
+          {{ isLoading('assets') ? 'Generando...' : 'Generar' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Card SLA -->
+    <div class="sm-card adhoc-card">
+      <div class="adhoc-icon-wrap adhoc-icon-sla">
+        <lucide-angular name="bar-chart-3" class="adhoc-icon"></lucide-angular>
+      </div>
+      <h3 class="adhoc-title">Reporte SLA</h3>
+      <p class="adhoc-desc">Análisis de cumplimiento de SLA por técnico, equipo y prioridad de ticket.</p>
+      <form class="adhoc-form" [formGroup]="forms.sla" (ngSubmit)="onGenerate('sla')">
+        <div class="adhoc-filters">
+          <div class="sm-field">
+            <label class="sm-label">Desde</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateFrom"
+                   [class.input-error]="dateError('sla')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Hasta</label>
+            <input type="date" class="sm-input sm-compact" formControlName="dateTo"
+                   [class.input-error]="dateError('sla')" />
+          </div>
+          <div class="sm-field">
+            <label class="sm-label">Formato</label>
+            <select class="sm-input sm-compact" formControlName="format">
+              <option value="PDF">PDF</option>
+              <option value="EXCEL">Excel</option>
+            </select>
+          </div>
+        </div>
+        @if (dateError('sla')) {
+          <span class="field-error">{{ dateError('sla') }}</span>
+        }
+        <button type="submit" class="btn btn-primary btn-sm w-full"
+                [disabled]="forms.sla.invalid || anyLoading">
+          <lucide-angular [name]="isLoading('sla') ? 'loader' : 'download'"
+                          [class.spinner]="isLoading('sla')" class="btn-icon"></lucide-angular>
+          {{ isLoading('sla') ? 'Generando...' : 'Generar' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

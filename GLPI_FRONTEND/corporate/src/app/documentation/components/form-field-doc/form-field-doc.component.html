@@ -1,0 +1,442 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Form Field Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Label&lt;/<em>app-label</em>&gt;
+    &lt;app-icon <em>appPrefix</em>&gt;search&lt;/app-icon&gt;
+    &lt;span <em>appTextPrefix</em>&gt;$&lt;/span&gt;
+    &lt;input <em>appInput</em> type="text"&gt;
+    &lt;span <em>appTextSuffix</em>&gt;.00&lt;/span&gt;
+    &lt;button <em>appSuffix</em> appIconButton&gt;&lt;app-icon&gt;clear&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;<em>app-hint</em>&gt;Hint Message&lt;/<em>app-hint</em>&gt;
+    &lt;<em>app-error</em>&gt;Custom Error Message&lt;/<em>app-error</em>&gt;
+    &lt;<em>app-warning</em>&gt;Warning Message&lt;/<em>app-warning</em>&gt;
+    &lt;<em>app-success</em>&gt;Success Message&lt;/<em>app-success</em>&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-form-field</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>app-label</em> extends <em>TextBase</em></samp></li>
+                    <li><samp><em>appPrefix</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>appTextPrefix</em> extends <em>TextBase</em></samp></li>
+                    <li><samp><em>appInput</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>appTextSuffix</em> extends <em>TextBase</em></samp></li>
+                    <li><samp><em>appSuffix</em> extends <em>BoxBase</em></samp></li>
+                    <li><samp><em>app-hint</em> extends <em>TextBase</em></samp> - Color Text Module</li>
+                    <li><samp><em>app-error</em> extends <em>TextBase</em></samp> - Color Text Module</li>
+                    <li><samp><em>app-warning</em> extends <em>TextBase</em></samp> - Color Text Module</li>
+                    <li><samp><em>app-success</em> extends <em>TextBase</em></samp> - Color Text Module</li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Simple Form Fields</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Label&lt;/<em>app-label</em>&gt;
+    &lt;input <em>appInput</em> type="text" placeholder="Input"&gt;
+&lt;/<em>app-form-field</em>&gt;
+
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Label&lt;/<em>app-label</em>&gt;
+    &lt;textarea <em>appInput</em> placeholder="Textarea"&gt;&lt;/textarea&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Label</app-label>
+                            <input appInput type="text" placeholder="Input">
+                        </app-form-field>
+
+                        <app-form-field>
+                            <app-label>Label</app-label>
+                            <textarea appInput placeholder="Textarea"></textarea>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Prefix</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Filtro&lt;/<em>app-label</em>&gt;
+    &lt;app-icon <em>appPrefix</em>&gt;search&lt;/app-icon&gt;
+    &lt;input <em>appInput</em> type="text" placeholder="Buscar"&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Filtro</app-label>
+                            <app-icon appPrefix>search</app-icon>
+                            <input appInput type="text" placeholder="Buscar">
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Suffix</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Usuario&lt;/<em>app-label</em>&gt;
+    &lt;input <em>appInput</em> type="text" placeholder="Usuario"&gt;
+    &lt;app-icon <em>appSuffix</em>&gt;person&lt;/app-icon&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Usuario</app-label>
+                            <input appInput type="text" placeholder="Usuario">
+                            <app-icon appSuffix>person</app-icon>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Prefix & Suffix Buttons</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Cantidad&lt;/<em>app-label</em>&gt;
+    &lt;button <em>appPrefix</em> appIconButton variant="tertiary" (click)="numero.value = +numero.value - 10"&gt;
+        &lt;app-icon&gt;remove&lt;/app-icon&gt;
+    &lt;/button&gt;
+    &lt;input <em>appInput</em> textAlign="center" value="0" #numero&gt;
+    &lt;button <em>appSuffix</em> appIconButton variant="tertiary" (click)="numero.value = +numero.value + 10"&gt;
+        &lt;app-icon&gt;add&lt;/app-icon&gt;
+    &lt;/button&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Cantidad</app-label>
+                            <button appPrefix appIconButton variant="tertiary" (click)="numero.value = +numero.value - 10"><app-icon>remove</app-icon></button>
+                            <input appInput textAlign="center" value="100" #numero>
+                            <button appSuffix appIconButton variant="tertiary" (click)="numero.value = +numero.value + 10"><app-icon>add</app-icon></button>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Prefix Text</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Precio&lt;/<em>app-label</em>&gt;
+    &lt;span <em>appTextPrefix</em>&gt;$&lt;/span&gt;
+    &lt;input <em>appInput</em> type="text" placeholder="0.00"&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Precio</app-label>
+                            <span appTextPrefix>$</span>
+                            <input appInput type="text" placeholder="0.00">
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Suffix Text</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Cantidad&lt;/<em>app-label</em>&gt;
+    &lt;input <em>appInput</em> textAlign="end" placeholder="0"&gt;
+    &lt;span <em>appTextSuffix</em>&gt;.00&lt;/span&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Cantidad</app-label>
+                            <input appInput textAlign="end" placeholder="0">
+                            <span appTextSuffix>.00</span>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Hint, Error, Warning & Success</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(7)">
+                        <app-icon>{{ examples.isSelected(7) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content *appDefer>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(7)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html7" (copied)="onCopy('html7')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html7>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Número par&lt;/<em>app-label</em>&gt;
+    &lt;input <em>appInput</em> type="number" placeholder="0" [formControl]="numeroPar"&gt;
+    &lt;button <em>appSuffix</em> appIconButton color="danger" *ngIf="numeroPar.value"
+        (click)="numeroPar.setValue(null)"
+    &gt;
+        &lt;app-icon&gt;clear&lt;/app-icon&gt;
+    &lt;/button&gt;
+    
+    &lt;<em>app-hint</em>&gt;Escriba un número par &lt;/<em>app-hint</em>&gt;
+    &lt;<em>app-error</em> *ngIf="numeroPar.hasError('noEsPar')"&gt;{{ numeroPar.value }} no es par&lt;/<em>app-error</em>&gt;
+    &lt;<em>app-success</em>&gt;{{ numeroPar.value }} es par&lt;/<em>app-success</em>&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right *appDefer>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts7' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts7' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts7" (copied)="onCopy('ts7')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts7>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    readonly numeroPar = new FormControl(null, [
+        Validators.required,
+        (control) => &#123;
+            if (control.value === null) return null;
+            if (control.value % 2 === 0) return null;
+            else return &#123; noEsPar: true &#125;;
+        &#125;
+    ]);
+
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Número par</app-label>
+                            <input appInput type="number" placeholder="0" [formControl]="numeroPar">
+                            <button appSuffix appIconButton color="danger" *ngIf="numeroPar.value" (click)="numeroPar.setValue(null)"><app-icon>clear</app-icon></button>
+                            <app-hint>Escriba un número par</app-hint>
+                            <app-error *ngIf="numeroPar.hasError('noEsPar')">{{ numeroPar.value }} no es par</app-error>
+                            <app-success>{{ numeroPar.value }} es par</app-success>
+                        </app-form-field>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> Las validaciones comunes como "required", "min", "max", "minLength", "maxLength", "email" y "pattern" generan un mensaje de error automático. Para mensajes de validaciones personalizadas usar '<samp><em>app-error</em></samp>' explicitamente.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Custom Extra Content</app-card-title>
+                    <app-card-subtitle>Form Field</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(8)">
+                        <app-icon>{{ examples.isSelected(8) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(8)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html8" (copied)="onCopy('html8')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html8>
+&lt;<em>app-form-field</em>&gt;
+    &lt;<em>app-label</em>&gt;Vehículo&lt;/<em>app-label</em>&gt;
+    &lt;input <em>appInput</em> type="text" placeholder="Escriba o seleccione un vehículo" #vehiculo&gt;
+    &lt;button <em>appSuffix</em> appIconButton variant="tertiary" *ngIf="vehiculo.value" (click)="vehiculo.value = null"&gt;
+        &lt;app-icon&gt;clear&lt;/app-icon&gt;
+    &lt;/button&gt;
+
+    &lt;app-stack orientation="horizontal" padding&gt;
+        &lt;app-chip appRipple (click)="vehiculo.value = 'Bicicleta'"&gt;&lt;app-icon&gt;pedal_bike&lt;/app-icon&gt;Bicicleta&lt;/app-chip&gt;
+        &lt;app-chip appRipple (click)="vehiculo.value = 'Scooter'"&gt;&lt;app-icon&gt;scooter&lt;/app-icon&gt;Scooter&lt;/app-chip&gt;
+        &lt;app-chip appRipple (click)="vehiculo.value = 'Moto'"&gt;&lt;app-icon&gt;motorcycle&lt;/app-icon&gt;Moto&lt;/app-chip&gt;
+    &lt;/app-stack&gt;
+&lt;/<em>app-form-field</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop justify="start">
+                        <app-form-field>
+                            <app-label>Vehículo</app-label>
+                            <input appInput type="text" placeholder="Escriba o seleccione un vehículo" #vehiculo>
+                            <button appSuffix appIconButton variant="tertiary" *ngIf="vehiculo.value" (click)="vehiculo.value = null"><app-icon>clear</app-icon></button>
+                            <app-stack appScrollable="horizontal" orientation="horizontal" padding>
+                                <app-chip appRipple (click)="vehiculo.value = 'Bicicleta'"><app-icon>pedal_bike</app-icon>Bicicleta</app-chip>
+                                <app-chip appRipple (click)="vehiculo.value = 'Scooter'"><app-icon>scooter</app-icon>Scooter</app-chip>
+                                <app-chip appRipple (click)="vehiculo.value = 'Moto'"><app-icon>motorcycle</app-icon>Moto</app-chip>
+                            </app-stack>
+                        </app-form-field>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

@@ -1,0 +1,142 @@
+<div class="sm-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Contratos</h1>
+      <p class="sm-page-sub">Gestión de contratos con proveedores y licencias</p>
+    </div>
+    <div class="sm-page-actions">
+      <button class="btn btn-primary">
+        <lucide-angular name="plus" [size]="15"></lucide-angular>
+        <span>Nuevo Contrato</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="ct-stats-grid">
+    <div class="sm-stat-card">
+      <div class="stat-label">
+        <lucide-angular name="file-text" [size]="13"></lucide-angular>
+        Contratos Activos
+      </div>
+      <div class="stat-value">{{ totalActivos() }}</div>
+      <div class="stat-trend up">
+        <lucide-angular name="trending-up" [size]="12"></lucide-angular>
+        <span>+1 este trimestre</span>
+      </div>
+    </div>
+
+    <div class="sm-stat-card ct-stat-warn">
+      <div class="stat-label">
+        <lucide-angular name="alert-triangle" [size]="13"></lucide-angular>
+        Vencen en 90 días
+      </div>
+      <div class="stat-value" style="color:var(--warn-700);">{{ porVencer() }}</div>
+      <div class="stat-sub">Requieren renovación</div>
+    </div>
+
+    <div class="sm-stat-card">
+      <div class="stat-label">
+        <lucide-angular name="dollar-sign" [size]="13"></lucide-angular>
+        Monto Total
+      </div>
+      <div class="stat-value">{{ montoTotal() }}</div>
+      <div class="stat-sub">Contratos vigentes</div>
+    </div>
+  </div>
+
+  <!-- Timeline de vencimientos -->
+  <div class="sm-card ct-timeline-card">
+    <div class="sm-card-header">
+      <h3 class="sm-card-title">
+        <lucide-angular name="calendar-days" [size]="16"></lucide-angular>
+        Timeline de vencimientos
+      </h3>
+      <span class="badge is-pending">Próximos 6 meses</span>
+    </div>
+
+    <div class="ct-timeline">
+      <!-- Línea base -->
+      <div class="ct-timeline-line"></div>
+
+      @for (mes of timelineMeses(); track mes.label; let i = $index) {
+        <div class="ct-tl-col">
+          <!-- Contratos encima de la línea -->
+          <div class="ct-tl-items">
+            @for (c of mes.contratos; track c.nombre) {
+              <div class="ct-tl-item" [style.border-color]="c.color">
+                <span class="ct-tl-dot" [style.background]="c.color"></span>
+                {{ c.nombre }}
+              </div>
+            }
+          </div>
+          <!-- Marcador en la línea -->
+          <div class="ct-tl-marker" [class.has-events]="mes.contratos.length > 0"
+               [style.border-color]="mes.contratos.length ? mesColor(i) : 'var(--ink-300)'">
+          </div>
+          <!-- Etiqueta mes -->
+          <div class="ct-tl-label">{{ mes.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Tabla de contratos -->
+  <div class="sm-table-wrap" style="margin-top:var(--s-5);" [class.is-loading]="loading()">
+    @if (loading() && contratos().length === 0) {
+      <div class="sm-loading-box" style="padding: 40px; text-align: center; color: var(--ink-400);">
+        <p>Cargando contratos...</p>
+      </div>
+    }
+    <table class="sm-table" [style.opacity]="loading() ? 0.6 : 1">
+      <thead>
+        <tr>
+          <th style="width:36px;">#</th>
+          <th>Nombre</th>
+          <th style="width:130px;">Tipo</th>
+          <th>Proveedor</th>
+          <th style="width:100px;">Inicio</th>
+          <th style="width:100px;">Fin</th>
+          <th style="width:100px;text-align:right;">Valor</th>
+          <th style="width:110px;">Estado</th>
+          <th style="width:80px;text-align:center;">Activos</th>
+          <th style="width:60px;text-align:center;">Acc.</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of pagedContratos(); track c.id; let i = $index) {
+          <tr class="ct-row" (click)="onIrAlDetalle(c.id)">
+            <td style="color:var(--ink-400);text-align:center;font-size:12px;">{{ ((page() - 1) * pageSize()) + i + 1 }}</td>
+            <td class="ct-nombre">{{ c.nombre }}</td>
+            <td><span class="badge is-navy">{{ c.tipo }}</span></td>
+            <td style="color:var(--ink-600);font-size:var(--t-xs);">{{ c.proveedor }}</td>
+            <td style="color:var(--ink-600);font-size:var(--t-xs);">{{ c.inicio }}</td>
+            <td style="font-weight:600;font-size:var(--t-xs);" [class.fin-warn]="c.estado === 'Por vencer'" [class.fin-danger]="c.estado === 'Vencido'">{{ c.fin }}</td>
+            <td style="text-align:right;font-weight:700;font-family:var(--font-mono);font-size:var(--t-xs);">{{ formatMoney(c.valor) }}</td>
+            <td><span [class]="estadoBadge(c.estado)">{{ c.estado }}</span></td>
+            <td style="text-align:center;">
+              <span class="badge is-pending">{{ c.activos }}</span>
+            </td>
+            <td style="text-align:center;">
+              <button class="btn btn-ghost btn-sm ct-icon-btn"
+                      (click)="$event.stopPropagation(); onIrAlDetalle(c.id)"
+                      title="Ver detalle">
+                <lucide-angular name="eye" [size]="14"></lucide-angular>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <app-pagination
+      [totalItems]="contratos().length"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [pageSizeOptions]="[10, 20, 50]"
+      [disabled]="loading()"
+      (setPage)="setPage($event)"
+      (setPageSize)="setPageSize($event)">
+    </app-pagination>
+  </div>
+</div>

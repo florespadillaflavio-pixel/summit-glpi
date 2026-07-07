@@ -1,0 +1,2549 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Table Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/table</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em class="app-danger">table</em> <em><b>appTable</b></em> [<em><b>dataSource</b></em>]=<em class="app-warning">"</em>staticDataSource<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">ng-container</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> column <em class="app-hint">of</em> columns; <em class="app-info">let</em> i = index<em class="app-warning">"</em>
+        [<em><b>appColumnDef</b></em>]=<em class="app-warning">"</em>column<em class="app-warning">"</em>
+    &gt;
+        &lt;<em class="app-danger">th</em> <em><b>appHeaderCell</b></em> *<em><b>appHeaderCellDef</b></em>&gt;&#123;&#123; headers<em class="app-warning">[</em>i<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">th</em>&gt;
+        &lt;<em class="app-danger">td</em> <em><b>appCell</b></em> *<em><b>appCellDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> element<em class="app-warning">"</em>&gt;&#123;&#123; element<em class="app-warning">[</em>column<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">ng-container</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appHeaderRow</b></em> *<em><b>appHeaderRowDef</b></em>=<em class="app-warning">"</em>columns<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+    &lt;<em class="app-danger">tr</em> <em><b>appRow</b></em> *<em><b>appRowDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> row; columns: columns;<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+&lt;/<em class="app-danger">table</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <!-- <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-stack</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>orientation</em>]: 'vertical' | 'horizontal' | 'vertical-reverse' | 'horizontal-reverse' = 'vertical'</samp></li>
+                    <li><samp>[<em>wrap</em>]: 'wrap' | 'nowrap' | 'wrap-reverse' = 'nowrap'</samp></li>
+                    <li><samp>[<em>gap</em>]: string | number = '16px'</samp></li>
+                    <li><samp>[<em>noGap</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>justify</em>]: 'center' | 'start' | 'end' | 'stretch' = 'stretch'</samp></li>
+                    <li><samp>[<em>align</em>]: 'center' | 'start' | 'end' | 'stretch' = 'stretch'</samp></li>
+                </ul>
+            </app-stack> -->
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <!-- Example 1 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla Estática Básica</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em class="app-danger">table</em> <em><b>appTable</b></em> [<em><b>dataSource</b></em>]=<em class="app-warning">"</em>staticDataSource<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">ng-container</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> column <em class="app-hint">of</em> columns; <em class="app-info">let</em> i = index<em class="app-warning">"</em>
+        [<em><b>appColumnDef</b></em>]=<em class="app-warning">"</em>column<em class="app-warning">"</em>
+    &gt;
+        &lt;<em class="app-danger">th</em> <em><b>appHeaderCell</b></em> *<em><b>appHeaderCellDef</b></em>&gt;&#123;&#123; headers<em class="app-warning">[</em>i<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">th</em>&gt;
+        &lt;<em class="app-danger">td</em> <em><b>appCell</b></em> *<em><b>appCellDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> element<em class="app-warning">"</em>&gt;&#123;&#123; element<em class="app-warning">[</em>column<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">ng-container</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appHeaderRow</b></em> *<em><b>appHeaderRowDef</b></em>=<em class="app-warning">"</em>columns<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+    &lt;<em class="app-danger">tr</em> <em><b>appRow</b></em> *<em><b>appRowDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> row; columns: columns;<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+&lt;/<em class="app-danger">table</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts1" (copied)="onCopy('ts1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts1>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+
+<em class="app-main">&#64;Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> MyComponent &#123;
+    columns: <em class="app-hint">string</em>[] = [<em class="app-warning">'position'</em>, <em class="app-warning">'name'</em>, <em class="app-warning">'weight'</em>, <em class="app-warning">'symbol'</em>];
+    headers: <em class="app-hint">string</em>[] = [<em class="app-warning">'N°'</em>, <em class="app-warning">'Name'</em>, <em class="app-warning">'Weight'</em>, <em class="app-warning">'Symbol'</em>];
+    staticDataSource = ELEMENT_DATA;
+&#125;
+
+<em class="app-info">interface</em> <em class="app-main">PeriodicElement</em> &#123;
+    name: <em class="app-hint">string</em>;
+    position: <em class="app-hint">number</em>;
+    weight: <em class="app-hint">number</em>;
+    symbol: <em class="app-hint">string</em>;
+&#125;
+
+<em class="app-info">const</em> ELEMENT_DATA: <em class="app-main">PeriodicElement</em>[] = [
+    &#123; position: <em class="app-hint">1</em>,   name: <em class="app-warning">'Hydrogen'</em>,  weight: <em class="app-hint">1.0079</em>,   symbol: <em class="app-warning">'H'</em> &#125;,
+    &#123; position: <em class="app-hint">2</em>,   name: <em class="app-warning">'Helium'</em>,    weight: <em class="app-hint">4.0026</em>,   symbol: <em class="app-warning">'He'</em> &#125;,
+    &#123; position: <em class="app-hint">3</em>,   name: <em class="app-warning">'Lithium'</em>,   weight: <em class="app-hint">6.941</em>,    symbol: <em class="app-warning">'Li'</em> &#125;,
+    &#123; position: <em class="app-hint">4</em>,   name: <em class="app-warning">'Beryllium'</em>, weight: <em class="app-hint">9.0122</em>,   symbol: <em class="app-warning">'Be'</em> &#125;,
+    &#123; position: <em class="app-hint">5</em>,   name: <em class="app-warning">'Boron'</em>,     weight: <em class="app-hint">10.811</em>,   symbol: <em class="app-warning">'B'</em> &#125;,
+    &#123; position: <em class="app-hint">6</em>,   name: <em class="app-warning">'Carbon'</em>,    weight: <em class="app-hint">12.0107</em>,  symbol: <em class="app-warning">'C'</em> &#125;,
+    &#123; position: <em class="app-hint">7</em>,   name: <em class="app-warning">'Nitrogen'</em>,  weight: <em class="app-hint">14.0067</em>,  symbol: <em class="app-warning">'N'</em> &#125;,
+    &#123; position: <em class="app-hint">8</em>,   name: <em class="app-warning">'Oxygen'</em>,    weight: <em class="app-hint">15.9994</em>,  symbol: <em class="app-warning">'O'</em> &#125;,
+    &#123; position: <em class="app-hint">9</em>,   name: <em class="app-warning">'Fluorine'</em>,  weight: <em class="app-hint">18.9984</em>,  symbol: <em class="app-warning">'F'</em> &#125;,
+    &#123; position: <em class="app-hint">10</em>,  name: <em class="app-warning">'Neon'</em>,      weight: <em class="app-hint">20.1797</em>,  symbol: <em class="app-warning">'Ne'</em> &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="staticDataSource">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+                        </table>
+
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>lightbulb</app-icon>
+                            <strong>SUGERENCIA:</strong> Usar esta tabla para información estática (sin ordenamiento ni paginado). De no ser el caso, usar tablas reactivas.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 2 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla Reactiva</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em class="app-danger">table</em> <em><b>appTable</b></em> [<em><b>dataSource</b></em>]=<em class="app-warning">"</em>dataSource<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">ng-container</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> column <em class="app-hint">of</em> columns; <em class="app-info">let</em> i = index<em class="app-warning">"</em>
+        [<em><b>appColumnDef</b></em>]=<em class="app-warning">"</em>column<em class="app-warning">"</em>
+    &gt;
+        &lt;<em class="app-danger">th</em> <em><b>appHeaderCell</b></em> *<em><b>appHeaderCellDef</b></em>&gt;&#123;&#123; headers<em class="app-warning">[</em>i<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">th</em>&gt;
+        &lt;<em class="app-danger">td</em> <em><b>appCell</b></em> *<em><b>appCellDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> element<em class="app-warning">"</em>&gt;&#123;&#123; element<em class="app-warning">[</em>column<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">ng-container</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appHeaderRow</b></em> *<em><b>appHeaderRowDef</b></em>=<em class="app-warning">"</em>columns<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+    &lt;<em class="app-danger">tr</em> <em><b>appRow</b></em> *<em><b>appRowDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> row; columns: columns;<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+&lt;/<em class="app-danger">table</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts2" (copied)="onCopy('ts2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts2>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; TableDataSource &#125; <em class="app-danger">from</em> <em class="app-warning">'@app/shared/material/table'</em>;
+
+<em class="app-main">&#64;Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> MyComponent &#123;
+
+    columns: <em class="app-hint">string</em>[] = [<em class="app-warning">'position'</em>, <em class="app-warning">'name'</em>, <em class="app-warning">'weight'</em>, <em class="app-warning">'symbol'</em>];
+    headers: <em class="app-hint">string</em>[] = [<em class="app-warning">'N°'</em>, <em class="app-warning">'Name'</em>, <em class="app-warning">'Weight'</em>, <em class="app-warning">'Symbol'</em>];
+    dataSource = <em class="app-danger">new</em> <em><b>TableDataSource</b></em>(ELEMENT_DATA);
+
+&#125;
+
+<em class="app-info">interface</em> <em class="app-main">PeriodicElement</em> &#123;
+    name: <em class="app-hint">string</em>;
+    position: <em class="app-hint">number</em>;
+    weight: <em class="app-hint">number</em>;
+    symbol: <em class="app-hint">string</em>;
+&#125;
+
+<em class="app-info">const</em> ELEMENT_DATA: <em class="app-main">PeriodicElement</em>[] = [
+    &#123; position: <em class="app-hint">1</em>,   name: <em class="app-warning">'Hydrogen'</em>,  weight: <em class="app-hint">1.0079</em>,   symbol: <em class="app-warning">'H'</em> &#125;,
+    &#123; position: <em class="app-hint">2</em>,   name: <em class="app-warning">'Helium'</em>,    weight: <em class="app-hint">4.0026</em>,   symbol: <em class="app-warning">'He'</em> &#125;,
+    &#123; position: <em class="app-hint">3</em>,   name: <em class="app-warning">'Lithium'</em>,   weight: <em class="app-hint">6.941</em>,    symbol: <em class="app-warning">'Li'</em> &#125;,
+    &#123; position: <em class="app-hint">4</em>,   name: <em class="app-warning">'Beryllium'</em>, weight: <em class="app-hint">9.0122</em>,   symbol: <em class="app-warning">'Be'</em> &#125;,
+    &#123; position: <em class="app-hint">5</em>,   name: <em class="app-warning">'Boron'</em>,     weight: <em class="app-hint">10.811</em>,   symbol: <em class="app-warning">'B'</em> &#125;,
+    &#123; position: <em class="app-hint">6</em>,   name: <em class="app-warning">'Carbon'</em>,    weight: <em class="app-hint">12.0107</em>,  symbol: <em class="app-warning">'C'</em> &#125;,
+    &#123; position: <em class="app-hint">7</em>,   name: <em class="app-warning">'Nitrogen'</em>,  weight: <em class="app-hint">14.0067</em>,  symbol: <em class="app-warning">'N'</em> &#125;,
+    &#123; position: <em class="app-hint">8</em>,   name: <em class="app-warning">'Oxygen'</em>,    weight: <em class="app-hint">15.9994</em>,  symbol: <em class="app-warning">'O'</em> &#125;,
+    &#123; position: <em class="app-hint">9</em>,   name: <em class="app-warning">'Fluorine'</em>,  weight: <em class="app-hint">18.9984</em>,  symbol: <em class="app-warning">'F'</em> &#125;,
+    &#123; position: <em class="app-hint">10</em>,  name: <em class="app-warning">'Neon'</em>,      weight: <em class="app-hint">20.1797</em>,  symbol: <em class="app-warning">'Ne'</em> &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="dataSource">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+                        </table>
+
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>lightbulb</app-icon>
+                            <strong>SUGERENCIA:</strong> Usar este tipo de tabla para compatibilidad con <em>filtro</em>, <code><em>AppSort</em></code> y/o <code><em>AppPaginator</em></code>.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 3 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Añadir o eliminar filas con tabla estática</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">wrap</em>=<em class="app-warning">"wrap"</em>&gt;
+    &lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">appearance</em>=<em class="app-warning">"raised"</em> (<em class="app-main">click</em>)=<em class="app-warning">"</em>addFila<em class="app-warning">()"</em>&gt;
+        &lt;<em class="app-danger">app-icon</em>&gt;add&lt;/<em class="app-danger">app-icon</em>&gt;
+        Añadir fila
+    &lt;/<em class="app-danger">button</em>&gt;
+
+    &lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">appearance</em>=<em class="app-warning">"raised"</em> <em class="app-main">color</em>=<em class="app-warning">"danger"</em>
+        [<em class="app-main">disabled</em>]=<em class="app-warning">"</em><em class="app-danger">!</em>staticDataSource.length<em class="app-warning">"</em>
+        (<em class="app-main">click</em>)=<em class="app-warning">"</em>removeFila<em class="app-warning">()"</em>&gt;
+        &lt;<em class="app-danger">app-icon</em>&gt;remove&lt;/<em class="app-danger">app-icon</em>&gt;
+        Eliminar fila
+    &lt;/<em class="app-danger">button</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em class="app-danger">table</em> <em><b>appTable</b></em> [<em><b>dataSource</b></em>]=<em class="app-warning">"</em>staticDataSource<em class="app-warning">"</em> <em class="app-info">#tabla</em>&gt;
+    &lt;<em class="app-danger">ng-container</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> column <em class="app-hint">of</em> columns; <em class="app-info">let</em> i = index<em class="app-warning">"</em>
+        [<em><b>appColumnDef</b></em>]=<em class="app-warning">"</em>column<em class="app-warning">"</em>&gt;
+        &lt;<em class="app-danger">th</em> <em><b>appHeaderCell</b></em> *<em><b>appHeaderCellDef</b></em>&gt;&#123;&#123; headers<em class="app-warning">[</em>i<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">th</em>&gt;
+        &lt;<em class="app-danger">td</em> <em><b>appCell</b></em> *<em><b>appCellDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> element<em class="app-warning">"</em>&gt;&#123;&#123; element<em class="app-warning">[</em>column<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">ng-container</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appHeaderRow</b></em> *<em><b>appHeaderRowDef</b></em>=<em class="app-warning">"</em>columns<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+    &lt;<em class="app-danger">tr</em> <em><b>appRow</b></em> *<em><b>appRowDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> row; columns: columns;<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appNoDataRow</b></em> *<em><b>appNoDataRow</b></em>&gt;
+        &lt;<em class="app-danger">td</em> [<em>attr</em>.<em>colspan</em>]=<em class="app-warning">"</em>columns.length<em class="app-warning">"</em>&gt;
+            &lt;<em class="app-danger">app-stack</em> <em class="app-main">noGap</em> <em class="app-main">height</em>=<em class="app-warning">"200"</em> <em class="app-main">justify</em>=<em class="app-warning">"center"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+                &lt;<em class="app-danger">app-icon</em> <em class="app-main">fill</em> <em class="app-main">fontSize</em>=<em class="app-warning">"36"</em>&gt;table&lt;/<em class="app-danger">app-icon</em>&gt;
+                &lt;<em class="app-danger">h6</em>&gt;No results found&lt;/<em class="app-danger">h6</em>&gt;
+            &lt;/<em class="app-danger">app-stack</em>&gt;
+        &lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">tr</em>&gt;
+&lt;/<em class="app-danger">table</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+<em class="app-danger">import</em> &#123; Component, ViewChild &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; AppTable &#125; <em class="app-danger">from</em> <em class="app-warning">'@app/shared/material/table'</em>;
+
+<em class="app-main">&#64;Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> MyComponent &#123;
+    <em class="app-main">&#64;ViewChild</em>(<em class="app-warning">'tabla'</em>) table: <em><b>AppTable</b></em>&lt;<em class="app-main">PeriodicElement</em>&gt;;
+
+    columns: <em class="app-hint">string</em>[] = [<em class="app-warning">'position'</em>, <em class="app-warning">'name'</em>, <em class="app-warning">'weight'</em>, <em class="app-warning">'symbol'</em>];
+    headers: <em class="app-hint">string</em>[] = [<em class="app-warning">'N°'</em>, <em class="app-warning">'Name'</em>, <em class="app-warning">'Weight'</em>, <em class="app-warning">'Symbol'</em>];
+    staticDataSource = ELEMENT_DATA;
+
+    <em class="app-main">addFila</em>() &#123;
+        <em class="app-info">const</em> randomElementIndex = <em class="app-info">Math</em>.<em class="app-main">floor</em>(<em class="app-info">Math</em>.<em class="app-main">random</em>() <em class="app-hint">*</em> ELEMENT_DATA.length);
+        <em class="app-danger">this</em>.staticDataSource.<em class="app-main">push</em>(ELEMENT_DATA[randomElementIndex]);
+        <em class="app-danger">this</em>.table.<em class="app-main">renderRows</em>();
+    &#125;
+
+    <em class="app-main">removeFila</em>() &#123;
+        <em class="app-danger">this</em>.staticDataSource.<em class="app-main">pop</em>();
+        <em class="app-danger">this</em>.table.<em class="app-main">renderRows</em>();
+    &#125;
+&#125;
+
+<em class="app-info">interface</em> <em class="app-main">PeriodicElement</em> &#123;
+    name: <em class="app-hint">string</em>;
+    position: <em class="app-hint">number</em>;
+    weight: <em class="app-hint">number</em>;
+    symbol: <em class="app-hint">string</em>;
+&#125;
+
+<em class="app-info">const</em> ELEMENT_DATA: <em class="app-main">PeriodicElement</em>[] = [
+    &#123; position: <em class="app-hint">1</em>,   name: <em class="app-warning">'Hydrogen'</em>,  weight: <em class="app-hint">1.0079</em>,   symbol: <em class="app-warning">'H'</em> &#125;,
+    &#123; position: <em class="app-hint">2</em>,   name: <em class="app-warning">'Helium'</em>,    weight: <em class="app-hint">4.0026</em>,   symbol: <em class="app-warning">'He'</em> &#125;,
+    &#123; position: <em class="app-hint">3</em>,   name: <em class="app-warning">'Lithium'</em>,   weight: <em class="app-hint">6.941</em>,    symbol: <em class="app-warning">'Li'</em> &#125;,
+    &#123; position: <em class="app-hint">4</em>,   name: <em class="app-warning">'Beryllium'</em>, weight: <em class="app-hint">9.0122</em>,   symbol: <em class="app-warning">'Be'</em> &#125;,
+    &#123; position: <em class="app-hint">5</em>,   name: <em class="app-warning">'Boron'</em>,     weight: <em class="app-hint">10.811</em>,   symbol: <em class="app-warning">'B'</em> &#125;,
+    &#123; position: <em class="app-hint">6</em>,   name: <em class="app-warning">'Carbon'</em>,    weight: <em class="app-hint">12.0107</em>,  symbol: <em class="app-warning">'C'</em> &#125;,
+    &#123; position: <em class="app-hint">7</em>,   name: <em class="app-warning">'Nitrogen'</em>,  weight: <em class="app-hint">14.0067</em>,  symbol: <em class="app-warning">'N'</em> &#125;,
+    &#123; position: <em class="app-hint">8</em>,   name: <em class="app-warning">'Oxygen'</em>,    weight: <em class="app-hint">15.9994</em>,  symbol: <em class="app-warning">'O'</em> &#125;,
+    &#123; position: <em class="app-hint">9</em>,   name: <em class="app-warning">'Fluorine'</em>,  weight: <em class="app-hint">18.9984</em>,  symbol: <em class="app-warning">'F'</em> &#125;,
+    &#123; position: <em class="app-hint">10</em>,  name: <em class="app-warning">'Neon'</em>,      weight: <em class="app-hint">20.1797</em>,  symbol: <em class="app-warning">'Ne'</em> &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" wrap="wrap">
+                            <button appFab variant="primary" appearance="raised" (click)="addFila()">
+                                <app-icon>add</app-icon>
+                                Añadir fila
+                            </button>
+                            <button appFab variant="primary" appearance="raised" color="danger"
+                                [disabled]="!staticDataSource.length"
+                                (click)="removeFila()"
+                            >
+                                <app-icon>remove</app-icon>
+                                Eliminar fila
+                            </button>
+                        </app-stack>
+                        
+                        <table appTable [dataSource]="staticDataSource" #tabla>
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">table</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <app-alert color="main">
+                            <app-icon appAlertIcon>priority_high</app-icon>
+                            <strong>IMPORTANTE:</strong> Al ser una tabla estática, requiere del uso explícito del método <code>.<em>renderRows</em>()</code> de la tabla para renderizar los cambios.
+                        </app-alert>
+                        
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>visibility</app-icon>
+                            <strong>OJO:</strong> Para agregar o eliminar columns no es necesario el uso del método <code>.<em>renderRows</em>()</code>, ya que las columnas se renderizan por medio del <code>*ngFor</code>.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 4 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Añadir o eliminar filas con tabla reactiva/dinámica</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em class="app-danger">app-stack</em> <em class="app-main">orientation</em>=<em class="app-warning">"horizontal"</em> <em class="app-main">wrap</em>=<em class="app-warning">"wrap"</em>&gt;
+    &lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">appearance</em>=<em class="app-warning">"raised"</em> (<em class="app-main">click</em>)=<em class="app-warning">"</em>addFila<em class="app-warning">()"</em>&gt;
+        &lt;<em class="app-danger">app-icon</em>&gt;add&lt;/<em class="app-danger">app-icon</em>&gt;
+        Añadir fila
+    &lt;/<em class="app-danger">button</em>&gt;
+
+    &lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">appearance</em>=<em class="app-warning">"raised"</em> <em class="app-main">color</em>=<em class="app-warning">"danger"</em>
+        [<em class="app-main">disabled</em>]=<em class="app-warning">"</em><em class="app-danger">!</em>dataSource.data.length<em class="app-warning">"</em>
+        (<em class="app-main">click</em>)=<em class="app-warning">"</em>removeFila<em class="app-warning">()"</em>&gt;
+        &lt;<em class="app-danger">app-icon</em>&gt;remove&lt;/<em class="app-danger">app-icon</em>&gt;
+        Eliminar fila
+    &lt;/<em class="app-danger">button</em>&gt;
+&lt;/<em class="app-danger">app-stack</em>&gt;
+
+&lt;<em class="app-danger">table</em> <em><b>appTable</b></em> [<em><b>dataSource</b></em>]=<em class="app-warning">"</em>dataSource<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">ng-container</em> *<em class="app-main">ngFor</em>=<em class="app-warning">"</em><em class="app-info">let</em> column <em class="app-hint">of</em> columns; <em class="app-info">let</em> i = index<em class="app-warning">"</em>
+        [<em><b>appColumnDef</b></em>]=<em class="app-warning">"</em>column<em class="app-warning">"</em>&gt;
+        &lt;<em class="app-danger">th</em> <em><b>appHeaderCell</b></em> *<em><b>appHeaderCellDef</b></em>&gt;&#123;&#123; headers<em class="app-warning">[</em>i<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">th</em>&gt;
+        &lt;<em class="app-danger">td</em> <em><b>appCell</b></em> *<em><b>appCellDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> element<em class="app-warning">"</em>&gt;&#123;&#123; element<em class="app-warning">[</em>column<em class="app-warning">]</em> &#125;&#125;&lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">ng-container</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appHeaderRow</b></em> *<em><b>appHeaderRowDef</b></em>=<em class="app-warning">"</em>columns<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+    &lt;<em class="app-danger">tr</em> <em><b>appRow</b></em> *<em><b>appRowDef</b></em>=<em class="app-warning">"</em><em class="app-info">let</em> row; columns: columns;<em class="app-warning">"</em>&gt;&lt;/<em class="app-danger">tr</em>&gt;
+
+    &lt;<em class="app-danger">tr</em> <em><b>appNoDataRow</b></em> *<em><b>appNoDataRow</b></em>&gt;
+        &lt;<em class="app-danger">td</em> [<em>attr</em>.<em>colspan</em>]=<em class="app-warning">"</em>columns.length<em class="app-warning">"</em>&gt;
+            &lt;<em class="app-danger">app-stack</em> <em class="app-main">noGap</em> <em class="app-main">height</em>=<em class="app-warning">"200"</em> <em class="app-main">justify</em>=<em class="app-warning">"center"</em> <em class="app-main">align</em>=<em class="app-warning">"center"</em>&gt;
+                &lt;<em class="app-danger">app-icon</em> <em class="app-main">fill</em> <em class="app-main">fontSize</em>=<em class="app-warning">"36"</em>&gt;table&lt;/<em class="app-danger">app-icon</em>&gt;
+                &lt;<em class="app-danger">h6</em>&gt;No results found&lt;/<em class="app-danger">h6</em>&gt;
+            &lt;/<em class="app-danger">app-stack</em>&gt;
+        &lt;/<em class="app-danger">td</em>&gt;
+    &lt;/<em class="app-danger">tr</em>&gt;
+&lt;/<em class="app-danger">table</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts4" (copied)="onCopy('ts4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts4>
+<em class="app-danger">import</em> &#123; Component &#125; <em class="app-danger">from</em> <em class="app-warning">'&#64;angular/core'</em>;
+<em class="app-danger">import</em> &#123; TableDataSource &#125; <em class="app-danger">from</em> <em class="app-warning">'@app/shared/material/table'</em>;
+
+<em class="app-main">&#64;Component</em>(&#123;...&#125;)
+<em class="app-danger">export</em> <em class="app-info">class</em> MyComponent &#123;
+    columns: <em class="app-hint">string</em>[] = [<em class="app-warning">'position'</em>, <em class="app-warning">'name'</em>, <em class="app-warning">'weight'</em>, <em class="app-warning">'symbol'</em>];
+    headers: <em class="app-hint">string</em>[] = [<em class="app-warning">'N°'</em>, <em class="app-warning">'Name'</em>, <em class="app-warning">'Weight'</em>, <em class="app-warning">'Symbol'</em>];
+    dataSource = <em class="app-danger">new</em> <em><b>TableDataSource</b></em>(ELEMENT_DATA);
+
+    <em class="app-main">addFila</em>() &#123;
+        <em class="app-info">const</em> randomIndex = <em class="app-info">Math</em>.<em class="app-main">floor</em>(<em class="app-info">Math</em>.<em class="app-main">random</em>() <em class="app-hint">*</em> ELEMENT_DATA.length);
+        <em class="app-danger">this</em>.dataSource.data = [<em class="app-hint">...</em><em class="app-danger">this</em>.dataSource.data, ELEMENT_DATA[randomIndex]];
+    &#125;
+
+    <em class="app-main">removeFila</em>() &#123;
+        <em class="app-danger">this</em>.dataSource.data = <em class="app-danger">this</em>.dataSource.data.<em class="app-main">slice</em>(<em class="app-hint">0</em>, <em class="app-hint">-1</em>);
+    &#125;
+&#125;
+
+<em class="app-info">interface</em> <em class="app-main">PeriodicElement</em> &#123;
+    name: <em class="app-hint">string</em>;
+    position: <em class="app-hint">number</em>;
+    weight: <em class="app-hint">number</em>;
+    symbol: <em class="app-hint">string</em>;
+&#125;
+
+<em class="app-info">const</em> ELEMENT_DATA: <em class="app-main">PeriodicElement</em>[] = [
+    &#123; position: <em class="app-hint">1</em>,   name: <em class="app-warning">'Hydrogen'</em>,  weight: <em class="app-hint">1.0079</em>,   symbol: <em class="app-warning">'H'</em> &#125;,
+    &#123; position: <em class="app-hint">2</em>,   name: <em class="app-warning">'Helium'</em>,    weight: <em class="app-hint">4.0026</em>,   symbol: <em class="app-warning">'He'</em> &#125;,
+    &#123; position: <em class="app-hint">3</em>,   name: <em class="app-warning">'Lithium'</em>,   weight: <em class="app-hint">6.941</em>,    symbol: <em class="app-warning">'Li'</em> &#125;,
+    &#123; position: <em class="app-hint">4</em>,   name: <em class="app-warning">'Beryllium'</em>, weight: <em class="app-hint">9.0122</em>,   symbol: <em class="app-warning">'Be'</em> &#125;,
+    &#123; position: <em class="app-hint">5</em>,   name: <em class="app-warning">'Boron'</em>,     weight: <em class="app-hint">10.811</em>,   symbol: <em class="app-warning">'B'</em> &#125;,
+    &#123; position: <em class="app-hint">6</em>,   name: <em class="app-warning">'Carbon'</em>,    weight: <em class="app-hint">12.0107</em>,  symbol: <em class="app-warning">'C'</em> &#125;,
+    &#123; position: <em class="app-hint">7</em>,   name: <em class="app-warning">'Nitrogen'</em>,  weight: <em class="app-hint">14.0067</em>,  symbol: <em class="app-warning">'N'</em> &#125;,
+    &#123; position: <em class="app-hint">8</em>,   name: <em class="app-warning">'Oxygen'</em>,    weight: <em class="app-hint">15.9994</em>,  symbol: <em class="app-warning">'O'</em> &#125;,
+    &#123; position: <em class="app-hint">9</em>,   name: <em class="app-warning">'Fluorine'</em>,  weight: <em class="app-hint">18.9984</em>,  symbol: <em class="app-warning">'F'</em> &#125;,
+    &#123; position: <em class="app-hint">10</em>,  name: <em class="app-warning">'Neon'</em>,      weight: <em class="app-hint">20.1797</em>,  symbol: <em class="app-warning">'Ne'</em> &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal" wrap="wrap">
+                            <button appFab variant="primary" appearance="raised" (click)="addFila2()">
+                                <app-icon>add</app-icon>
+                                Añadir fila
+                            </button>
+                            <button appFab variant="primary" appearance="raised" color="danger"
+                                [disabled]="!dataSource4.data.length"
+                                (click)="removeFila2()"
+                            >
+                                <app-icon>remove</app-icon>
+                                Eliminar fila
+                            </button>
+                        </app-stack>
+                        
+                        <table appTable [dataSource]="dataSource4">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">table</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 5 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con filas expandibles</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;table appTable [dataSource]="dataSource" multiTemplateDataRows&gt;
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        appColumnDef="&#123;&#123; column &#125;&#125;"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"
+            [style.borderBottomWidth]="0"
+        &gt;
+            &#123;&#123; element[column] &#125;&#125;
+        &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container appColumnDef="expand"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef
+            appBoxBase width="0"
+            aria-label="row actions"
+        &gt;&nbsp;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"
+            [style.borderBottomWidth]="0"
+        &gt;
+            &lt;button appIconButton variant="tertiary"
+                appTransform [rotate]="selection.isSelected(element) ? 180 : 0"
+                (click)="selection.toggle(element); $event.stopPropagation()"
+            &gt;
+                &lt;app-icon&gt;keyboard_arrow_down&lt;/app-icon&gt;
+            &lt;/button&gt;
+        &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Expanded Content Column --&gt;
+    &lt;ng-container appColumnDef="expandedDetail"&gt;
+        &lt;td appCell *appCellDef="let element"
+            [attr.colspan]="columnsExpand.length"
+            [style.height]="selection.isSelected(element) ? 48 : 0"
+            appTransition="height"
+        &gt;
+            &lt;div *ngIf="selection.isSelected(element)" @expandY&gt;
+                &lt;app-stack orientation="horizontal" paddingVertical&gt;
+                    &lt;app-stack noGap padding backgroundColor borderRadius border minWidth="150"&gt;
+                        &lt;app-hint&gt;&#123;&#123; element.position &#125;&#125;&lt;/app-hint&gt;
+                        &lt;h2&gt;&#123;&#123; element.symbol &#125;&#125;&lt;/h2&gt;
+                        &lt;span&gt;&#123;&#123; element.name &#125;&#125;&lt;/span&gt;
+                        &lt;app-hint&gt;&#123;&#123; element.weight &#125;&#125;&lt;/app-hint&gt;
+                    &lt;/app-stack&gt;
+                    &lt;p&gt;&#123;&#123; element.description &#125;&#125;&lt;app-hint&gt; -- Wikipedia&lt;/app-hint&gt;&lt;/p&gt;
+                &lt;/app-stack&gt;
+            &lt;/div&gt;
+        &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columnsExpand"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columnsExpand;"
+        [style.cursor]="'pointer'"
+        (click)="selection.toggle(row)"
+    &gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: ['expandedDetail']"&gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columnsExpand.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;table&lt;/app-icon&gt;
+                &lt;h6&gt;No results found&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5" (copied)="onCopy('ts5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts5>
+import &#123; SelectionModel &#125; from '&#64;angular/cdk/collections';
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; expandY &#125; from '&#64;app/shared/animations';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;
+    ...
+    animations: [expandY]
+&#125;)
+export class MyComponent &#123;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    columnsExpand: string[] = [...this.columns, 'expand'];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+
+    dataSource = new TableDataSource(ELEMENT_DATA);
+    selection = new SelectionModel(false);
+
+&#125;
+
+interface PeriodicElement &#123;
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+    description: string;
+&#125;
+
+const ELEMENT_DATA: PeriodicElement[] = [
+    &#123;
+        position: 1,
+        name: 'Hydrogen',
+        weight: 1.0079,
+        symbol: 'H',
+        description: `Hydrogen is a chemical element with symbol H and atomic number 1. With a standard
+            atomic weight of 1.008, hydrogen is the lightest element on the periodic table.`,
+    &#125;,
+    &#123;
+        position: 2,
+        name: 'Helium',
+        weight: 4.0026,
+        symbol: 'He',
+        description: `Helium is a chemical element with symbol He and atomic number 2. It is a
+            colorless, odorless, tasteless, non-toxic, inert, monatomic gas, the first in the noble gas
+            group in the periodic table. Its boiling point is the lowest among all the elements.`,
+    &#125;,
+    &#123;
+        position: 3,
+        name: 'Lithium',
+        weight: 6.941,
+        symbol: 'Li',
+        description: `Lithium is a chemical element with symbol Li and atomic number 3. It is a soft,
+            silvery-white alkali metal. Under standard conditions, it is the lightest metal and the
+            lightest solid element.`,
+    &#125;,
+    &#123;
+        position: 4,
+        name: 'Beryllium',
+        weight: 9.0122,
+        symbol: 'Be',
+        description: `Beryllium is a chemical element with symbol Be and atomic number 4. It is a
+            relatively rare element in the universe, usually occurring as a product of the spallation of
+            larger atomic nuclei that have collided with cosmic rays.`,
+    &#125;,
+    &#123;
+        position: 5,
+        name: 'Boron',
+        weight: 10.811,
+        symbol: 'B',
+        description: `Boron is a chemical element with symbol B and atomic number 5. Produced entirely
+            by cosmic ray spallation and supernovae and not by stellar nucleosynthesis, it is a
+            low-abundance element in the Solar system and in the Earth's crust.`,
+    &#125;,
+    &#123;
+        position: 6,
+        name: 'Carbon',
+        weight: 12.0107,
+        symbol: 'C',
+        description: `Carbon is a chemical element with symbol C and atomic number 6. It is nonmetallic
+            and tetravalent—making four electrons available to form covalent chemical bonds. It belongs
+            to group 14 of the periodic table.`,
+    &#125;,
+    &#123;
+        position: 7,
+        name: 'Nitrogen',
+        weight: 14.0067,
+        symbol: 'N',
+        description: `Nitrogen is a chemical element with symbol N and atomic number 7. It was first
+            discovered and isolated by Scottish physician Daniel Rutherford in 1772.`,
+    &#125;,
+    &#123;
+        position: 8,
+        name: 'Oxygen',
+        weight: 15.9994,
+        symbol: 'O',
+        description: `Oxygen is a chemical element with symbol O and atomic number 8. It is a member of
+            the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing
+            agent that readily forms oxides with most elements as well as with other compounds.`,
+    &#125;,
+    &#123;
+        position: 9,
+        name: 'Fluorine',
+        weight: 18.9984,
+        symbol: 'F',
+        description: `Fluorine is a chemical element with symbol F and atomic number 9. It is the
+            lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard
+            conditions.`,
+    &#125;,
+    &#123;
+        position: 10,
+        name: 'Neon',
+        weight: 20.1797,
+        symbol: 'Ne',
+        description: `Neon is a chemical element with symbol Ne and atomic number 10. It is a noble gas.
+            Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about
+            two-thirds the density of air.`,
+    &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="dataSource5" multiTemplateDataRows>
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                appColumnDef="{{ column }}"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element"
+                                    [style.borderBottomWidth]="0"
+                                >
+                                    {{ element[column] }}
+                                </td>
+                            </ng-container>
+
+                            <ng-container appColumnDef="expand">
+                                <th appHeaderCell *appHeaderCellDef
+                                    appBoxBase width="0"
+                                    aria-label="row actions"
+                                >&nbsp;</th>
+                                <td appCell *appCellDef="let element"
+                                    [style.borderBottomWidth]="0"
+                                >
+                                    <button appIconButton variant="tertiary"
+                                        appTransform [rotate]="selection.isSelected(element) ? 180 : 0"
+                                        (click)="selection.toggle(element); $event.stopPropagation()"
+                                    >
+                                        <app-icon>keyboard_arrow_down</app-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <!-- Expanded Content Column -->
+                            <ng-container appColumnDef="expandedDetail">
+                                <td appCell *appCellDef="let element"
+                                    [attr.colspan]="columnsExpand.length"
+                                    [style.height]="selection.isSelected(element) ? 48 : 0"
+                                    appTransition="height"
+                                >
+                                    <div *ngIf="selection.isSelected(element)" @expandY>
+                                        <app-stack orientation="horizontal" paddingVertical>
+                                            <app-stack noGap padding backgroundColor borderRadius border minWidth="150">
+                                                <app-hint>{{ element.position }}</app-hint>
+                                                <h2>{{ element.symbol }}</h2>
+                                                <span>{{ element.name }}</span>
+                                                <app-hint>{{ element.weight }}</app-hint>
+                                            </app-stack>
+                                            <p>{{ element.description }}<app-hint> -- Wikipedia</app-hint></p>
+                                        </app-stack>
+                                    </div>
+                                </td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columnsExpand"></tr>
+                            <tr appRow *appRowDef="let row; columns: columnsExpand;"
+                                [style.cursor]="'pointer'"
+                                (click)="selection.toggle(row)"
+                            ></tr>
+                            <tr appRow *appRowDef="let row; columns: ['expandedDetail']"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columnsExpand.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">table</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <app-alert color="main">
+                            <app-icon appAlertIcon>priority_high</app-icon>
+                            <strong>IMPORTANTE:</strong> No olvidar agregar la animación <code>expandY</code> en la componente.
+                        </app-alert>
+
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>bookmark</app-icon>
+                            <strong>RECORDATORIO:</strong> No olvidar agregar <code><em>multiTemplateDataRows</em></code> para las filas múltiples.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 6 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con filtro</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;app-form-field&gt;
+    &lt;app-icon appPrefix&gt;search&lt;/app-icon&gt;
+    &lt;input appInput type="text" placeholder="Buscar" (keyup)="aplicarFiltro(search.value)" #search&gt;
+&lt;/app-form-field&gt;
+
+&lt;table appTable [dataSource]="dataSource"&gt;
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        [appColumnDef]="column"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columns"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columns;"&gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columns.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;search&lt;/app-icon&gt;
+                &lt;h6&gt;Sin resultados&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6" (copied)="onCopy('ts6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts6>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+    dataSource = new TableDataSource(ELEMENT_DATA);
+
+    aplicarFiltro(filtro: string) &#123;
+        this.dataSource.filter = filtro;
+    &#125;
+
+&#125;
+
+interface PeriodicElement &#123;
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+&#125;
+
+const ELEMENT_DATA: PeriodicElement[] = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.811, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-form-field>
+                            <app-icon appPrefix>search</app-icon>
+                            <input appInput type="text" placeholder="Buscar" (keyup)="aplicarFiltro(search.value)" #search>
+                        </app-form-field>
+
+                        <table appTable [dataSource]="dataSource6">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">search</app-icon>
+                                        <h6>Sin resultados</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 7 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con footer</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(7)">
+                        <app-icon>{{ examples.isSelected(7) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(7)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html7" (copied)="onCopy('html7')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html7>
+&lt;table appTable [dataSource]="transacciones"&gt;
+    &lt;!-- Columna Producto --&gt;
+    &lt;ng-container appColumnDef="producto"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Producto&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.producto &#125;&#125;&lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;Total&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Columna Precio --&gt;
+    &lt;ng-container appColumnDef="precio"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Precio&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.precio | currency: 'S/ ' &#125;&#125;&lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;&#123;&#123; costoTotal | currency: 'S/' &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columnas"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columnas;"&gt;&lt;/tr&gt;
+    &lt;tr appFooterRow *appFooterRowDef="columnas"&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts7' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts7' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts7" (copied)="onCopy('ts7')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts7>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columnas: string[] = ['producto', 'precio'];
+    transacciones: Transaccion[] = [
+        &#123; producto: 'Pelota de Playa', precio: 16 &#125;,
+        &#123; producto: 'Toalla', precio: 20 &#125;,
+        &#123; producto: 'Frisbee', precio: 8 &#125;,
+        &#123; producto: 'Bloqueador', precio: 16 &#125;,
+        &#123; producto: 'Cooler', precio: 100 &#125;,
+        &#123; producto: 'Ropa de baño', precio: 60 &#125;,
+    ];
+
+    get costoTotal() &#123;
+        return this.transacciones.map(t => t.precio).reduce((pre, cur) => pre + cur, 0);
+    &#125;
+    
+&#125;
+
+interface Transaccion &#123;
+    producto: string;
+    precio: number;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="transacciones">
+                            <!-- Columna Producto -->
+                            <ng-container appColumnDef="producto">
+                                <th appHeaderCell *appHeaderCellDef>Producto</th>
+                                <td appCell *appCellDef="let transaccion">{{ transaccion.producto }}</td>
+                                <td appFooterCell *appFooterCellDef>Total</td>
+                            </ng-container>
+
+                            <!-- Columna Precio -->
+                            <ng-container appColumnDef="precio">
+                                <th appHeaderCell *appHeaderCellDef>Precio</th>
+                                <td appCell *appCellDef="let transaccion">{{ transaccion.precio | currency: 'S/ ' }}</td>
+                                <td appFooterCell *appFooterCellDef>{{ costoTotal | currency: 'S/' }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columnas"></tr>
+                            <tr appRow *appRowDef="let row; columns: columnas;"></tr>
+                            <tr appFooterRow *appFooterRowDef="columnas"></tr>
+                        </table>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 8 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con multiples headers y footers</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(8)">
+                        <app-icon>{{ examples.isSelected(8) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(8)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html8" (copied)="onCopy('html8')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html8>
+&lt;table appTable [dataSource]="transacciones"&gt;
+    &lt;!-- Columna Producto --&gt;
+    &lt;ng-container appColumnDef="producto"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Producto&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.producto &#125;&#125;&lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;Total&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Columna Precio --&gt;
+    &lt;ng-container appColumnDef="precio"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Precio&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.precio | currency: 'S/ ' &#125;&#125;&lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;&#123;&#123; costoTotal | currency: 'S/' &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Columna Descripcion Producto --&gt;
+    &lt;ng-container appColumnDef="producto-descripcion"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef
+            appTextBase fontWeight="normal" height="30" backgroundColor="--light-secondary"
+        &gt;
+            &lt;i&gt;Nombre del producto comprado&lt;/i&gt;
+        &lt;/th&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Colimna Descripcion Precio --&gt;
+    &lt;ng-container appColumnDef="precio-descripcion"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef
+            appTextBase fontWeight="normal" height="30" backgroundColor="--light-secondary"
+        &gt;
+            &lt;i&gt;Precio del producto&lt;/i&gt;
+        &lt;/th&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Columna Advertencia --&gt;
+    &lt;ng-container appColumnDef="advertencia"&gt;
+        &lt;td appFooterCell *appFooterCellDef colspan="2"
+            appTextBase fontWeight="normal" height="30" border="none"
+        &gt;
+            &lt;i&gt;Tenga en cuenta que los precios de los artículos mostrados son total y completamente inventados.&lt;/i&gt;
+        &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columnas"&gt;&lt;/tr&gt;
+    &lt;tr appHeaderRow *appHeaderRowDef="['producto-descripcion', 'precio-descripcion']"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columnas;"&gt;&lt;/tr&gt;
+    &lt;tr appFooterRow *appFooterRowDef="columnas"&gt;&lt;/tr&gt;
+    &lt;tr appFooterRow *appFooterRowDef="['advertencia']"&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts8' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts8' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts8" (copied)="onCopy('ts8')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts8>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columnas: string[] = ['producto', 'precio'];
+    transacciones: Transaccion[] = [
+        &#123; producto: 'Pelota de Playa', precio: 16 &#125;,
+        &#123; producto: 'Toalla', precio: 20 &#125;,
+        &#123; producto: 'Frisbee', precio: 8 &#125;,
+        &#123; producto: 'Bloqueador', precio: 16 &#125;,
+        &#123; producto: 'Cooler', precio: 100 &#125;,
+        &#123; producto: 'Ropa de baño', precio: 60 &#125;,
+    ];
+
+    get costoTotal() &#123;
+        return this.transacciones.map(t => t.precio).reduce((pre, cur) => pre + cur, 0);
+    &#125;
+    
+&#125;
+
+interface Transaccion &#123;
+    producto: string;
+    precio: number;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="transacciones">
+                            <!-- Columna Producto -->
+                            <ng-container appColumnDef="producto">
+                                <th appHeaderCell *appHeaderCellDef>Producto</th>
+                                <td appCell *appCellDef="let transaccion">{{ transaccion.producto }}</td>
+                                <td appFooterCell *appFooterCellDef>Total</td>
+                            </ng-container>
+
+                            <!-- Columna Precio -->
+                            <ng-container appColumnDef="precio">
+                                <th appHeaderCell *appHeaderCellDef>Precio</th>
+                                <td appCell *appCellDef="let transaccion">{{ transaccion.precio | currency: 'S/ ' }}</td>
+                                <td appFooterCell *appFooterCellDef>{{ costoTotal | currency: 'S/' }}</td>
+                            </ng-container>
+
+                            <!-- Columna Descripcion Producto -->
+                            <ng-container appColumnDef="producto-descripcion">
+                                <th appHeaderCell *appHeaderCellDef
+                                    appTextBase fontWeight="normal" height="30" backgroundColor="--light-secondary"
+                                >
+                                    <i>Nombre del producto comprado</i>
+                                </th>
+                            </ng-container>
+
+                            <!-- Colimna Descripcion Precio -->
+                            <ng-container appColumnDef="precio-descripcion">
+                                <th appHeaderCell *appHeaderCellDef
+                                    appTextBase fontWeight="normal" height="30" backgroundColor="--light-secondary"
+                                >
+                                    <i>Precio del producto</i>
+                                </th>
+                            </ng-container>
+
+                            <!-- Columna Advertencia -->
+                            <ng-container appColumnDef="advertencia">
+                                <td appFooterCell *appFooterCellDef colspan="2"
+                                    appTextBase fontWeight="normal" height="30" border="none"
+                                >
+                                    <i>Tenga en cuenta que los precios de los artículos mostrados son total y completamente inventados.</i>
+                                </td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columnas"></tr>
+                            <tr appHeaderRow *appHeaderRowDef="['producto-descripcion', 'precio-descripcion']"></tr>
+                            <tr appRow *appRowDef="let row; columns: columnas;"></tr>
+                            <tr appFooterRow *appFooterRowDef="columnas"></tr>
+                            <tr appFooterRow *appFooterRowDef="['advertencia']"></tr>
+                        </table>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 9 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con zebra</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(9)">
+                        <app-icon>{{ examples.isSelected(9) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(9)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html9' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html9' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html9" (copied)="onCopy('html9')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html9>
+&lt;table appTable [dataSource]="transacciones"&gt;
+    &lt;!-- Columna Producto --&gt;
+    &lt;ng-container appColumnDef="producto"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Producto&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion; let even = even" [zebra]="even"&gt;
+            &#123;&#123; transaccion.producto &#125;&#125;
+        &lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;Total&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Columna Precio --&gt;
+    &lt;ng-container appColumnDef="precio"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;Precio&lt;/th&gt;
+        &lt;td appCell *appCellDef="let transaccion; let odd = odd" [zebra]="odd"&gt;
+            &#123;&#123; transaccion.precio | currency: 'S/ ' &#125;&#125;
+        &lt;/td&gt;
+        &lt;td appFooterCell *appFooterCellDef&gt;&#123;&#123; costoTotal | currency: 'S/' &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columnas"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columnas;"&gt;&lt;/tr&gt;
+    &lt;tr appFooterRow *appFooterRowDef="columnas"&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts9' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts9' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts9" (copied)="onCopy('ts9')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts9>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columnas: string[] = ['producto', 'precio'];
+    transacciones: Transaccion[] = [
+        &#123; producto: 'Pelota de Playa', precio: 16 &#125;,
+        &#123; producto: 'Toalla', precio: 20 &#125;,
+        &#123; producto: 'Frisbee', precio: 8 &#125;,
+        &#123; producto: 'Bloqueador', precio: 16 &#125;,
+        &#123; producto: 'Cooler', precio: 100 &#125;,
+        &#123; producto: 'Ropa de baño', precio: 60 &#125;,
+    ];
+
+    get costoTotal() &#123;
+        return this.transacciones.map(t => t.precio).reduce((pre, cur) => pre + cur, 0);
+    &#125;
+    
+&#125;
+
+interface Transaccion &#123;
+    producto: string;
+    precio: number;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="transacciones">
+                            <!-- Columna Producto -->
+                            <ng-container appColumnDef="producto">
+                                <th appHeaderCell *appHeaderCellDef>Producto</th>
+                                <td appCell *appCellDef="let transaccion; let even = even" [zebra]="even">
+                                    {{ transaccion.producto }}
+                                </td>
+                                <td appFooterCell *appFooterCellDef>Total</td>
+                            </ng-container>
+
+                            <!-- Columna Precio -->
+                            <ng-container appColumnDef="precio">
+                                <th appHeaderCell *appHeaderCellDef>Precio</th>
+                                <td appCell *appCellDef="let transaccion; let odd = odd" [zebra]="odd">
+                                    {{ transaccion.precio | currency: 'S/ ' }}
+                                </td>
+                                <td appFooterCell *appFooterCellDef>{{ costoTotal | currency: 'S/' }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columnas"></tr>
+                            <tr appRow *appRowDef="let row; columns: columnas;"></tr>
+                            <tr appFooterRow *appFooterRowDef="columnas"></tr>
+                        </table>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> Las directivas <code><em>appCellDef</em></code>, <code><em>appHeaderCellDef</em></code> y <code><em>appFooterCellDef</em></code> aceptan las siguientes <b>variables de contexto</b>:
+                            <ul>
+                                <li><code><em>let</em> i <em>=</em> index</code> - Índice de la fila (N° de fila - 1).</li>
+                                <li><code><em>let</em> count <em>=</em> count</code> - Número total de filas.</li>
+                                <li><code><em>let</em> first <em>=</em> first</code> - Verdadero para la primera fila.</li>
+                                <li><code><em>let</em> last <em>=</em> last</code> - Verdadero para la última fila.</li>
+                                <li><code><em>let</em> even <em>=</em> even</code> - Verdadero para las filas con índice par.</li>
+                                <li><code><em>let</em> odd <em>=</em> odd</code> - Verdadero para las filas con índice impar.</li>
+                            </ul>
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 10 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con paginado</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(10)">
+                        <app-icon>{{ examples.isSelected(10) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(10)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html10' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html10' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html10" (copied)="onCopy('html10')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html10>
+&lt;table appTable [dataSource]="dataSource"&gt;
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        [appColumnDef]="column"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columns"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columns;"&gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columns.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;search&lt;/app-icon&gt;
+                &lt;h6&gt;No results found&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;app-paginator showFirstLastButtons #paginator="appPaginator" /&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts10' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts10' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts10" (copied)="onCopy('ts10')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts10>
+import &#123; Component, ViewChild &#125; from '&#64;angular/core';
+import &#123; AppPaginator &#125; from '&#64;app/shared/material/paginator';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    &#64;ViewChild('paginator') paginator: AppPaginator;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+    dataSource = new TableDataSource(PERIODIC_TABLE);
+    
+    ngAfterViewInit() &#123;
+        this.dataSource.paginator = this.paginator;
+    &#125;
+
+&#125;
+
+const PERIODIC_TABLE = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.008, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.94, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.81, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.011, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.007, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.999, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.998, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.180, symbol: 'Ne' &#125;,
+    &#123; position: 11, name: 'Sodium', weight: 22.990, symbol: 'Na' &#125;,
+    &#123; position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' &#125;,
+    &#123; position: 13, name: 'Aluminum', weight: 26.982, symbol: 'Al' &#125;,
+    &#123; position: 14, name: 'Silicon', weight: 28.085, symbol: 'Si' &#125;,
+    &#123; position: 15, name: 'Phosphorus', weight: 30.974, symbol: 'P' &#125;,
+    &#123; position: 16, name: 'Sulfur', weight: 32.06, symbol: 'S' &#125;,
+    &#123; position: 17, name: 'Chlorine', weight: 35.45, symbol: 'Cl' &#125;,
+    &#123; position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' &#125;,
+    &#123; position: 19, name: 'Potassium', weight: 39.098, symbol: 'K' &#125;,
+    &#123; position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' &#125;,
+    &#123; position: 21, name: 'Scandium', weight: 44.956, symbol: 'Sc' &#125;,
+    &#123; position: 22, name: 'Titanium', weight: 47.867, symbol: 'Ti' &#125;,
+    &#123; position: 23, name: 'Vanadium', weight: 50.942, symbol: 'V' &#125;,
+    &#123; position: 24, name: 'Chromium', weight: 51.996, symbol: 'Cr' &#125;,
+    &#123; position: 25, name: 'Manganese', weight: 54.938, symbol: 'Mn' &#125;,
+    &#123; position: 26, name: 'Iron', weight: 55.845, symbol: 'Fe' &#125;,
+    &#123; position: 27, name: 'Cobalt', weight: 58.933, symbol: 'Co' &#125;,
+    &#123; position: 28, name: 'Nickel', weight: 58.693, symbol: 'Ni' &#125;,
+    &#123; position: 29, name: 'Copper', weight: 63.546, symbol: 'Cu' &#125;,
+    &#123; position: 30, name: 'Zinc', weight: 65.38, symbol: 'Zn' &#125;,
+    &#123; position: 31, name: 'Gallium', weight: 69.723, symbol: 'Ga' &#125;,
+    &#123; position: 32, name: 'Germanium', weight: 72.63, symbol: 'Ge' &#125;,
+    &#123; position: 33, name: 'Arsenic', weight: 74.922, symbol: 'As' &#125;,
+    &#123; position: 34, name: 'Selenium', weight: 78.971, symbol: 'Se' &#125;,
+    &#123; position: 35, name: 'Bromine', weight: 79.904, symbol: 'Br' &#125;,
+    &#123; position: 36, name: 'Krypton', weight: 83.798, symbol: 'Kr' &#125;,
+    &#123; position: 37, name: 'Rubidium', weight: 85.468, symbol: 'Rb' &#125;,
+    &#123; position: 38, name: 'Strontium', weight: 87.62, symbol: 'Sr' &#125;,
+    &#123; position: 39, name: 'Yttrium', weight: 88.906, symbol: 'Y' &#125;,
+    &#123; position: 40, name: 'Zirconium', weight: 91.224, symbol: 'Zr' &#125;,
+    &#123; position: 41, name: 'Niobium', weight: 92.906, symbol: 'Nb' &#125;,
+    &#123; position: 42, name: 'Molybdenum', weight: 95.95, symbol: 'Mo' &#125;,
+    &#123; position: 43, name: 'Technetium', weight: 98, symbol: 'Tc' &#125;,
+    &#123; position: 44, name: 'Ruthenium', weight: 101.07, symbol: 'Ru' &#125;,
+    &#123; position: 45, name: 'Rhodium', weight: 102.91, symbol: 'Rh' &#125;,
+    &#123; position: 46, name: 'Palladium', weight: 106.42, symbol: 'Pd' &#125;,
+    &#123; position: 47, name: 'Silver', weight: 107.87, symbol: 'Ag' &#125;,
+    &#123; position: 48, name: 'Cadmium', weight: 112.41, symbol: 'Cd' &#125;,
+    &#123; position: 49, name: 'Indium', weight: 114.82, symbol: 'In' &#125;,
+    &#123; position: 50, name: 'Tin', weight: 118.71, symbol: 'Sn' &#125;,
+    &#123; position: 51, name: 'Antimony', weight: 121.76, symbol: 'Sb' &#125;,
+    &#123; position: 52, name: 'Tellurium', weight: 127.60, symbol: 'Te' &#125;,
+    &#123; position: 53, name: 'Iodine', weight: 126.90, symbol: 'I' &#125;,
+    &#123; position: 54, name: 'Xenon', weight: 131.29, symbol: 'Xe' &#125;,
+    &#123; position: 55, name: 'Cesium', weight: 132.91, symbol: 'Cs' &#125;,
+    &#123; position: 56, name: 'Barium', weight: 137.33, symbol: 'Ba' &#125;,
+    &#123; position: 57, name: 'Lanthanum', weight: 138.91, symbol: 'La' &#125;,
+    &#123; position: 58, name: 'Cerium', weight: 140.12, symbol: 'Ce' &#125;,
+    &#123; position: 59, name: 'Praseodymium', weight: 140.91, symbol: 'Pr' &#125;,
+    &#123; position: 60, name: 'Neodymium', weight: 144.24, symbol: 'Nd' &#125;,
+    &#123; position: 61, name: 'Promethium', weight: 145, symbol: 'Pm' &#125;,
+    &#123; position: 62, name: 'Samarium', weight: 150.36, symbol: 'Sm' &#125;,
+    &#123; position: 63, name: 'Europium', weight: 151.96, symbol: 'Eu' &#125;,
+    &#123; position: 64, name: 'Gadolinium', weight: 157.25, symbol: 'Gd' &#125;,
+    &#123; position: 65, name: 'Terbium', weight: 158.93, symbol: 'Tb' &#125;,
+    &#123; position: 66, name: 'Dysprosium', weight: 162.50, symbol: 'Dy' &#125;,
+    &#123; position: 67, name: 'Holmium', weight: 164.93, symbol: 'Ho' &#125;,
+    &#123; position: 68, name: 'Erbium', weight: 167.26, symbol: 'Er' &#125;,
+    &#123; position: 69, name: 'Thulium', weight: 168.93, symbol: 'Tm' &#125;,
+    &#123; position: 70, name: 'Ytterbium', weight: 173.05, symbol: 'Yb' &#125;,
+    &#123; position: 71, name: 'Lutetium', weight: 174.97, symbol: 'Lu' &#125;,
+    &#123; position: 72, name: 'Hafnium', weight: 178.49, symbol: 'Hf' &#125;,
+    &#123; position: 73, name: 'Tantalum', weight: 180.95, symbol: 'Ta' &#125;,
+    &#123; position: 74, name: 'Tungsten', weight: 183.84, symbol: 'W' &#125;,
+    &#123; position: 75, name: 'Rhenium', weight: 186.21, symbol: 'Re' &#125;,
+    &#123; position: 76, name: 'Osmium', weight: 190.23, symbol: 'Os' &#125;,
+    &#123; position: 77, name: 'Iridium', weight: 192.22, symbol: 'Ir' &#125;,
+    &#123; position: 78, name: 'Platinum', weight: 195.08, symbol: 'Pt' &#125;,
+    &#123; position: 79, name: 'Gold', weight: 196.97, symbol: 'Au' &#125;,
+    &#123; position: 80, name: 'Mercury', weight: 200.59, symbol: 'Hg' &#125;,
+    &#123; position: 81, name: 'Thallium', weight: 204.38, symbol: 'Tl' &#125;,
+    &#123; position: 82, name: 'Lead', weight: 207.2, symbol: 'Pb' &#125;,
+    &#123; position: 83, name: 'Bismuth', weight: 208.98, symbol: 'Bi' &#125;,
+    &#123; position: 84, name: 'Polonium', weight: 209, symbol: 'Po' &#125;,
+    &#123; position: 85, name: 'Astatine', weight: 210, symbol: 'At' &#125;,
+    &#123; position: 86, name: 'Radon', weight: 222, symbol: 'Rn' &#125;,
+    &#123; position: 87, name: 'Francium', weight: 223, symbol: 'Fr' &#125;,
+    &#123; position: 88, name: 'Radium', weight: 226, symbol: 'Ra' &#125;,
+    &#123; position: 89, name: 'Actinium', weight: 227, symbol: 'Ac' &#125;,
+    &#123; position: 90, name: 'Thorium', weight: 232.04, symbol: 'Th' &#125;,
+    &#123; position: 91, name: 'Protactinium', weight: 231.04, symbol: 'Pa' &#125;,
+    &#123; position: 92, name: 'Uranium', weight: 238.03, symbol: 'U' &#125;,
+    &#123; position: 93, name: 'Neptunium', weight: 237, symbol: 'Np' &#125;,
+    &#123; position: 94, name: 'Plutonium', weight: 244, symbol: 'Pu' &#125;,
+    &#123; position: 95, name: 'Americium', weight: 243, symbol: 'Am' &#125;,
+    &#123; position: 96, name: 'Curium', weight: 247, symbol: 'Cm' &#125;,
+    &#123; position: 97, name: 'Berkelium', weight: 247, symbol: 'Bk' &#125;,
+    &#123; position: 98, name: 'Californium', weight: 251, symbol: 'Cf' &#125;,
+    &#123; position: 99, name: 'Einsteinium', weight: 252, symbol: 'Es' &#125;,
+    &#123; position: 100, name: 'Fermium', weight: 257, symbol: 'Fm' &#125;,
+    &#123; position: 101, name: 'Mendelevium', weight: 258, symbol: 'Md' &#125;,
+    &#123; position: 102, name: 'Nobelium', weight: 259, symbol: 'No' &#125;,
+    &#123; position: 103, name: 'Lawrencium', weight: 266, symbol: 'Lr' &#125;,
+    &#123; position: 104, name: 'Rutherfordium', weight: 267, symbol: 'Rf' &#125;,
+    &#123; position: 105, name: 'Dubnium', weight: 270, symbol: 'Db' &#125;,
+    &#123; position: 106, name: 'Seaborgium', weight: 271, symbol: 'Sg' &#125;,
+    &#123; position: 107, name: 'Bohrium', weight: 270, symbol: 'Bh' &#125;,
+    &#123; position: 108, name: 'Hassium', weight: 277, symbol: 'Hs' &#125;,
+    &#123; position: 109, name: 'Meitnerium', weight: 278, symbol: 'Mt' &#125;,
+    &#123; position: 110, name: 'Darmstadtium', weight: 281, symbol: 'Ds' &#125;,
+    &#123; position: 111, name: 'Roentgenium', weight: 282, symbol: 'Rg' &#125;,
+    &#123; position: 112, name: 'Copernicium', weight: 285, symbol: 'Cn' &#125;,
+    &#123; position: 113, name: 'Nihonium', weight: 286, symbol: 'Nh' &#125;,
+    &#123; position: 114, name: 'Flerovium', weight: 289, symbol: 'Fl' &#125;,
+    &#123; position: 115, name: 'Moscovium', weight: 290, symbol: 'Mc' &#125;,
+    &#123; position: 116, name: 'Livermorium', weight: 293, symbol: 'Lv' &#125;,
+    &#123; position: 117, name: 'Tennessine', weight: 294, symbol: 'Ts' &#125;,
+    &#123; position: 118, name: 'Oganesson', weight: 294, symbol: 'Og' &#125;
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <table appTable [dataSource]="dataSource10">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">search</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <app-paginator showFirstLastButtons #paginator10="appPaginator"/>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 11 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con filtro y paginado</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(11)">
+                        <app-icon>{{ examples.isSelected(11) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(11)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html11' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html11' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html11" (copied)="onCopy('html11')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html11>
+&lt;app-form-field&gt;
+    &lt;app-icon appPrefix&gt;search&lt;/app-icon&gt;
+    &lt;input appInput type="text" placeholder="Buscar" (keyup)="onFilter(filtro.value)" #filtro&gt;
+&lt;/app-form-field&gt;
+
+&lt;table appTable [dataSource]="dataSource"&gt;
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        [appColumnDef]="column"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columns"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columns;"&gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columns.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;search&lt;/app-icon&gt;
+                &lt;h6&gt;No results found&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;app-paginator showFirstLastButtons #paginator="appPaginator" /&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts11' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts11' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts11" (copied)="onCopy('ts11')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts11>
+import &#123; Component, ViewChild &#125; from '&#64;angular/core';
+import &#123; AppPaginator &#125; from '&#64;app/shared/material/paginator';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    &#64;ViewChild('paginator') paginator: AppPaginator;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+    dataSource = new TableDataSource(PERIODIC_TABLE);
+    
+    ngAfterViewInit() &#123;
+        this.dataSource.paginator = this.paginator;
+    &#125;
+
+    onFilter(filtro: string) &#123;
+        this.dataSource.filter = filtro;
+    &#125;
+
+&#125;
+
+const PERIODIC_TABLE = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.008, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.94, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.81, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.011, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.007, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.999, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.998, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.180, symbol: 'Ne' &#125;,
+    &#123; position: 11, name: 'Sodium', weight: 22.990, symbol: 'Na' &#125;,
+    &#123; position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' &#125;,
+    &#123; position: 13, name: 'Aluminum', weight: 26.982, symbol: 'Al' &#125;,
+    &#123; position: 14, name: 'Silicon', weight: 28.085, symbol: 'Si' &#125;,
+    &#123; position: 15, name: 'Phosphorus', weight: 30.974, symbol: 'P' &#125;,
+    &#123; position: 16, name: 'Sulfur', weight: 32.06, symbol: 'S' &#125;,
+    &#123; position: 17, name: 'Chlorine', weight: 35.45, symbol: 'Cl' &#125;,
+    &#123; position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' &#125;,
+    &#123; position: 19, name: 'Potassium', weight: 39.098, symbol: 'K' &#125;,
+    &#123; position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' &#125;,
+    &#123; position: 21, name: 'Scandium', weight: 44.956, symbol: 'Sc' &#125;,
+    &#123; position: 22, name: 'Titanium', weight: 47.867, symbol: 'Ti' &#125;,
+    &#123; position: 23, name: 'Vanadium', weight: 50.942, symbol: 'V' &#125;,
+    &#123; position: 24, name: 'Chromium', weight: 51.996, symbol: 'Cr' &#125;,
+    &#123; position: 25, name: 'Manganese', weight: 54.938, symbol: 'Mn' &#125;,
+    &#123; position: 26, name: 'Iron', weight: 55.845, symbol: 'Fe' &#125;,
+    &#123; position: 27, name: 'Cobalt', weight: 58.933, symbol: 'Co' &#125;,
+    &#123; position: 28, name: 'Nickel', weight: 58.693, symbol: 'Ni' &#125;,
+    &#123; position: 29, name: 'Copper', weight: 63.546, symbol: 'Cu' &#125;,
+    &#123; position: 30, name: 'Zinc', weight: 65.38, symbol: 'Zn' &#125;,
+    &#123; position: 31, name: 'Gallium', weight: 69.723, symbol: 'Ga' &#125;,
+    &#123; position: 32, name: 'Germanium', weight: 72.63, symbol: 'Ge' &#125;,
+    &#123; position: 33, name: 'Arsenic', weight: 74.922, symbol: 'As' &#125;,
+    &#123; position: 34, name: 'Selenium', weight: 78.971, symbol: 'Se' &#125;,
+    &#123; position: 35, name: 'Bromine', weight: 79.904, symbol: 'Br' &#125;,
+    &#123; position: 36, name: 'Krypton', weight: 83.798, symbol: 'Kr' &#125;,
+    &#123; position: 37, name: 'Rubidium', weight: 85.468, symbol: 'Rb' &#125;,
+    &#123; position: 38, name: 'Strontium', weight: 87.62, symbol: 'Sr' &#125;,
+    &#123; position: 39, name: 'Yttrium', weight: 88.906, symbol: 'Y' &#125;,
+    &#123; position: 40, name: 'Zirconium', weight: 91.224, symbol: 'Zr' &#125;,
+    &#123; position: 41, name: 'Niobium', weight: 92.906, symbol: 'Nb' &#125;,
+    &#123; position: 42, name: 'Molybdenum', weight: 95.95, symbol: 'Mo' &#125;,
+    &#123; position: 43, name: 'Technetium', weight: 98, symbol: 'Tc' &#125;,
+    &#123; position: 44, name: 'Ruthenium', weight: 101.07, symbol: 'Ru' &#125;,
+    &#123; position: 45, name: 'Rhodium', weight: 102.91, symbol: 'Rh' &#125;,
+    &#123; position: 46, name: 'Palladium', weight: 106.42, symbol: 'Pd' &#125;,
+    &#123; position: 47, name: 'Silver', weight: 107.87, symbol: 'Ag' &#125;,
+    &#123; position: 48, name: 'Cadmium', weight: 112.41, symbol: 'Cd' &#125;,
+    &#123; position: 49, name: 'Indium', weight: 114.82, symbol: 'In' &#125;,
+    &#123; position: 50, name: 'Tin', weight: 118.71, symbol: 'Sn' &#125;,
+    &#123; position: 51, name: 'Antimony', weight: 121.76, symbol: 'Sb' &#125;,
+    &#123; position: 52, name: 'Tellurium', weight: 127.60, symbol: 'Te' &#125;,
+    &#123; position: 53, name: 'Iodine', weight: 126.90, symbol: 'I' &#125;,
+    &#123; position: 54, name: 'Xenon', weight: 131.29, symbol: 'Xe' &#125;,
+    &#123; position: 55, name: 'Cesium', weight: 132.91, symbol: 'Cs' &#125;,
+    &#123; position: 56, name: 'Barium', weight: 137.33, symbol: 'Ba' &#125;,
+    &#123; position: 57, name: 'Lanthanum', weight: 138.91, symbol: 'La' &#125;,
+    &#123; position: 58, name: 'Cerium', weight: 140.12, symbol: 'Ce' &#125;,
+    &#123; position: 59, name: 'Praseodymium', weight: 140.91, symbol: 'Pr' &#125;,
+    &#123; position: 60, name: 'Neodymium', weight: 144.24, symbol: 'Nd' &#125;,
+    &#123; position: 61, name: 'Promethium', weight: 145, symbol: 'Pm' &#125;,
+    &#123; position: 62, name: 'Samarium', weight: 150.36, symbol: 'Sm' &#125;,
+    &#123; position: 63, name: 'Europium', weight: 151.96, symbol: 'Eu' &#125;,
+    &#123; position: 64, name: 'Gadolinium', weight: 157.25, symbol: 'Gd' &#125;,
+    &#123; position: 65, name: 'Terbium', weight: 158.93, symbol: 'Tb' &#125;,
+    &#123; position: 66, name: 'Dysprosium', weight: 162.50, symbol: 'Dy' &#125;,
+    &#123; position: 67, name: 'Holmium', weight: 164.93, symbol: 'Ho' &#125;,
+    &#123; position: 68, name: 'Erbium', weight: 167.26, symbol: 'Er' &#125;,
+    &#123; position: 69, name: 'Thulium', weight: 168.93, symbol: 'Tm' &#125;,
+    &#123; position: 70, name: 'Ytterbium', weight: 173.05, symbol: 'Yb' &#125;,
+    &#123; position: 71, name: 'Lutetium', weight: 174.97, symbol: 'Lu' &#125;,
+    &#123; position: 72, name: 'Hafnium', weight: 178.49, symbol: 'Hf' &#125;,
+    &#123; position: 73, name: 'Tantalum', weight: 180.95, symbol: 'Ta' &#125;,
+    &#123; position: 74, name: 'Tungsten', weight: 183.84, symbol: 'W' &#125;,
+    &#123; position: 75, name: 'Rhenium', weight: 186.21, symbol: 'Re' &#125;,
+    &#123; position: 76, name: 'Osmium', weight: 190.23, symbol: 'Os' &#125;,
+    &#123; position: 77, name: 'Iridium', weight: 192.22, symbol: 'Ir' &#125;,
+    &#123; position: 78, name: 'Platinum', weight: 195.08, symbol: 'Pt' &#125;,
+    &#123; position: 79, name: 'Gold', weight: 196.97, symbol: 'Au' &#125;,
+    &#123; position: 80, name: 'Mercury', weight: 200.59, symbol: 'Hg' &#125;,
+    &#123; position: 81, name: 'Thallium', weight: 204.38, symbol: 'Tl' &#125;,
+    &#123; position: 82, name: 'Lead', weight: 207.2, symbol: 'Pb' &#125;,
+    &#123; position: 83, name: 'Bismuth', weight: 208.98, symbol: 'Bi' &#125;,
+    &#123; position: 84, name: 'Polonium', weight: 209, symbol: 'Po' &#125;,
+    &#123; position: 85, name: 'Astatine', weight: 210, symbol: 'At' &#125;,
+    &#123; position: 86, name: 'Radon', weight: 222, symbol: 'Rn' &#125;,
+    &#123; position: 87, name: 'Francium', weight: 223, symbol: 'Fr' &#125;,
+    &#123; position: 88, name: 'Radium', weight: 226, symbol: 'Ra' &#125;,
+    &#123; position: 89, name: 'Actinium', weight: 227, symbol: 'Ac' &#125;,
+    &#123; position: 90, name: 'Thorium', weight: 232.04, symbol: 'Th' &#125;,
+    &#123; position: 91, name: 'Protactinium', weight: 231.04, symbol: 'Pa' &#125;,
+    &#123; position: 92, name: 'Uranium', weight: 238.03, symbol: 'U' &#125;,
+    &#123; position: 93, name: 'Neptunium', weight: 237, symbol: 'Np' &#125;,
+    &#123; position: 94, name: 'Plutonium', weight: 244, symbol: 'Pu' &#125;,
+    &#123; position: 95, name: 'Americium', weight: 243, symbol: 'Am' &#125;,
+    &#123; position: 96, name: 'Curium', weight: 247, symbol: 'Cm' &#125;,
+    &#123; position: 97, name: 'Berkelium', weight: 247, symbol: 'Bk' &#125;,
+    &#123; position: 98, name: 'Californium', weight: 251, symbol: 'Cf' &#125;,
+    &#123; position: 99, name: 'Einsteinium', weight: 252, symbol: 'Es' &#125;,
+    &#123; position: 100, name: 'Fermium', weight: 257, symbol: 'Fm' &#125;,
+    &#123; position: 101, name: 'Mendelevium', weight: 258, symbol: 'Md' &#125;,
+    &#123; position: 102, name: 'Nobelium', weight: 259, symbol: 'No' &#125;,
+    &#123; position: 103, name: 'Lawrencium', weight: 266, symbol: 'Lr' &#125;,
+    &#123; position: 104, name: 'Rutherfordium', weight: 267, symbol: 'Rf' &#125;,
+    &#123; position: 105, name: 'Dubnium', weight: 270, symbol: 'Db' &#125;,
+    &#123; position: 106, name: 'Seaborgium', weight: 271, symbol: 'Sg' &#125;,
+    &#123; position: 107, name: 'Bohrium', weight: 270, symbol: 'Bh' &#125;,
+    &#123; position: 108, name: 'Hassium', weight: 277, symbol: 'Hs' &#125;,
+    &#123; position: 109, name: 'Meitnerium', weight: 278, symbol: 'Mt' &#125;,
+    &#123; position: 110, name: 'Darmstadtium', weight: 281, symbol: 'Ds' &#125;,
+    &#123; position: 111, name: 'Roentgenium', weight: 282, symbol: 'Rg' &#125;,
+    &#123; position: 112, name: 'Copernicium', weight: 285, symbol: 'Cn' &#125;,
+    &#123; position: 113, name: 'Nihonium', weight: 286, symbol: 'Nh' &#125;,
+    &#123; position: 114, name: 'Flerovium', weight: 289, symbol: 'Fl' &#125;,
+    &#123; position: 115, name: 'Moscovium', weight: 290, symbol: 'Mc' &#125;,
+    &#123; position: 116, name: 'Livermorium', weight: 293, symbol: 'Lv' &#125;,
+    &#123; position: 117, name: 'Tennessine', weight: 294, symbol: 'Ts' &#125;,
+    &#123; position: 118, name: 'Oganesson', weight: 294, symbol: 'Og' &#125;
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-form-field>
+                            <app-icon appPrefix>search</app-icon>
+                            <input appInput type="text" placeholder="Buscar" (keyup)="onFilter11(filtro11.value)" #filtro11>
+                        </app-form-field>
+
+                        <table appTable [dataSource]="dataSource11">
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">search</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <app-paginator showFirstLastButtons #paginator11="appPaginator" />
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 12 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con filtro, paginado y ordenado</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(12)">
+                        <app-icon>{{ examples.isSelected(12) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(12)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html12' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html12' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html12" (copied)="onCopy('html12')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html12>
+&lt;app-form-field&gt;
+    &lt;app-icon appPrefix&gt;search&lt;/app-icon&gt;
+    &lt;input appInput type="text" placeholder="Buscar" (keyup)="onFilter(filtro.value)" #filtro&gt;
+&lt;/app-form-field&gt;
+
+&lt;table appTable [dataSource]="dataSource" appSort #sort&gt;
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        [appColumnDef]="column"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef appSortHeader&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columns"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columns;"&gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columns.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;search&lt;/app-icon&gt;
+                &lt;h6&gt;No results found&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;app-paginator showFirstLastButtons #paginator="appPaginator" /&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts12' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts12' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts12" (copied)="onCopy('ts12')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts12>
+import &#123; Component, ViewChild &#125; from '&#64;angular/core';
+import &#123; AppPaginator &#125; from '&#64;app/shared/material/paginator';
+import &#123; AppSort &#125; from '&#64;app/shared/material/sort';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    &#64;ViewChild('paginator') paginator: AppPaginator;
+    &#64;ViewChild('sort', &#123; read: AppSort &#125;) sort: AppSort;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+    dataSource = new TableDataSource(PERIODIC_TABLE);
+
+    ngAfterViewInit() &#123;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+    &#125;
+
+    onFilter(filtro: string) &#123;
+        this.dataSource.filter = filtro;
+    &#125;
+
+&#125;
+
+const PERIODIC_TABLE = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.008, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.94, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.81, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.011, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.007, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.999, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.998, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.180, symbol: 'Ne' &#125;,
+    &#123; position: 11, name: 'Sodium', weight: 22.990, symbol: 'Na' &#125;,
+    &#123; position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' &#125;,
+    &#123; position: 13, name: 'Aluminum', weight: 26.982, symbol: 'Al' &#125;,
+    &#123; position: 14, name: 'Silicon', weight: 28.085, symbol: 'Si' &#125;,
+    &#123; position: 15, name: 'Phosphorus', weight: 30.974, symbol: 'P' &#125;,
+    &#123; position: 16, name: 'Sulfur', weight: 32.06, symbol: 'S' &#125;,
+    &#123; position: 17, name: 'Chlorine', weight: 35.45, symbol: 'Cl' &#125;,
+    &#123; position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' &#125;,
+    &#123; position: 19, name: 'Potassium', weight: 39.098, symbol: 'K' &#125;,
+    &#123; position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' &#125;,
+    &#123; position: 21, name: 'Scandium', weight: 44.956, symbol: 'Sc' &#125;,
+    &#123; position: 22, name: 'Titanium', weight: 47.867, symbol: 'Ti' &#125;,
+    &#123; position: 23, name: 'Vanadium', weight: 50.942, symbol: 'V' &#125;,
+    &#123; position: 24, name: 'Chromium', weight: 51.996, symbol: 'Cr' &#125;,
+    &#123; position: 25, name: 'Manganese', weight: 54.938, symbol: 'Mn' &#125;,
+    &#123; position: 26, name: 'Iron', weight: 55.845, symbol: 'Fe' &#125;,
+    &#123; position: 27, name: 'Cobalt', weight: 58.933, symbol: 'Co' &#125;,
+    &#123; position: 28, name: 'Nickel', weight: 58.693, symbol: 'Ni' &#125;,
+    &#123; position: 29, name: 'Copper', weight: 63.546, symbol: 'Cu' &#125;,
+    &#123; position: 30, name: 'Zinc', weight: 65.38, symbol: 'Zn' &#125;,
+    &#123; position: 31, name: 'Gallium', weight: 69.723, symbol: 'Ga' &#125;,
+    &#123; position: 32, name: 'Germanium', weight: 72.63, symbol: 'Ge' &#125;,
+    &#123; position: 33, name: 'Arsenic', weight: 74.922, symbol: 'As' &#125;,
+    &#123; position: 34, name: 'Selenium', weight: 78.971, symbol: 'Se' &#125;,
+    &#123; position: 35, name: 'Bromine', weight: 79.904, symbol: 'Br' &#125;,
+    &#123; position: 36, name: 'Krypton', weight: 83.798, symbol: 'Kr' &#125;,
+    &#123; position: 37, name: 'Rubidium', weight: 85.468, symbol: 'Rb' &#125;,
+    &#123; position: 38, name: 'Strontium', weight: 87.62, symbol: 'Sr' &#125;,
+    &#123; position: 39, name: 'Yttrium', weight: 88.906, symbol: 'Y' &#125;,
+    &#123; position: 40, name: 'Zirconium', weight: 91.224, symbol: 'Zr' &#125;,
+    &#123; position: 41, name: 'Niobium', weight: 92.906, symbol: 'Nb' &#125;,
+    &#123; position: 42, name: 'Molybdenum', weight: 95.95, symbol: 'Mo' &#125;,
+    &#123; position: 43, name: 'Technetium', weight: 98, symbol: 'Tc' &#125;,
+    &#123; position: 44, name: 'Ruthenium', weight: 101.07, symbol: 'Ru' &#125;,
+    &#123; position: 45, name: 'Rhodium', weight: 102.91, symbol: 'Rh' &#125;,
+    &#123; position: 46, name: 'Palladium', weight: 106.42, symbol: 'Pd' &#125;,
+    &#123; position: 47, name: 'Silver', weight: 107.87, symbol: 'Ag' &#125;,
+    &#123; position: 48, name: 'Cadmium', weight: 112.41, symbol: 'Cd' &#125;,
+    &#123; position: 49, name: 'Indium', weight: 114.82, symbol: 'In' &#125;,
+    &#123; position: 50, name: 'Tin', weight: 118.71, symbol: 'Sn' &#125;,
+    &#123; position: 51, name: 'Antimony', weight: 121.76, symbol: 'Sb' &#125;,
+    &#123; position: 52, name: 'Tellurium', weight: 127.60, symbol: 'Te' &#125;,
+    &#123; position: 53, name: 'Iodine', weight: 126.90, symbol: 'I' &#125;,
+    &#123; position: 54, name: 'Xenon', weight: 131.29, symbol: 'Xe' &#125;,
+    &#123; position: 55, name: 'Cesium', weight: 132.91, symbol: 'Cs' &#125;,
+    &#123; position: 56, name: 'Barium', weight: 137.33, symbol: 'Ba' &#125;,
+    &#123; position: 57, name: 'Lanthanum', weight: 138.91, symbol: 'La' &#125;,
+    &#123; position: 58, name: 'Cerium', weight: 140.12, symbol: 'Ce' &#125;,
+    &#123; position: 59, name: 'Praseodymium', weight: 140.91, symbol: 'Pr' &#125;,
+    &#123; position: 60, name: 'Neodymium', weight: 144.24, symbol: 'Nd' &#125;,
+    &#123; position: 61, name: 'Promethium', weight: 145, symbol: 'Pm' &#125;,
+    &#123; position: 62, name: 'Samarium', weight: 150.36, symbol: 'Sm' &#125;,
+    &#123; position: 63, name: 'Europium', weight: 151.96, symbol: 'Eu' &#125;,
+    &#123; position: 64, name: 'Gadolinium', weight: 157.25, symbol: 'Gd' &#125;,
+    &#123; position: 65, name: 'Terbium', weight: 158.93, symbol: 'Tb' &#125;,
+    &#123; position: 66, name: 'Dysprosium', weight: 162.50, symbol: 'Dy' &#125;,
+    &#123; position: 67, name: 'Holmium', weight: 164.93, symbol: 'Ho' &#125;,
+    &#123; position: 68, name: 'Erbium', weight: 167.26, symbol: 'Er' &#125;,
+    &#123; position: 69, name: 'Thulium', weight: 168.93, symbol: 'Tm' &#125;,
+    &#123; position: 70, name: 'Ytterbium', weight: 173.05, symbol: 'Yb' &#125;,
+    &#123; position: 71, name: 'Lutetium', weight: 174.97, symbol: 'Lu' &#125;,
+    &#123; position: 72, name: 'Hafnium', weight: 178.49, symbol: 'Hf' &#125;,
+    &#123; position: 73, name: 'Tantalum', weight: 180.95, symbol: 'Ta' &#125;,
+    &#123; position: 74, name: 'Tungsten', weight: 183.84, symbol: 'W' &#125;,
+    &#123; position: 75, name: 'Rhenium', weight: 186.21, symbol: 'Re' &#125;,
+    &#123; position: 76, name: 'Osmium', weight: 190.23, symbol: 'Os' &#125;,
+    &#123; position: 77, name: 'Iridium', weight: 192.22, symbol: 'Ir' &#125;,
+    &#123; position: 78, name: 'Platinum', weight: 195.08, symbol: 'Pt' &#125;,
+    &#123; position: 79, name: 'Gold', weight: 196.97, symbol: 'Au' &#125;,
+    &#123; position: 80, name: 'Mercury', weight: 200.59, symbol: 'Hg' &#125;,
+    &#123; position: 81, name: 'Thallium', weight: 204.38, symbol: 'Tl' &#125;,
+    &#123; position: 82, name: 'Lead', weight: 207.2, symbol: 'Pb' &#125;,
+    &#123; position: 83, name: 'Bismuth', weight: 208.98, symbol: 'Bi' &#125;,
+    &#123; position: 84, name: 'Polonium', weight: 209, symbol: 'Po' &#125;,
+    &#123; position: 85, name: 'Astatine', weight: 210, symbol: 'At' &#125;,
+    &#123; position: 86, name: 'Radon', weight: 222, symbol: 'Rn' &#125;,
+    &#123; position: 87, name: 'Francium', weight: 223, symbol: 'Fr' &#125;,
+    &#123; position: 88, name: 'Radium', weight: 226, symbol: 'Ra' &#125;,
+    &#123; position: 89, name: 'Actinium', weight: 227, symbol: 'Ac' &#125;,
+    &#123; position: 90, name: 'Thorium', weight: 232.04, symbol: 'Th' &#125;,
+    &#123; position: 91, name: 'Protactinium', weight: 231.04, symbol: 'Pa' &#125;,
+    &#123; position: 92, name: 'Uranium', weight: 238.03, symbol: 'U' &#125;,
+    &#123; position: 93, name: 'Neptunium', weight: 237, symbol: 'Np' &#125;,
+    &#123; position: 94, name: 'Plutonium', weight: 244, symbol: 'Pu' &#125;,
+    &#123; position: 95, name: 'Americium', weight: 243, symbol: 'Am' &#125;,
+    &#123; position: 96, name: 'Curium', weight: 247, symbol: 'Cm' &#125;,
+    &#123; position: 97, name: 'Berkelium', weight: 247, symbol: 'Bk' &#125;,
+    &#123; position: 98, name: 'Californium', weight: 251, symbol: 'Cf' &#125;,
+    &#123; position: 99, name: 'Einsteinium', weight: 252, symbol: 'Es' &#125;,
+    &#123; position: 100, name: 'Fermium', weight: 257, symbol: 'Fm' &#125;,
+    &#123; position: 101, name: 'Mendelevium', weight: 258, symbol: 'Md' &#125;,
+    &#123; position: 102, name: 'Nobelium', weight: 259, symbol: 'No' &#125;,
+    &#123; position: 103, name: 'Lawrencium', weight: 266, symbol: 'Lr' &#125;,
+    &#123; position: 104, name: 'Rutherfordium', weight: 267, symbol: 'Rf' &#125;,
+    &#123; position: 105, name: 'Dubnium', weight: 270, symbol: 'Db' &#125;,
+    &#123; position: 106, name: 'Seaborgium', weight: 271, symbol: 'Sg' &#125;,
+    &#123; position: 107, name: 'Bohrium', weight: 270, symbol: 'Bh' &#125;,
+    &#123; position: 108, name: 'Hassium', weight: 277, symbol: 'Hs' &#125;,
+    &#123; position: 109, name: 'Meitnerium', weight: 278, symbol: 'Mt' &#125;,
+    &#123; position: 110, name: 'Darmstadtium', weight: 281, symbol: 'Ds' &#125;,
+    &#123; position: 111, name: 'Roentgenium', weight: 282, symbol: 'Rg' &#125;,
+    &#123; position: 112, name: 'Copernicium', weight: 285, symbol: 'Cn' &#125;,
+    &#123; position: 113, name: 'Nihonium', weight: 286, symbol: 'Nh' &#125;,
+    &#123; position: 114, name: 'Flerovium', weight: 289, symbol: 'Fl' &#125;,
+    &#123; position: 115, name: 'Moscovium', weight: 290, symbol: 'Mc' &#125;,
+    &#123; position: 116, name: 'Livermorium', weight: 293, symbol: 'Lv' &#125;,
+    &#123; position: 117, name: 'Tennessine', weight: 294, symbol: 'Ts' &#125;,
+    &#123; position: 118, name: 'Oganesson', weight: 294, symbol: 'Og' &#125;
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-form-field>
+                            <app-icon appPrefix>search</app-icon>
+                            <input appInput type="text" placeholder="Buscar" (keyup)="onFilter12(filtro12.value)" #filtro12>
+                        </app-form-field>
+
+                        <table appTable [dataSource]="dataSource12" appSort #sort>
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef appSortHeader>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columns"></tr>
+                            <tr appRow *appRowDef="let row; columns: columns;"></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columns.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">search</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <app-paginator showFirstLastButtons #paginator12="appPaginator" />
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 13 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con selección</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(13)">
+                        <app-icon>{{ examples.isSelected(13) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(13)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html13' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html13' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html13" (copied)="onCopy('html13')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html13>
+&lt;button appFab variant="primary" color="danger"
+    [disabled]="selection.isEmpty()"
+    (click)="deleteSelected()"
+&gt;
+    &lt;app-icon&gt;delete&lt;/app-icon&gt;
+    Eliminar Seleccionados
+&lt;/button&gt;
+
+&lt;table appTable [dataSource]="dataSource"&gt;
+    &lt;!-- Columna Checkbox --&gt;
+    &lt;ng-container appColumnDef="select"&gt;
+        &lt;th appHeaderCell *appHeaderCellDef
+            appBoxBase width="0"
+        &gt;
+            &lt;app-checkbox
+                (change)="toggleAllRows($event)"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+            &gt;
+            &lt;/app-checkbox&gt;
+        &lt;/th&gt;
+        &lt;td appCell *appCellDef="let row"&gt;
+            &lt;app-checkbox
+                (change)="selection.toggle(row)"
+                [checked]="selection.isSelected(row)"
+            &gt;
+            &lt;/app-checkbox&gt;
+        &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container *ngFor="let column of columns; let i = index"
+        [appColumnDef]="column"
+    &gt;
+        &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+        &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;tr appHeaderRow *appHeaderRowDef="columnsSelect"&gt;&lt;/tr&gt;
+    &lt;tr appRow *appRowDef="let row; columns: columnsSelect;"
+        appRipple rippleDisabled (click)="selection.toggle(row)"
+    &gt;&lt;/tr&gt;
+
+    &lt;tr appNoDataRow *appNoDataRow&gt;
+        &lt;td [attr.colspan]="columnsSelect.length"&gt;
+            &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                &lt;app-icon fill fontSize="36"&gt;search&lt;/app-icon&gt;
+                &lt;h6&gt;No results found&lt;/h6&gt;
+            &lt;/app-stack&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts13' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts13' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts13" (copied)="onCopy('ts13')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts13>
+import &#123; SelectionModel &#125; from '&#64;angular/cdk/collections';
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    columnsSelect: string[] = ['select', ...this.columns];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+
+    dataSource = new TableDataSource(ELEMENT_DATA);
+    selection = new SelectionModel(true);
+
+    isAllSelected() &#123;
+        const numSelected = this.selection.selected.length;
+        const numRows = this.dataSource.data.length;
+        return numSelected === numRows;
+    &#125;
+
+    toggleAllRows() &#123;
+        if (this.isAllSelected()) this.selection.clear();
+        else this.selection.select(...this.dataSource.data);
+    &#125;
+
+    deleteSelected() &#123;
+        const data = this.dataSource.data;
+        const selected = this.selection.selected;
+        this.dataSource.data = data.filter(item => !selected.includes(item));
+        this.selection.clear();
+    &#125;
+
+&#125;
+
+interface PeriodicElement &#123;
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+&#125;
+
+const ELEMENT_DATA: PeriodicElement[] = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.811, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <button appFab variant="primary" color="danger"
+                            [disabled]="selection13.isEmpty()"
+                            (click)="deleteSelected()"
+                        >
+                            <app-icon>delete</app-icon>
+                            Eliminar Seleccionados
+                        </button>
+
+                        <table appTable [dataSource]="dataSource13">
+                            <!-- Columna Checkbox -->
+                            <ng-container appColumnDef="select">
+                                <th appHeaderCell *appHeaderCellDef
+                                    appBoxBase width="0"
+                                >
+                                    <app-checkbox
+                                        (change)="toggleAllRows()"
+                                        [checked]="selection13.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection13.hasValue() && !isAllSelected()"
+                                    >
+                                    </app-checkbox>
+                                </th>
+                                <td appCell *appCellDef="let row">
+                                    <app-checkbox
+                                        (change)="selection13.toggle(row)"
+                                        [checked]="selection13.isSelected(row)"
+                                    >
+                                    </app-checkbox>
+                                </td>
+                            </ng-container>
+
+                            <ng-container *ngFor="let column of columns; let i = index"
+                                [appColumnDef]="column"
+                            >
+                                <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                            </ng-container>
+
+                            <tr appHeaderRow *appHeaderRowDef="columnsSelect"></tr>
+                            <tr appRow *appRowDef="let row; columns: columnsSelect;"
+                                appRipple rippleDisabled (click)="selection13.toggle(row)"
+                            ></tr>
+
+                            <tr appNoDataRow *appNoDataRow>
+                                <td [attr.colspan]="columnsSelect.length">
+                                    <app-stack noGap height="200" justify="center" align="center">
+                                        <app-icon fill fontSize="36">search</app-icon>
+                                        <h6>No results found</h6>
+                                    </app-stack>
+                                </td>
+                            </tr>
+                        </table>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 14 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con columnas sticky</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(14)">
+                        <app-icon>{{ examples.isSelected(14) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(14)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html14' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html14' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html14" (copied)="onCopy('html14')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html14>
+&lt;section appScrollable="both" appBoxBase height="300" tabindex="0"&gt;
+    &lt;table appTable [dataSource]="dataSource"&gt;
+        &lt;ng-container *ngFor="let column of columns; let i = index; let first = first"
+            [appColumnDef]="column" [sticky]="first"
+        &gt;
+            &lt;th appHeaderCell *appHeaderCellDef&gt;&#123;&#123; headers[i] &#125;&#125;&lt;/th&gt;
+            &lt;td appCell *appCellDef="let element"&gt;&#123;&#123; element[column] &#125;&#125;&lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;ng-container appColumnDef="actions" stickyEnd&gt;
+            &lt;th appHeaderCell *appHeaderCellDef appBoxBase padding="0" width="0"&gt;&lt;/th&gt;
+            &lt;td appCell *appCellDef="let element" appBoxBase padding="0 4px"&gt;
+                &lt;button appIconButton variant="tertiary" [appMenuTriggerFor]="menu"&gt;
+                    &lt;app-icon&gt;more_vert&lt;/app-icon&gt;
+                &lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;tr appHeaderRow *appHeaderRowDef="columnsActions; sticky: true"&gt;&lt;/tr&gt;
+        &lt;tr appRow *appRowDef="let row; columns: columnsActions;"&gt;&lt;/tr&gt;
+
+        &lt;tr appNoDataRow *appNoDataRow&gt;
+            &lt;td [attr.colspan]="columnsActions.length"&gt;
+                &lt;app-stack noGap height="200" justify="center" align="center"&gt;
+                    &lt;app-icon fill fontSize="36"&gt;table&lt;/app-icon&gt;
+                    &lt;h6&gt;No results found&lt;/h6&gt;
+                &lt;/app-stack&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/section&gt;
+
+&lt;app-menu #menu&gt;
+    &lt;button appMenuItem variant="submenu"&gt;
+        &lt;app-icon appMenuItemIcon&gt;edit&lt;/app-icon&gt;
+        Editar
+    &lt;/button&gt;
+    &lt;button appMenuItem variant="submenu"&gt;
+        &lt;app-icon appMenuItemIcon&gt;delete&lt;/app-icon&gt;
+        Eliminar
+    &lt;/button&gt;
+&lt;/app-menu&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts14' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts14' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts14" (copied)="onCopy('ts14')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts14>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; TableDataSource &#125; from '&#64;app/shared/material/table';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columns: string[] = ['position', 'name', 'weight', 'symbol'];
+    columnsActions: string[] = [
+        'position',
+        'name', 'weight', 'symbol',
+        'name', 'weight', 'symbol',
+        'name', 'weight', 'symbol',
+        'name', 'weight', 'symbol',
+        'actions'
+    ];
+    headers: string[] = ['N°', 'Name', 'Weight', 'Symbol'];
+    dataSource = new TableDataSource(ELEMENT_DATA);
+
+&#125;
+
+interface PeriodicElement &#123;
+    name: string;
+    position: number;
+    weight: number;
+    symbol: string;
+&#125;
+
+const ELEMENT_DATA: PeriodicElement[] = [
+    &#123; position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' &#125;,
+    &#123; position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' &#125;,
+    &#123; position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' &#125;,
+    &#123; position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' &#125;,
+    &#123; position: 5, name: 'Boron', weight: 10.811, symbol: 'B' &#125;,
+    &#123; position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' &#125;,
+    &#123; position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' &#125;,
+    &#123; position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' &#125;,
+    &#123; position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' &#125;,
+    &#123; position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' &#125;,
+];
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <section appScrollable="both" appBoxBase height="300" tabindex="0">
+                            <table appTable [dataSource]="dataSource">
+                                <ng-container *ngFor="let column of columns; let i = index; let first = first"
+                                    [appColumnDef]="column" [sticky]="first"
+                                >
+                                    <th appHeaderCell *appHeaderCellDef>{{ headers[i] }}</th>
+                                    <td appCell *appCellDef="let element">{{ element[column] }}</td>
+                                </ng-container>
+
+                                <ng-container appColumnDef="actions" stickyEnd>
+                                    <th appHeaderCell *appHeaderCellDef appBoxBase padding="0" width="0"></th>
+                                    <td appCell *appCellDef="let element" appBoxBase padding="0 4px">
+                                        <button appIconButton variant="tertiary" [appMenuTriggerFor]="menu">
+                                            <app-icon>more_vert</app-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr appHeaderRow *appHeaderRowDef="columnsActions; sticky: true"></tr>
+                                <tr appRow *appRowDef="let row; columns: columnsActions;"></tr>
+
+                                <tr appNoDataRow *appNoDataRow>
+                                    <td [attr.colspan]="columnsActions.length">
+                                        <app-stack noGap height="200" justify="center" align="center">
+                                            <app-icon fill fontSize="36">table</app-icon>
+                                            <h6>No results found</h6>
+                                        </app-stack>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <app-menu #menu>
+                                <button appMenuItem variant="submenu">
+                                    <app-icon appMenuItemIcon>edit</app-icon>
+                                    Editar
+                                </button>
+                                <button appMenuItem variant="submenu">
+                                    <app-icon appMenuItemIcon>delete</app-icon>
+                                    Eliminar
+                                </button>
+                            </app-menu>
+                        </section>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 15 -->
+            <app-card appearance="raised" width="100%" maxWidth="1100" margin="auto">
+                <app-card-header>
+                    <app-card-title>Tabla con filas sticky</app-card-title>
+                    <app-card-subtitle>Table</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(15)">
+                        <app-icon>{{ examples.isSelected(15) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(15)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html15' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html15' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html15" (copied)="onCopy('html15')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html15>
+&lt;section appScrollable="both" appBoxBase height="300"&gt;
+    &lt;table appTable [dataSource]="transacciones"&gt;
+        &lt;!-- Columna Producto --&gt;
+        &lt;ng-container appColumnDef="producto"&gt;
+            &lt;th appHeaderCell *appHeaderCellDef&gt;Producto&lt;/th&gt;
+            &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.producto &#125;&#125;&lt;/td&gt;
+            &lt;td appFooterCell *appFooterCellDef&gt;Total&lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;!-- Columna Precio --&gt;
+        &lt;ng-container appColumnDef="precio"&gt;
+            &lt;th appHeaderCell *appHeaderCellDef&gt;Precio&lt;/th&gt;
+            &lt;td appCell *appCellDef="let transaccion"&gt;&#123;&#123; transaccion.precio | currency: 'S/ ' &#125;&#125;&lt;/td&gt;
+            &lt;td appFooterCell *appFooterCellDef&gt;&#123;&#123; costoTotal | currency: 'S/' &#125;&#125;&lt;/td&gt;
+        &lt;/ng-container&gt;
+
+        &lt;tr appHeaderRow *appHeaderRowDef="columnas; sticky: true"&gt;&lt;/tr&gt;
+        &lt;tr appRow *appRowDef="let row; columns: columnas;"&gt;&lt;/tr&gt;
+        &lt;tr appFooterRow *appFooterRowDef="columnas; sticky: true"&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/section&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts15' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts15' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts15" (copied)="onCopy('ts15')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts15>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+
+    columnas: string[] = ['producto', 'precio'];
+    transacciones: Transaccion[] = [
+        &#123; producto: 'Pelota de Playa', precio: 16 &#125;,
+        &#123; producto: 'Toalla', precio: 20 &#125;,
+        &#123; producto: 'Frisbee', precio: 8 &#125;,
+        &#123; producto: 'Bloqueador', precio: 16 &#125;,
+        &#123; producto: 'Cooler', precio: 100 &#125;,
+        &#123; producto: 'Ropa de baño', precio: 60 &#125;,
+    ];
+
+    get costoTotal() &#123;
+        return this.transacciones.map(t => t.precio).reduce((pre, cur) => pre + cur, 0);
+    &#125;
+
+&#125;
+
+interface Transaccion &#123;
+    producto: string;
+    precio: number;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <section appScrollable="both" appBoxBase height="300">
+                            <table appTable [dataSource]="transacciones">
+                                <!-- Columna Producto -->
+                                <ng-container appColumnDef="producto">
+                                    <th appHeaderCell *appHeaderCellDef>Producto</th>
+                                    <td appCell *appCellDef="let transaccion">{{ transaccion.producto }}</td>
+                                    <td appFooterCell *appFooterCellDef>Total</td>
+                                </ng-container>
+
+                                <!-- Columna Precio -->
+                                <ng-container appColumnDef="precio">
+                                    <th appHeaderCell *appHeaderCellDef>Precio</th>
+                                    <td appCell *appCellDef="let transaccion">{{ transaccion.precio | currency: 'S/ ' }}</td>
+                                    <td appFooterCell *appFooterCellDef>{{ costoTotal | currency: 'S/' }}</td>
+                                </ng-container>
+
+                                <tr appHeaderRow *appHeaderRowDef="columnas; sticky: true"></tr>
+                                <tr appRow *appRowDef="let row; columns: columnas;"></tr>
+                                <tr appFooterRow *appFooterRowDef="columnas; sticky: true"></tr>
+                            </table>
+                        </section>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

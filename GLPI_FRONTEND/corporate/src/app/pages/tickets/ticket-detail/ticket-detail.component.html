@@ -1,0 +1,469 @@
+<div class="ticket-detail-page">
+  @if (loading()) {
+    <div class="detail-layout ticket-detail-skeleton">
+      <div class="detail-main">
+        <div class="sm-card ticket-skeleton-card header-skeleton">
+          <span class="sm-skeleton sk-pill"></span>
+          <span class="sm-skeleton sk-title"></span>
+          <span class="sm-skeleton sk-line"></span>
+          <span class="sm-skeleton sk-line short"></span>
+          <div class="sk-row">
+            <span class="sm-skeleton sk-chip"></span>
+            <span class="sm-skeleton sk-chip"></span>
+          </div>
+        </div>
+        <div class="sm-card ticket-skeleton-card chat-skeleton">
+          <span class="sm-skeleton sk-tab"></span>
+          <span class="sm-skeleton sk-bubble left"></span>
+          <span class="sm-skeleton sk-bubble right"></span>
+          <span class="sm-skeleton sk-bubble left small"></span>
+          <span class="sm-skeleton sk-input"></span>
+        </div>
+      </div>
+      <aside class="detail-sidebar">
+        <div class="sm-card ticket-skeleton-card side-skeleton">
+          <span class="sm-skeleton sk-side-title"></span>
+          <span class="sm-skeleton sk-line"></span>
+          <span class="sm-skeleton sk-line"></span>
+          <span class="sm-skeleton sk-line short"></span>
+        </div>
+        <div class="sm-card ticket-skeleton-card side-skeleton">
+          <span class="sm-skeleton sk-side-title"></span>
+          <span class="sm-skeleton sk-line"></span>
+          <span class="sm-skeleton sk-chip"></span>
+        </div>
+      </aside>
+    </div>
+  } @else if (notFound()) {
+    <div class="sm-empty-state full-width">
+      <div class="empty-icon-box">
+        <lucide-angular name="search-x" [size]="48"></lucide-angular>
+      </div>
+      <h3>Ticket no encontrado</h3>
+      <p>El registro solicitado no existe o fue movido.</p>
+      <button class="btn btn-primary" (click)="onGoBack()">Volver al listado</button>
+    </div>
+  } @else {
+    <div class="detail-layout">
+      <!-- Columna Principal -->
+      <div class="detail-main">
+        <!-- Cabecera del Ticket -->
+        <div class="sm-card ticket-header-card">
+          <div class="header-top">
+            <div class="ticket-head-meta">
+              <button class="ticket-back-btn" (click)="onGoBack()" title="Regresar a la lista">
+                <lucide-angular name="arrow-left" [size]="16"></lucide-angular>
+              </button>
+              <span class="ticket-number-pill">{{ ticket()?.ticketNumber }}</span>
+            </div>
+            <div class="header-actions">
+              @if (canManageTicket()) {
+                <button class="btn btn-teal btn-sm" (click)="onResolve()" [disabled]="resolving() || isResolved() || isClosed() || supportNeedsAssignment()">
+                  <lucide-angular [name]="resolving() ? 'loader' : 'check-circle'" [class.spinner]="resolving()" [size]="14"></lucide-angular>
+                  <span>{{ resolving() ? 'Resolviendo...' : 'Resolver' }}</span>
+                </button>
+                <button class="btn btn-primary btn-sm" (click)="onCloseTicket()" [disabled]="closing() || isClosed() || !isResolved() || supportNeedsAssignment()">
+                  <lucide-angular [name]="closing() ? 'loader' : 'lock'" [class.spinner]="closing()" [size]="14"></lucide-angular>
+                  <span>{{ isClosed() ? 'Cerrado' : (closing() ? 'Cerrando...' : 'Cerrar') }}</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" (click)="onAssign()" [disabled]="isClosed()">
+                  <lucide-angular name="user-plus" [size]="14"></lucide-angular>
+                  <span>{{ assignButtonText() }}</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" (click)="startEdit()" [disabled]="isClosed() || supportNeedsAssignment()">
+                  <lucide-angular name="pencil" [size]="14"></lucide-angular>
+                  <span>Editar</span>
+                </button>
+                <button class="btn btn-primary btn-sm" (click)="onAIAnalyze()" [disabled]="analyzing() || supportNeedsAssignment()" style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); border: none;">
+                  <lucide-angular [name]="analyzing() ? 'loader' : 'zap'" [class.spinner]="analyzing()" [size]="14"></lucide-angular>
+                  <span>{{ analyzing() ? 'Analizando...' : 'Analizar con IA' }}</span>
+                </button>
+                <div class="role-actions-trigger" [class.active]="showOptions()" (click)="toggleOptions(); $event.stopPropagation()">
+                  <lucide-angular name="more-vertical" [size]="18"></lucide-angular>
+                  @if (showOptions()) {
+                    <div class="role-context-menu">
+                      <button (click)="notifSvc.info('Función de adjuntos próximamente')">
+                        <lucide-angular name="link" [size]="14"></lucide-angular>
+                        <span>Vincular Activo</span>
+                      </button>
+                      <div class="sm-divider" style="margin: 4px 0;"></div>
+                      <button class="is-danger" (click)="notifSvc.warning('No tienes permisos para eliminar tickets')">
+                        <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+                        <span>Eliminar Caso</span>
+                      </button>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <span class="ticket-readonly-chip">
+                  <lucide-angular name="user" [size]="13"></lucide-angular>
+                  Portal cliente
+                </span>
+              }
+            </div>
+          </div>
+          @if (editing()) {
+            <form [formGroup]="editForm" class="ticket-edit-form">
+              <div class="sm-field full-width">
+                <label class="sm-label">Asunto</label>
+                <input class="sm-input input-lg" formControlName="subject" [class.input-error]="getFieldError('subject', 'Asunto')">
+                @if (getFieldError('subject', 'Asunto')) {
+                  <span class="field-error">{{ getFieldError('subject', 'Asunto') }}</span>
+                }
+              </div>
+              <div class="sm-field full-width">
+                <label class="sm-label">Descripción</label>
+                <textarea class="sm-input role-textarea" formControlName="description" rows="4" [class.input-error]="getFieldError('description', 'Descripción')"></textarea>
+                @if (getFieldError('description', 'Descripción')) {
+                  <span class="field-error">{{ getFieldError('description', 'Descripción') }}</span>
+                }
+              </div>
+              <div class="ticket-edit-grid">
+                <div class="sm-field">
+                  <label class="sm-label">Tipo</label>
+                  <select class="sm-input" formControlName="typeItemId" [class.input-error]="getFieldError('typeItemId', 'Tipo')">
+                    @for (t of ticketTypes(); track t.id) {
+                      <option [value]="t.id">{{ t.name }}</option>
+                    }
+                  </select>
+                  @if (getFieldError('typeItemId', 'Tipo')) {
+                    <span class="field-error">{{ getFieldError('typeItemId', 'Tipo') }}</span>
+                  }
+                </div>
+                <div class="sm-field">
+                  <label class="sm-label">Prioridad</label>
+                  <select class="sm-input" formControlName="priorityItemId" [class.input-error]="getFieldError('priorityItemId', 'Prioridad')">
+                    @for (p of priorities(); track p.id) {
+                      <option [value]="p.id">{{ p.name }}</option>
+                    }
+                  </select>
+                  @if (getFieldError('priorityItemId', 'Prioridad')) {
+                    <span class="field-error">{{ getFieldError('priorityItemId', 'Prioridad') }}</span>
+                  }
+                </div>
+              </div>
+              <div class="ticket-edit-actions">
+                <button type="button" class="btn btn-ghost" (click)="cancelEdit()">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveEdit()" [disabled]="editForm.invalid || savingEdit()">
+                  <lucide-angular [name]="savingEdit() ? 'loader' : 'save'" [class.spinner]="savingEdit()" [size]="14"></lucide-angular>
+                  <span>{{ savingEdit() ? 'Guardando...' : 'Guardar cambios' }}</span>
+                </button>
+              </div>
+            </form>
+          } @else if (showAssignPanel()) {
+            <div class="ticket-edit-form assignment-panel">
+              <div class="assignment-panel-head">
+                <span class="assignment-icon"><lucide-angular name="user-check" [size]="18"></lucide-angular></span>
+                <div>
+                  <strong>Asignación del caso</strong>
+                  <small>Actual: {{ assignedTechnicianText() }}. Selecciona el técnico responsable.</small>
+                </div>
+              </div>
+              <div class="sm-field full-width">
+                <label class="sm-label">Asignar técnico responsable</label>
+                <select class="sm-input" [value]="selectedAssigneeId()" (change)="updateAssignee($event)">
+                  <option value="">Sin asignar</option>
+                  @for (tech of technicians(); track tech.id) {
+                    <option [value]="tech.id">{{ tech.fullName }} · {{ tech.role }}</option>
+                  }
+                </select>
+              </div>
+              <div class="ticket-edit-actions">
+                <button type="button" class="btn btn-ghost" (click)="showAssignPanel.set(false)">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveAssignment()" [disabled]="assigning() || isClosed()">
+                  <lucide-angular [name]="assigning() ? 'loader' : 'user-check'" [class.spinner]="assigning()" [size]="14"></lucide-angular>
+                  <span>{{ assigning() ? 'Asignando...' : 'Guardar asignación' }}</span>
+                </button>
+              </div>
+            </div>
+          } @else {
+            <h1 class="ticket-title">{{ ticket()?.subject }}</h1>
+            <p class="ticket-detail-description">{{ ticket()?.description }}</p>
+            @if (supportNeedsAssignment()) {
+              <div class="assignment-required-alert">
+                <lucide-angular name="user-plus" [size]="16"></lucide-angular>
+                <div>
+                  <strong>Asignación requerida</strong>
+                  <span>Antes de responder, editar, cambiar estado o resolver, asigna un técnico responsable al caso.</span>
+                </div>
+                <button class="btn btn-secondary btn-sm" (click)="onAssign()">Asignar ahora</button>
+              </div>
+            }
+            <div class="ticket-badges">
+              <span class="badge" [class]="'priority-' + ticket()?.priorityCode?.toLowerCase()">
+                {{ ticket()?.priorityName }}
+              </span>
+              <span class="badge status-pill" [style.border-color]="statusPhaseColor()" [style.color]="statusPhaseColor()">
+                {{ statusPhaseLabel() }}
+              </span>
+              <span class="ticket-tech-status">Estado operativo: {{ technicalStatusLabel() }}</span>
+            </div>
+            <div class="ticket-workflow">
+              <span class="workflow-step" [class.active]="!isResolved() && !isClosed()">
+                <lucide-angular name="clock" [size]="12"></lucide-angular>
+                En atención
+              </span>
+              <span class="workflow-line"></span>
+              <span class="workflow-step" [class.active]="isResolved()">
+                <lucide-angular name="check-circle" [size]="12"></lucide-angular>
+                Resuelto
+              </span>
+              <span class="workflow-line"></span>
+              <span class="workflow-step" [class.active]="isClosed()">
+                <lucide-angular name="lock" [size]="12"></lucide-angular>
+                Cerrado
+              </span>
+            </div>
+            <p class="ticket-workflow-note">
+              @if (isClosed()) {
+                Ticket cerrado: queda en modo solo lectura.
+              } @else if (isResolved()) {
+                Ticket resuelto: valida la solución y ciérralo para finalizar.
+              } @else {
+                Ticket activo: atiende, conversa y resuelve antes de cerrar.
+              }
+            </p>
+            <div class="ticket-flow-actions">
+              <div class="flow-actions-head">
+                <span>{{ workflowActorLabel() }}</span>
+                <strong>Acciones disponibles para este estado</strong>
+              </div>
+              @if (workflowActions().length) {
+                <div class="flow-action-grid">
+                  @for (action of workflowActions(); track action.code + action.label) {
+                    <button
+                      type="button"
+                      class="flow-action-btn"
+                      [class.is-primary]="action.tone === 'primary'"
+                      [class.is-teal]="action.tone === 'teal'"
+                      [class.is-ghost]="action.tone === 'ghost'"
+                      (click)="changeWorkflowStatus(action)"
+                      [disabled]="!!changingStatus() || supportNeedsAssignment()">
+                      <span class="flow-action-icon">
+                        <lucide-angular [name]="changingStatus() === action.code ? 'loader' : action.icon" [class.spinner]="changingStatus() === action.code" [size]="15"></lucide-angular>
+                      </span>
+                      <span>
+                        <strong>{{ changingStatus() === action.code ? 'Actualizando...' : action.label }}</strong>
+                        <small>{{ action.description }}</small>
+                      </span>
+                    </button>
+                  }
+                </div>
+              } @else {
+                <p class="flow-no-actions">
+                  @if (isClosed()) {
+                    El ticket está cerrado y no admite cambios de estado.
+                  } @else {
+                    No hay acciones de flujo disponibles para tu perfil en este estado.
+                  }
+                </p>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Conversación -->
+        <div class="sm-card conversation-card">
+          <div class="sm-tabs">
+            <button class="sm-tab" [class.active]="activeTab() === 'conversation'" (click)="setActiveTab('conversation')">
+              <lucide-angular name="message-circle" [size]="14"></lucide-angular>
+              <span>Conversación</span>
+            </button>
+            @if (canUseInternalNotes()) {
+              <button class="sm-tab" [class.active]="activeTab() === 'notes'" (click)="setActiveTab('notes')">
+                <lucide-angular name="lock" [size]="14"></lucide-angular>
+                <span>Notas Internas</span>
+              </button>
+            }
+            <button class="sm-tab" [class.active]="activeTab() === 'history'" (click)="setActiveTab('history')">
+              <lucide-angular name="history" [size]="14"></lucide-angular>
+              <span>Historial</span>
+            </button>
+          </div>
+
+          <div class="conversation-body">
+            @if (activeTab() === 'history') {
+              <div class="history-list" #historyScroller>
+                @for (item of history(); track item.id) {
+                  <div class="history-item" [ngClass]="historyClass(item)">
+                    <span class="history-marker">
+                      <lucide-angular [name]="historyIcon(item)" [size]="15"></lucide-angular>
+                    </span>
+                    <div class="history-content">
+                      <div class="history-head">
+                        <strong>{{ item.title }}</strong>
+                        <span>{{ formatDate(item.createdAt) }}</span>
+                      </div>
+                      <p>{{ item.detail }}</p>
+                      <div class="history-meta">
+                        <span>{{ item.actorName }}</span>
+                        <span>{{ item.action }}</span>
+                        @if (item.isInternal) {
+                          <span>INTERNO</span>
+                        }
+                      </div>
+                      @if (item.changes.length) {
+                        <div class="history-changes">
+                          @for (change of item.changes; track change.label) {
+                            <div class="history-change-row">
+                              <label>{{ change.label }}</label>
+                              <span>{{ change.before }}</span>
+                              <lucide-angular name="arrow-right" [size]="12"></lucide-angular>
+                              <strong>{{ change.after }}</strong>
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                } @empty {
+                  <div class="no-comments">
+                    <lucide-angular name="history" [size]="32" style="opacity: 0.2;"></lucide-angular>
+                    <p>No hay historial registrado para este ticket.</p>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="chat-thread" #chatScroller [class.is-internal-thread]="activeTab() === 'notes'">
+                @for (c of (activeTab() === 'conversation' ? conversationMessages() : noteMessages()); track c.id) {
+                  <div class="chat-message" [class.from-me]="isOwnMessage(c)" [class.is-internal]="c.isInternal" [class.is-pending]="c.pending">
+                    <div class="comment-avatar">
+                      {{ c.authorInitials || (isOwnMessage(c) ? currentUserInitials() : '??') }}
+                    </div>
+                    <div class="chat-bubble">
+                      <div class="comment-header">
+                        <span class="author-name">{{ isOwnMessage(c) ? 'Tú' : c.authorName }}</span>
+                        <span class="comment-date">{{ c.pending ? 'Enviando...' : formatDate(c.createdAt) }}</span>
+                        @if (c.isInternal) {
+                          <span class="internal-label">INTERNO</span>
+                        }
+                      </div>
+                      <p class="comment-text">{{ c.body }}</p>
+                    </div>
+                  </div>
+                } @empty {
+                  <div class="no-comments">
+                    <lucide-angular name="message-square" [size]="32" style="opacity: 0.2;"></lucide-angular>
+                    <p>No hay mensajes en esta sección aún.</p>
+                  </div>
+                }
+              </div>
+
+              <!-- Caja de Respuesta -->
+              <div class="reply-box" [class.is-internal]="activeTab() === 'notes'" [class.is-locked]="isClosed()">
+                @if (isClosed()) {
+                  <div class="reply-locked-note">
+                    <lucide-angular name="lock" [size]="12"></lucide-angular>
+                    <span>Ticket cerrado: conversación y notas quedan en solo lectura.</span>
+                  </div>
+                }
+                <textarea
+                  class="sm-input reply-textarea"
+                  [placeholder]="isClosed() ? 'Ticket cerrado en modo solo lectura' : (activeTab() === 'conversation' ? 'Escribe una respuesta para el usuario...' : 'Escribe una nota interna para el equipo...')"
+                  [formControl]="activeTab() === 'conversation' ? replyCtrl : noteCtrl"
+                  (keydown)="onReplyKeydown($event)"
+                  [disabled]="isClosed() || supportNeedsAssignment() || (activeTab() === 'conversation' ? sendingReply() : sendingNote())"
+                  [readOnly]="isClosed()"
+                ></textarea>
+                @if ((activeTab() === 'conversation' ? replyCtrl : noteCtrl).hasError('maxlength')) {
+                  <span class="field-error">El mensaje no puede superar los {{ (activeTab() === 'conversation' ? replyCtrl : noteCtrl).getError('maxlength').requiredLength }} caracteres</span>
+                }
+                <div class="reply-footer">
+                  <span class="reply-hint">Enter para enviar · Shift + Enter para nueva línea</span>
+                  <button class="btn btn-primary reply-send-btn" 
+                          (click)="activeTab() === 'conversation' ? sendReply() : addNote()"
+                          [disabled]="isClosed() || supportNeedsAssignment() || (activeTab() === 'conversation' ? (replyCtrl.invalid || sendingReply()) : (noteCtrl.invalid || sendingNote()))">
+                    <lucide-angular
+                      [name]="(activeTab() === 'conversation' ? sendingReply() : sendingNote()) ? 'loader' : (activeTab() === 'conversation' ? 'send' : 'lock')"
+                      [class.spinner]="activeTab() === 'conversation' ? sendingReply() : sendingNote()"
+                      [size]="14"></lucide-angular>
+                    <span>
+                      @if (activeTab() === 'conversation') {
+                        {{ sendingReply() ? 'Enviando...' : 'Enviar Respuesta' }}
+                      } @else {
+                        {{ sendingNote() ? 'Guardando...' : 'Guardar Nota' }}
+                      }
+                    </span>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar de Detalles -->
+      <aside class="detail-sidebar">
+        <div class="sm-card side-info-card">
+          <h3 class="side-title">Información del Caso</h3>
+          <div class="side-list">
+            <div class="side-item">
+              <label>Solicitante</label>
+              <span>{{ ticket()?.requesterName }}</span>
+            </div>
+            <div class="side-item">
+              <label>Asignado a</label>
+              <span>{{ assignedTechnicianText() }}</span>
+            </div>
+            <div class="side-item">
+              <label>Fecha de Creación</label>
+              <span>{{ ticket()?.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+            <div class="side-item">
+              <label>Última Actividad</label>
+              <span>{{ latestActivity() }}</span>
+            </div>
+          </div>
+        </div>
+
+        @if (linkedAsset()) {
+          <div class="sm-card linked-asset-card">
+            <div class="linked-asset-media">
+              @if (linkedAsset()?.photoUrl) {
+                <img [src]="linkedAsset()?.photoUrl" [alt]="linkedAsset()?.assetTag || 'Activo vinculado'">
+              } @else {
+                <div class="linked-asset-placeholder">
+                  <lucide-angular name="package" [size]="30"></lucide-angular>
+                </div>
+              }
+            </div>
+            <div class="linked-asset-body">
+              <span class="linked-asset-eyebrow">Activo vinculado</span>
+              <strong>{{ linkedAsset()?.assetTag }}</strong>
+              <span>{{ linkedAsset()?.assetTypeName || 'Equipo TI' }}</span>
+              <div class="linked-asset-meta">
+                <small>Serie</small>
+                <b>{{ linkedAsset()?.serialNumber || '---' }}</b>
+              </div>
+              <div class="linked-asset-meta">
+                <small>Estado</small>
+                <b [style.color]="linkedAsset()?.statusColor">{{ linkedAsset()?.statusName || '---' }}</b>
+              </div>
+              <div class="linked-asset-meta">
+                <small>Asignado a</small>
+                <b>{{ linkedAsset()?.assignedToName || 'Sin asignar' }}</b>
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="sm-card sla-card">
+          <h3 class="side-title">Tiempo de Respuesta (SLA)</h3>
+          <div class="sla-status">
+            <div class="sla-progress-bg">
+              <div class="sla-progress-bar" [style.width.%]="slaPercent()" [style.background]="slaBarColor()"></div>
+            </div>
+            <div class="sla-labels">
+              <span class="sla-time">{{ slaRemainingText() }}</span>
+              <span class="sla-state" [ngClass]="slaStateClass()">{{ slaStateText() }}</span>
+            </div>
+            <div class="sla-meta">
+              <span>{{ slaPercent() }}% consumido</span>
+              <span>{{ slaTotalMinutes() / 60 | number:'1.0-1' }}h objetivo</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  }
+</div>

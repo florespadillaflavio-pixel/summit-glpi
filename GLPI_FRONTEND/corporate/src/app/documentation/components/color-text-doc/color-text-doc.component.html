@@ -1,0 +1,198 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Color Text Module</h2>
+                
+                <span><app-chip>&#64;app/shared/material/color-text</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em><b>app-hint</b></em>&gt;Hint text&lt;/<em><b>app-hint</b></em>&gt;
+&lt;<em><b>app-main</b></em>&gt;Main text&lt;/<em><b>app-main</b></em>&gt;
+&lt;<em><b>app-accent</b></em>&gt;Accent text&lt;/<em><b>app-accent</b></em>&gt;
+&lt;<em><b>app-info</b></em>&gt;Info text&lt;/<em><b>app-info</b></em>&gt;
+&lt;<em><b>app-success</b></em>&gt;Success text&lt;/<em><b>app-success</b></em>&gt;
+&lt;<em><b>app-warning</b></em>&gt;Warning text&lt;/<em><b>app-warning</b></em>&gt;
+&lt;<em><b>app-danger</b></em>&gt;Danger text&lt;/<em><b>app-danger</b></em>&gt;
+&lt;<em><b>app-error</b></em>&gt;Error text&lt;/<em><b>app-error</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppHint</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-hint</em>, [<em>appHint</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-hint>Hint Text</app-hint></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppMain</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-main</em>, [<em>appMain</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-main>Main Text</app-main></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppAccent</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-accent</em>, [<em>appAccent</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-accent>Accent Text</app-accent></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppInfo</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-info</em>, [<em>appInfo</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-info>Info Text</app-info></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppSuccess</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-success</em>, [<em>appSuccess</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-success>Success Text</app-success></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppWarning</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-warning</em>, [<em>appWarning</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-warning>Warning Text</app-warning></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDanger</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-danger</em>, [<em>appDanger</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-danger>Danger Text</app-danger></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppError</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>Selector:</b> &nbsp; <samp><em>app-error</em>, [<em>appError</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal"><app-error>Error Text</app-error></app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Todas las variantes</app-card-title>
+                    <app-card-subtitle>Color Text</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em><b>app-hint</b></em>&gt;Hint text&lt;/<em><b>app-hint</b></em>&gt;
+&lt;<em><b>app-main</b></em>&gt;Main text&lt;/<em><b>app-main</b></em>&gt;
+&lt;<em><b>app-accent</b></em>&gt;Accent text&lt;/<em><b>app-accent</b></em>&gt;
+&lt;<em><b>app-info</b></em>&gt;Info text&lt;/<em><b>app-info</b></em>&gt;
+&lt;<em><b>app-success</b></em>&gt;Success text&lt;/<em><b>app-success</b></em>&gt;
+&lt;<em><b>app-warning</b></em>&gt;Warning text&lt;/<em><b>app-warning</b></em>&gt;
+&lt;<em><b>app-danger</b></em>&gt;Danger text&lt;/<em><b>app-danger</b></em>&gt;
+&lt;<em><b>app-error</b></em>&gt;Error text&lt;/<em><b>app-error</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap padding>
+                        <app-hint>Hint text</app-hint>
+                        <app-main>Main text</app-main>
+                        <app-accent>Accent text</app-accent>
+                        <app-info>Info text</app-info>
+                        <app-success>Success text</app-success>
+                        <app-warning>Warning text</app-warning>
+                        <app-danger>Danger text</app-danger>
+                        <app-error>Error text</app-error>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

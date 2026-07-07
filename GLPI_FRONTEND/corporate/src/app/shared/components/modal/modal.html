@@ -1,0 +1,31 @@
+<div class="sm-overlay" (click)="close.emit()">
+  <div class="sm-modal" [style.max-width.px]="maxWidth()" (click)="$event.stopPropagation()">
+    <app-loading-overlay [visible]="loading()"></app-loading-overlay>
+    
+    <!-- Header -->
+    <div class="sm-modal-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="modal-icon-box" [class.is-danger]="dangerIcon()">
+          <lucide-angular [name]="icon()" [size]="20"></lucide-angular>
+        </div>
+        <div>
+          <h2 class="modal-title">{{ title() }}</h2>
+          <p class="modal-subtitle">{{ subtitle() }}</p>
+        </div>
+      </div>
+      <button class="btn btn-ghost btn-sm" (click)="close.emit()">
+        <lucide-angular name="x" class="btn-icon"></lucide-angular>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="sm-modal-body">
+      <ng-content></ng-content>
+    </div>
+
+    <!-- Footer -->
+    <div class="sm-modal-footer">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </div>
+</div>

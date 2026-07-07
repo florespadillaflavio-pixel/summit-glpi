@@ -1,0 +1,139 @@
+<app-toolbar paddingHorizontal borderBottom>
+    <app-icon fill fontSize="32" textColor>code</app-icon>
+    <h4>DevTools</h4>
+    <app-chip>2.7.0</app-chip>
+    <app-spacer justify="center">
+        <button appIconButton color="main"
+            [variant]="panel.isEmpty() ? 'primary' : 'plain'"
+            (click)="panel.clear(); portal = undefined; title = ''"
+        >
+            <app-icon [fill]="panel.isEmpty()">home</app-icon>
+        </button>
+        <button *ngFor="let feature of features"
+            appIconButton color="main"
+            [variant]="panel.isSelected(feature) ? 'primary' : 'plain'"
+            (click)="!panel.isSelected(feature) ? panel.select(feature) : null; portal = undefined; title = ''"
+        >
+            <app-icon [fill]="panel.isSelected(feature)">{{ feature.icon }}</app-icon>
+        </button>
+    </app-spacer>
+    <button appIconButton variant="tertiary" border (click)="toggleTheme()">
+        <app-icon>{{ isDarkMode ? 'dark_mode' : 'light_mode' }}</app-icon>
+    </button>
+</app-toolbar>
+
+<div [@fadeRoute]="panel.selected">
+    <div *ngIf="panel.isEmpty()">
+        <app-grid padding min="200">
+            <app-card appRipple appButtonBase appearance="raised" *ngFor="let feature of features" (click)="panel.select(feature)">
+                <app-stack appCardImage padding backgroundColor="--main" width="100%" height="150" justify="center" align="center">
+                    <app-icon fontSize="96" textColor="--white-invariant">{{ feature.icon }}</app-icon>
+                </app-stack>
+                <app-card-header width="100%">
+                    <app-card-title textColor="--accent" bold>{{ feature.name }}</app-card-title>
+                    <app-card-subtitle>
+                        <app-stack orientation="horizontal" marginTop="4">
+                            <app-list-item appBoxBase noPadding>
+                                <app-icon appListItemIcon>deployed_code</app-icon>{{ getAvailables(feature.name) }}/{{ getTotal(feature.name) }}
+                            </app-list-item>
+                            <app-list-item appBoxBase noPadding>
+                                <app-icon appListItemIcon>description</app-icon>{{ getDocumented(feature.name) }}/{{ getTotal(feature.name) }}
+                            </app-list-item>
+                        </app-stack>
+                    </app-card-subtitle>
+                </app-card-header>
+            </app-card>
+        </app-grid>
+    </div>
+
+    <div *ngIf="!panel.isEmpty()">
+        <ng-container *ngFor="let feature of features">
+            <app-sidenav-container height="calc(100vh - 70px)" hasBackdrop *ngIf="feature.name === panel.selected[0].name">
+                <app-sidenav #snav
+                    width="200" borderRight
+                    [mode]="isMobile ? 'over' : 'side'"
+                    [disableClose]="!isMobile"
+                >
+                    <app-nav-list>
+                        <ng-container *ngFor="let menu of feature.menu; let first = first">
+                            <app-list-item variant="submenu" *ngIf="menu.icon; else separator"
+                                [active]="menu.name === title"
+                                [disabled]="menu.disabled || !menu.portal"
+                                (click)="portal = menu.portal; title = menu.name; snav.close()"
+                            >
+                                <app-icon appListItemIcon>{{ menu.icon }}</app-icon>
+                                {{ menu.name }}
+                                <app-icon *ngIf="!menu.disabled && !menu.portal" fontSize="16">deployed_code</app-icon>
+                            </app-list-item>
+                            <ng-template #separator>
+                                <app-divider *ngIf="!first"></app-divider>
+                                <b appListItem>{{ menu.name }}</b>
+                            </ng-template>
+                        </ng-container>
+                    </app-nav-list>
+                </app-sidenav>
+
+                <app-sidenav-content #content>
+                    <app-toolbar paddingHorizontal [scrollTarget]="content" *ngIf="isMobile">
+                        <button appIconButton variant="tertiary" (click)="snav.toggle()"><app-icon>menu</app-icon></button>
+                        <h5>{{ title || feature.name }}</h5>
+                    </app-toolbar>
+
+                    <app-grid min="200" padding *ngIf="!portal && isMobile">
+                        <button *ngFor="let menu of feature.menu"
+                            appFab color="main" appearance="raised"
+                            [disabled]="menu.disabled || !menu.portal"
+                            (click)="portal = menu.portal; title = menu.name"
+                        >
+                            <app-icon>{{ menu.icon }}</app-icon>
+                            {{ menu.name }}
+                            <app-spacer></app-spacer>
+                        </button>
+                    </app-grid>
+
+                    <div appPosition="relative">
+                        <app-stack noGap justify="center" align="center" paddingTop  *ngIf="!portal && !isMobile" @fade>
+                            <app-icon fill fontSize="36">{{ feature.icon }}</app-icon>
+                            <h5>{{ feature.name }}</h5>
+                            <app-stack orientation="horizontal">
+                                <app-list-item appBoxBase noPadding>
+                                    <app-icon appListItemIcon>deployed_code</app-icon>{{ getAvailables(feature.name) }}/{{ getTotal(feature.name) }}
+                                </app-list-item>
+                                <app-list-item appBoxBase noPadding>
+                                    <app-icon appListItemIcon>description</app-icon>{{ getDocumented(feature.name) }}/{{ getTotal(feature.name) }}
+                                </app-list-item>
+                            </app-stack>
+
+                            <app-chip-set paddingTop>
+                                <app-chip-option *ngFor="let tag of feature.filter"
+                                    [selected]="filter.isSelected(tag)"
+                                    (click)="filter.toggle(tag)"
+                                >
+                                    {{ tag | titlecase }}
+                                </app-chip-option>
+                            </app-chip-set>
+                        </app-stack>
+
+                        <app-grid padding min="200" *ngIf="!portal && !isMobile" @fade>
+                            <app-card appRipple appButtonBase appearance="raised" *ngFor="let menu of filterMenu(feature.menu)" [class.disabled]="menu.disabled || !menu.portal" (click)="portal = menu.portal; title = menu.name">
+                                <app-stack appCardImage padding backgroundColor="--accent" width="100%" height="150" justify="center" align="center">
+                                    <app-icon fontSize="96" textColor="--white-invariant">{{ menu.icon }}</app-icon>
+                                </app-stack>
+                                <app-card-header width="100%">
+                                    <app-card-title bold>
+                                        {{ menu.name }}
+                                        <app-icon *ngIf="!menu.disabled && !menu.portal" fontSize="16">deployed_code</app-icon>
+                                    </app-card-title>
+                                </app-card-header>
+                            </app-card>
+                        </app-grid>
+
+                        <div [@fadeRoute]="portal">
+                            <ng-template [cdkPortalOutlet]="portal"></ng-template>
+                        </div>
+                    </div>
+                </app-sidenav-content>
+            </app-sidenav-container>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+<div class="kb-page">
+  <section class="kb-hero">
+    <div class="kb-hero-pattern"></div>
+    <div class="kb-hero-content">
+      <span class="tickets-eyebrow kb-eyebrow">
+        <lucide-angular name="book-open" [size]="15"></lucide-angular>
+        Autoservicio
+      </span>
+      <h1 class="kb-hero-title">Base de Conocimiento</h1>
+      <p class="kb-hero-sub">Resuelve dudas frecuentes, consulta guías y reduce tickets repetidos con artículos claros.</p>
+      <div class="kb-search-wrap">
+        <lucide-angular name="search" [size]="18" class="kb-search-icon"></lucide-angular>
+        <input
+          class="kb-search-input"
+          placeholder="Buscar por artículo, guía, error, política..."
+          [formControl]="searchCtrl"
+          (input)="onSearchInput()"
+          (keydown.enter)="onApplySearch()">
+      </div>
+    </div>
+  </section>
+
+  @if (loading()) {
+    <div class="kb-loading-grid">
+      <div class="sm-skeleton kb-sk-card"></div>
+      <div class="sm-skeleton kb-sk-card"></div>
+      <div class="sm-skeleton kb-sk-card"></div>
+    </div>
+  } @else {
+    <section class="kb-stats">
+      <div class="kb-stat-card">
+        <span class="kb-stat-icon is-navy"><lucide-angular name="library" [size]="18"></lucide-angular></span>
+        <strong>{{ articulos().length }}</strong>
+        <span>Artículos publicados</span>
+      </div>
+      <div class="kb-stat-card">
+        <span class="kb-stat-icon is-teal"><lucide-angular name="folder" [size]="18"></lucide-angular></span>
+        <strong>{{ categoryCount() }}</strong>
+        <span>Categorías activas</span>
+      </div>
+      <div class="kb-stat-card">
+        <span class="kb-stat-icon is-warning"><lucide-angular name="eye" [size]="18"></lucide-angular></span>
+        <strong>{{ totalViews() | number }}</strong>
+        <span>Consultas totales</span>
+      </div>
+      <div class="kb-stat-card">
+        <span class="kb-stat-icon is-success"><lucide-angular name="star" [size]="18"></lucide-angular></span>
+        <strong>{{ (popularArticle()?.views || 0) | number }}</strong>
+        <span>Más consultado</span>
+      </div>
+    </section>
+
+    <div class="kb-body">
+      <aside class="kb-aside">
+        <div class="kb-panel">
+          <div class="kb-panel-head">
+            <strong>Categorías</strong>
+            <span>{{ activeCat() || 'Todas' }}</span>
+          </div>
+          <button class="cat-item" [class.active]="!activeCat()" (click)="onSetCat(null)">
+            <lucide-angular name="layout-grid" [size]="15" class="cat-icon"></lucide-angular>
+            <span class="cat-nombre">Todas las categorías</span>
+            <span class="cat-count">{{ articulos().length }}</span>
+          </button>
+          @for (cat of categorias(); track cat.id) {
+            <button
+              type="button"
+              class="cat-item"
+              [class.active]="activeCat() === cat.name"
+              (click)="onSetCat(cat.name)">
+              <lucide-angular [name]="cat.icon || 'folder'" [size]="15" class="cat-icon"></lucide-angular>
+              <span class="cat-nombre">{{ cat.name }}</span>
+              <span class="cat-count">{{ cat.articleCount || 0 }}</span>
+            </button>
+          }
+        </div>
+      </aside>
+
+      <main class="kb-main">
+        @if (destacados().length) {
+          <section class="kb-section">
+            <div class="kb-section-head">
+              <h2 class="kb-section-title">
+                <lucide-angular name="star" [size]="16"></lucide-angular>
+                Destacados
+              </h2>
+              <span>Los artículos más consultados por usuarios</span>
+            </div>
+            <div class="featured-grid">
+              @for (a of destacados(); track a.id) {
+                <button type="button" class="featured-card" (click)="onIrAlArticulo(a.id)">
+                  <span class="featured-avatar">{{ articleInitial(a) }}</span>
+                  <span class="badge is-navy">{{ a.categoryName || 'General' }}</span>
+                  <h4 class="featured-title">{{ a.title }}</h4>
+                  <p class="featured-excerpt">{{ a.summary || a.content }}</p>
+                  <div class="featured-meta">
+                    <span><lucide-angular name="eye" [size]="12"></lucide-angular>{{ a.views | number }} vistas</span>
+                    <span>{{ a.publishedAt | date:'dd/MM/yyyy' }}</span>
+                  </div>
+                </button>
+              }
+            </div>
+          </section>
+        }
+
+        <section class="kb-section">
+          <div class="kb-section-head">
+            <h2 class="kb-section-title">
+              <lucide-angular name="clock" [size]="16"></lucide-angular>
+              Artículos
+            </h2>
+            <span>{{ articulosFiltrados().length }} resultados disponibles</span>
+          </div>
+
+          <div class="kb-article-list">
+            @for (a of articulosPagina(); track a.id) {
+              <button type="button" class="kb-article-card" (click)="onIrAlArticulo(a.id)">
+                <span class="kb-article-icon">{{ articleInitial(a) }}</span>
+                <div class="kb-article-content">
+                  <div class="kb-article-top">
+                    <span class="badge is-teal">{{ a.categoryName || 'General' }}</span>
+                    <small>{{ a.publishedAt | date:'dd/MM/yyyy' }}</small>
+                  </div>
+                  <strong>{{ a.title }}</strong>
+                  <p>{{ a.summary || a.content }}</p>
+                  <div class="kb-article-meta">
+                    <span><lucide-angular name="eye" [size]="12"></lucide-angular>{{ a.views | number }} vistas</span>
+                    <span><lucide-angular name="user" [size]="12"></lucide-angular>{{ a.authorName || 'Equipo soporte' }}</span>
+                  </div>
+                </div>
+                <lucide-angular name="chevron-right" [size]="17" class="kb-card-arrow"></lucide-angular>
+              </button>
+            } @empty {
+              <div class="kb-empty-state">
+                <lucide-angular name="search-x" [size]="38"></lucide-angular>
+                <strong>No encontramos artículos</strong>
+                <span>Prueba con otra palabra clave o limpia la categoría seleccionada.</span>
+              </div>
+            }
+          </div>
+
+          <div class="kb-footer">
+            <span class="kb-count">
+              Mostrando {{ pageStart() }}-{{ pageEnd() }} de {{ articulosFiltrados().length }} artículos
+            </span>
+            <nav class="sm-pagination">
+              <button class="sm-page-btn" [disabled]="page() === 1" (click)="onSetPage(page() - 1)">
+                <lucide-angular name="chevron-left" [size]="13"></lucide-angular>
+              </button>
+              @for (p of pages(); track p) {
+                <button class="sm-page-btn" [class.active]="p === page()" (click)="onSetPage(p)">{{ p }}</button>
+              }
+              <button class="sm-page-btn" [disabled]="page() === totalPages()" (click)="onSetPage(page() + 1)">
+                <lucide-angular name="chevron-right" [size]="13"></lucide-angular>
+              </button>
+            </nav>
+          </div>
+        </section>
+      </main>
+    </div>
+  }
+</div>
+
+@if (selectedArticle(); as article) {
+  <app-modal
+    [title]="article.title"
+    [subtitle]="article.categoryName || 'Base de conocimiento'"
+    [icon]="'book-open'"
+    [loading]="detailLoading()"
+    [maxWidth]="760"
+    (close)="onCloseArticle()">
+    <article class="kb-detail">
+      <div class="kb-detail-head">
+        <span class="featured-avatar">{{ articleInitial(article) }}</span>
+        <div>
+          <span class="badge is-teal">{{ article.categoryName || 'General' }}</span>
+          <div class="kb-detail-meta">
+            <span><lucide-angular name="eye" [size]="13"></lucide-angular>{{ article.views | number }} vistas</span>
+            <span><lucide-angular name="user" [size]="13"></lucide-angular>{{ article.authorName || 'Equipo soporte' }}</span>
+            <span><lucide-angular name="calendar" [size]="13"></lucide-angular>{{ article.publishedAt | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+
+      @if (article.summary) {
+        <p class="kb-detail-summary">{{ article.summary }}</p>
+      }
+
+      <div class="kb-detail-content">
+        {{ article.content }}
+      </div>
+
+      @if ((article.tags || []).length) {
+        <div class="kb-detail-tags">
+          @for (tag of (article.tags || []); track tag) {
+            <span>#{{ tag }}</span>
+          }
+        </div>
+      }
+    </article>
+
+    <div footer>
+      <button class="btn btn-primary btn-md" (click)="onCloseArticle()">
+        <lucide-angular name="check-circle" [size]="16"></lucide-angular>
+        <span>Entendido</span>
+      </button>
+    </div>
+  </app-modal>
+}

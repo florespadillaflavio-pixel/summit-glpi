@@ -1,0 +1,296 @@
+<div class="db-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Dashboard</h1>
+      <p class="sm-page-sub">Resumen ejecutivo de la mesa de ayuda</p>
+    </div>
+    <div class="sm-page-actions db-header-actions">
+      <div class="db-date-range">
+        <app-date-picker [compact]="true" [formControl]="dateFrom"></app-date-picker>
+        <span class="db-date-sep">—</span>
+        <app-date-picker [compact]="true" [formControl]="dateTo"></app-date-picker>
+      </div>
+      <button class="btn btn-secondary" (click)="onReload()" [disabled]="loading()">
+        <lucide-angular name="refresh-cw" [size]="15" [class.spinner]="loading() || syncing()"></lucide-angular>
+        <span>{{ syncing() ? 'Sincronizando' : 'Actualizar' }}</span>
+      </button>
+      <button class="btn btn-primary" routerLink="/tickets/new">
+        <lucide-angular name="plus-circle" [size]="15"></lucide-angular>
+        <span>Nuevo Ticket</span>
+      </button>
+    </div>
+  </div>
+
+  @if (errorMsg()) {
+    <div class="sm-alert warning db-alert">
+      <lucide-angular name="alert-circle" [size]="16"></lucide-angular>
+      <span>{{ errorMsg() }}</span>
+    </div>
+  }
+
+  <section class="sm-card db-hero-card">
+    <div class="db-hero-main">
+      <span class="db-live-pill">
+        <span class="db-live-dot"></span>
+        Mesa en tiempo real
+      </span>
+      <h2>Operación de soporte</h2>
+      <p>Tickets activos, prioridad y SLA de atención para decidir qué tomar primero.</p>
+    </div>
+    <div class="db-hero-metrics">
+      <div>
+        <strong>{{ operationsSummary().active }}</strong>
+        <span>Activos</span>
+      </div>
+      <div>
+        <strong>{{ unassignedTickets() }}</strong>
+        <span>Sin asignar</span>
+      </div>
+      <div>
+        <strong>{{ slaRiskTickets() }}</strong>
+        <span>Riesgo SLA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stat Cards -->
+  <div class="db-stats-grid">
+    @if (loading()) {
+      @for (sk of [1,2,3,4]; track sk) {
+        <div class="sm-stat-card">
+          <span class="sm-skeleton" style="height:12px;width:60%;margin-bottom:10px;border-radius:4px;"></span>
+          <span class="sm-skeleton" style="height:36px;width:40%;border-radius:6px;"></span>
+        </div>
+      }
+    } @else {
+      @for (card of statCards(); track card.label) {
+        <div class="sm-card db-stat-card">
+          <div class="db-stat-top">
+            <span class="db-stat-icon">
+              <lucide-angular [name]="card.icon" [size]="18"></lucide-angular>
+            </span>
+            <span class="db-stat-chip" [class.good]="trendIsGood(card)" [class.bad]="!trendIsGood(card)">
+              {{ statHelper(card) }}
+            </span>
+          </div>
+          <div class="stat-label">{{ card.label }}</div>
+          <div class="stat-value">{{ card.value }}</div>
+        </div>
+      }
+    }
+  </div>
+
+  <div class="db-ops-grid">
+    <div class="sm-card db-health-card">
+      <div class="db-section-title">
+        <span><lucide-angular name="shield-check" [size]="17"></lucide-angular></span>
+        <div>
+          <strong>Salud operativa</strong>
+          <small>{{ operationsSummary().total }} tickets en el periodo seleccionado</small>
+        </div>
+      </div>
+      <div class="db-radial-wrap">
+        <div class="db-radial" [style.--value]="slaCompliance() + '%'">
+          <strong>{{ slaCompliance() }}%</strong>
+          <span>SLA</span>
+        </div>
+        <div class="db-health-list">
+          <div>
+            <span>Activos</span>
+            <strong>{{ operationsSummary().activePct }}%</strong>
+          </div>
+          <div>
+            <span>Resueltos / cerrados</span>
+            <strong>{{ operationsSummary().closedPct }}%</strong>
+          </div>
+          <div>
+            <span>Promedio resolución</span>
+            <strong>{{ rawStats()?.avgResolutionHrs || 0 }}h</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm-card db-technicians-card">
+      <div class="db-section-title">
+        <span><lucide-angular name="user-check" [size]="17"></lucide-angular></span>
+        <div>
+          <strong>Carga por técnico</strong>
+          <small>Asignaciones actuales en la cola</small>
+        </div>
+      </div>
+      @if (topTechnicians().length) {
+        <div class="db-tech-list">
+          @for (tech of topTechnicians(); track tech.name) {
+            <div class="db-tech-row">
+              <span>{{ tech.name }}</span>
+              <strong>{{ tech.count }}</strong>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="db-mini-empty">Sin asignaciones registradas.</div>
+      }
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="db-charts-grid">
+    <!-- Distribución por Estado -->
+    <div class="sm-card db-chart-card">
+      <div class="sm-card-header">
+        <h3 class="sm-card-title">Distribución por Estado</h3>
+      </div>
+      @if (loading()) {
+        @for (sk of [1,2,3,4,5]; track sk) {
+          <div style="margin-bottom:12px;">
+            <span class="sm-skeleton" style="height:10px;width:50%;display:block;border-radius:4px;margin-bottom:6px;"></span>
+            <span class="sm-skeleton" style="height:8px;display:block;border-radius:99px;"></span>
+          </div>
+        }
+      } @else {
+        <div class="db-bars">
+          @for (bar of statusBars(); track bar.label) {
+            <div class="db-bar-row">
+              <div class="db-bar-info">
+                <span class="db-bar-label">{{ bar.label }}</span>
+                <span class="db-bar-count">{{ bar.count }}</span>
+              </div>
+              <div class="db-bar-track">
+                <div
+                  class="db-bar-fill {{ bar.cls }}"
+                  [style.width.%]="bar.max > 0 ? (bar.count / bar.max * 100) : 0">
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Tickets por Prioridad -->
+    <div class="sm-card db-chart-card">
+      <div class="sm-card-header">
+        <h3 class="sm-card-title">Tickets por Prioridad</h3>
+      </div>
+      @if (loading()) {
+        @for (sk of [1,2,3,4]; track sk) {
+          <div style="margin-bottom:12px;">
+            <span class="sm-skeleton" style="height:10px;width:40%;display:block;border-radius:4px;margin-bottom:6px;"></span>
+            <span class="sm-skeleton" style="height:8px;display:block;border-radius:99px;"></span>
+          </div>
+        }
+      } @else {
+        <div class="db-bars">
+          @for (bar of priorityBars(); track bar.label) {
+            <div class="db-bar-row">
+              <div class="db-bar-info">
+                <span class="db-bar-label">{{ bar.label }}</span>
+                <span class="db-bar-count">{{ bar.count }}</span>
+              </div>
+              <div class="db-bar-track">
+                <div
+                  class="db-bar-fill {{ bar.cls }}"
+                  [style.width.%]="bar.max > 0 ? (bar.count / bar.max * 100) : 0">
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Tickets Recientes -->
+  <div class="sm-card db-table-card">
+    <div class="sm-card-header">
+      <div>
+        <h3 class="sm-card-title">Cola priorizada</h3>
+        <p class="db-card-sub">Primero crítica/alta, luego sin asignar y más antiguos.</p>
+      </div>
+      <a routerLink="/tickets" class="btn btn-ghost btn-sm">
+        <span>Ver todos</span>
+        <lucide-angular name="external-link" [size]="13"></lucide-angular>
+      </a>
+    </div>
+
+    @if (loading()) {
+      <div class="sm-table-wrap">
+        <table class="sm-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Asunto</th><th>Estado</th>
+              <th>Prioridad</th><th>SLA</th><th>Asignado</th><th>Creado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (sk of [1,2,3,4,5]; track sk) {
+              <tr>
+                @for (c of [1,2,3,4,5,6,7]; track c) {
+                  <td>
+                    <span class="sm-skeleton"
+                      style="height:12px;display:block;border-radius:4px;"
+                      [style.width]="c===2?'140px':'70px'">
+                    </span>
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else if (recentTickets().length === 0) {
+      <div class="db-empty">
+        <lucide-angular name="ticket" [size]="36" style="color:var(--ink-300);"></lucide-angular>
+            <p>No hay tickets activos en la cola</p>
+      </div>
+    } @else {
+      <div class="sm-table-wrap">
+        <table class="sm-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Asunto</th>
+              <th>Estado</th>
+              <th>Prioridad</th>
+              <th>SLA</th>
+              <th>Asignado</th>
+              <th>Creado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (t of recentTickets(); track trackTicket($index, t)) {
+              <tr>
+                <td style="font-family:var(--font-mono);font-size:var(--t-xs);color:var(--ink-500);">
+                  {{ t.number }}
+                </td>
+                <td style="font-weight:500;color:var(--ink-900);max-width:260px;">
+                  <span class="db-subject-ellipsis">{{ t.subject }}</span>
+                </td>
+                <td>
+                  <span class="badge {{ statusBadgeClass(t.statusCode) }}">
+                    {{ t.statusName }}
+                  </span>
+                </td>
+                <td>
+                  <span class="badge {{ priorityBadgeClass(t.priCode) }}">
+                    {{ t.priName }}
+                  </span>
+                </td>
+                <td>
+                  <div class="db-sla-inline" [ngClass]="t.slaClass">
+                    <span>{{ t.slaPercent }}%</span>
+                    <div><i [style.width.%]="t.slaPercent"></i></div>
+                  </div>
+                </td>
+                <td style="color:var(--ink-700);">{{ t.assignee }}</td>
+                <td style="color:var(--ink-400);font-size:var(--t-xs);">{{ t.createdAgo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>

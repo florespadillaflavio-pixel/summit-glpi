@@ -1,0 +1,1087 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Button Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/button</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em class="app-danger">button</em> <em><b>appButton</b></em>&gt;&lt;/<em class="app-danger">button</em>&gt;
+&lt;<em class="app-danger">button</em> <em><b>appIconButton</b></em>&gt;&lt;/<em class="app-danger">button</em>&gt;
+&lt;<em class="app-danger">button</em> <em><b>appFab</b></em>&gt;&lt;/<em class="app-danger">button</em>&gt;
+
+&lt;<em class="app-danger">button</em> <em><b>appButton</b></em>
+    <em><b>variant</b></em>=<em class="app-warning">"primary"</em>
+    <em><b>size</b></em>=<em class="app-warning">"small"</em>
+    <em><b>color</b></em>=<em class="app-warning">"accent"</em>
+    <em><b>appearance</b></em>=<em class="app-warning">"raised"</em>
+&gt;&lt;/<em class="app-danger">button</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppButton</b></em> extends <em>ButtonBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appButton</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appButton</em>, <em>appAnchor</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal">
+                                    <button appButton variant="primary" appearance="raised">Button</button>
+                                    <button appButton variant="primary" appearance="raised"><app-icon>home</app-icon>Button</button>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b> (<samp><em>ButtonBase</em></samp>)</h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>variant</em>:
+                                    <em class="app-warning">'primary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'secondary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'tertiary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'quaternary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'plain'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'plain'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>size</em>:
+                                    <em class="app-warning">'small'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'medium'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'large'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'medium'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>color</em>:
+                                    <em class="app-warning">'main'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'accent'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'info'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'success'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'warning'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'danger'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'default'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'default'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>appearance</em>:
+                                    <em class="app-warning">'flat'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'float'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'outlined'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'raised'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'flat'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppIconButton</b></em> extends <em>ButtonBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appIconButton</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appButton</em>, <em>appAnchor</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal">
+                                    <button appIconButton variant="primary" appearance="raised"><app-icon>home</app-icon></button>
+                                    <button appIconButton variant="primary" appearance="raised"><app-icon>home</app-icon>Icon Button</button>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b> (<samp><em>ButtonBase</em></samp>)</h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>variant</em>:
+                                    <em class="app-warning">'primary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'secondary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'tertiary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'quaternary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'plain'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'plain'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>size</em>:
+                                    <em class="app-warning">'small'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'medium'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'large'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'medium'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>color</em>:
+                                    <em class="app-warning">'main'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'accent'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'info'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'success'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'warning'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'danger'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'default'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'default'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>appearance</em>:
+                                    <em class="app-warning">'flat'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'float'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'outlined'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'raised'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'flat'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppFab</b></em> extends <em>ButtonBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appFab</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appButton</em>, <em>appAnchor</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal">
+                                    <button appFab variant="primary" appearance="raised"><app-icon>home</app-icon></button>
+                                    <button appFab variant="primary" appearance="raised"><app-icon>home</app-icon>Fab</button>
+                                </app-stack>
+                            </app-stack>
+                            
+                            <h6><b>Inputs</b> (<samp><em>ButtonBase</em></samp>)</h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>variant</em>:
+                                    <em class="app-warning">'primary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'secondary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'tertiary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'quaternary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'plain'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'plain'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>size</em>:
+                                    <em class="app-warning">'small'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'medium'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'large'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'medium'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>color</em>:
+                                    <em class="app-warning">'main'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'accent'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'info'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'success'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'warning'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'danger'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'default'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'default'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>appearance</em>:
+                                    <em class="app-warning">'flat'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'float'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'outlined'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'raised'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'flat'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <h3>Variants</h3>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 158" @fade>
+                <app-card-header>
+                    <app-card-title>Basic Button</app-card-title>
+                    <app-card-subtitle>Variants</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;button <em>appButton</em> <em>variant</em>="primary"&gt;Primary&lt;/button&gt;
+&lt;button <em>appButton</em> <em>variant</em>="secondary"&gt;Secondary&lt;/button&gt;
+&lt;button <em>appButton</em> <em>variant</em>="tertiary"&gt;Tertiary&lt;/button&gt;
+&lt;button <em>appButton</em> <em>variant</em>="quaternary"&gt;Quaternary&lt;/button&gt;
+&lt;button <em>appButton</em>&gt;plain&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start">
+                        <button appButton variant="primary">Primary</button>
+                        <button appButton variant="secondary">Secondary</button>
+                        <button appButton variant="tertiary">Tertiary</button>
+                        <button appButton variant="quaternary">Quaternary</button>
+                        <button appButton>Plain</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 146" @fade>
+                <app-card-header>
+                    <app-card-title>Icon Button</app-card-title>
+                    <app-card-subtitle>Variants</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;button <em>appIconButton</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start">
+                        <button appIconButton variant="primary"><app-icon>home</app-icon></button>
+                        <button appIconButton variant="secondary"><app-icon>home</app-icon></button>
+                        <button appIconButton variant="tertiary"><app-icon>home</app-icon></button>
+                        <button appIconButton variant="quaternary"><app-icon>home</app-icon></button>
+                        <button appIconButton><app-icon>home</app-icon></button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 154" @fade>
+                <app-card-header>
+                    <app-card-title>Fab</app-card-title>
+                    <app-card-subtitle>Variants</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Primary&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Secondary&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Tertiary&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Quaternary&lt;/button&gt;
+&lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Plain&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start">
+                        <button appFab variant="primary"><app-icon>home</app-icon></button>
+                        <button appFab variant="primary"><app-icon>home</app-icon>Primary</button>
+                        <button appFab variant="secondary"><app-icon>home</app-icon></button>
+                        <button appFab variant="secondary"><app-icon>home</app-icon>Secondary</button>
+                        <button appFab variant="tertiary"><app-icon>home</app-icon></button>
+                        <button appFab variant="tertiary"><app-icon>home</app-icon>Tertiary</button>
+                        <button appFab variant="quaternary"><app-icon>home</app-icon></button>
+                        <button appFab variant="quaternary"><app-icon>home</app-icon>Quaternary</button>
+                        <button appFab><app-icon>home</app-icon></button>
+                        <button appFab><app-icon>home</app-icon>Plain</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Sizes</h3>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 165" @fade>
+                <app-card-header>
+                    <app-card-title>Basic Button</app-card-title>
+                    <app-card-subtitle>Sizes</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;button <em>appButton</em> <em>variant</em>="primary" <em>size</em>="small"&gt;Small&lt;/button&gt;
+&lt;button <em>appButton</em> <em>variant</em>="primary"&gt;Medium&lt;/button&gt;
+&lt;button <em>appButton</em> <em>variant</em>="primary" <em>size</em>="large"&gt;Large&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appButton variant="primary" size="small">Small</button>
+                        <button appButton variant="primary">Medium</button>
+                        <button appButton variant="primary" size="large">Large</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 162" @fade>
+                <app-card-header>
+                    <app-card-title>Icon Button</app-card-title>
+                    <app-card-subtitle>Sizes</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>size</em>="small"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>size</em>="large"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appIconButton variant="primary" size="small"><app-icon>home</app-icon></button>
+                        <button appIconButton variant="primary"><app-icon>home</app-icon></button>
+                        <button appIconButton variant="primary" size="large"><app-icon>home</app-icon></button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 174" @fade>
+                <app-card-header>
+                    <app-card-title>Fab</app-card-title>
+                    <app-card-subtitle>Sizes</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;button <em>appFab</em> <em>variant</em>="primary" <em>size</em>="small"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary" <em>size</em>="small"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Small&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Medium&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary" <em>size</em>="large"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>variant</em>="primary" <em>size</em>="large"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Large&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appFab variant="primary" size="small"><app-icon>home</app-icon></button>
+                        <button appFab variant="primary" size="small"><app-icon>home</app-icon>Small</button>
+                        <button appFab variant="primary"><app-icon>home</app-icon></button>
+                        <button appFab variant="primary"><app-icon>home</app-icon>Medium</button>
+                        <button appFab variant="primary" size="large"><app-icon>home</app-icon></button>
+                        <button appFab variant="primary" size="large"><app-icon>home</app-icon>Large</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Colors</h3>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 430" @fade>
+                <app-card-header>
+                    <app-card-title>Basic Button</app-card-title>
+                    <app-card-subtitle>Colors</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(7)">
+                        <app-icon>{{ examples.isSelected(7) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(7)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html7' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html7" (copied)="onCopy('html7')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html7>
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Primary&lt;/app-box-base&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary"&gt;Default&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="main"&gt;Main&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="accent"&gt;Accent&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="info"&gt;Info&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="success"&gt;Success&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="warning"&gt;Warning&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="primary" <em>color</em>="danger"&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Secondary&lt;/app-box-base&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary"&gt;Default&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="main"&gt;Main&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="accent"&gt;Accent&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="info"&gt;Info&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="success"&gt;Success&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="warning"&gt;Warning&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="secondary" <em>color</em>="danger"&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Tertiary&lt;/app-box-base&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary"&gt;Default&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="main"&gt;Main&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="accent"&gt;Accent&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="info"&gt;Info&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="success"&gt;Success&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="warning"&gt;Warning&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="tertiary" <em>color</em>="danger"&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Quaternary&lt;/app-box-base&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary"&gt;Default&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="main"&gt;Main&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="accent"&gt;Accent&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="info"&gt;Info&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="success"&gt;Success&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="warning"&gt;Warning&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>variant</em>="quaternary" <em>color</em>="danger"&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Plain&lt;/app-box-base&gt;
+    &lt;button <em>appButton</em>&gt;Default&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="main"&gt;Main&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="accent"&gt;Accent&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="info"&gt;Info&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="success"&gt;Success&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="warning"&gt;Warning&lt;/button&gt;
+    &lt;button <em>appButton</em> <em>color</em>="danger"&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" padding justify="start">
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Primary</app-box-base>
+                            <button appButton variant="primary">Default</button>
+                            <button appButton variant="primary" color="main">Main</button>
+                            <button appButton variant="primary" color="accent">Accent</button>
+                            <button appButton variant="primary" color="info">Info</button>
+                            <button appButton variant="primary" color="success">Success</button>
+                            <button appButton variant="primary" color="warning">Warning</button>
+                            <button appButton variant="primary" color="danger">Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Secondary</app-box-base>
+                            <button appButton variant="secondary">Default</button>
+                            <button appButton variant="secondary" color="main">Main</button>
+                            <button appButton variant="secondary" color="accent">Accent</button>
+                            <button appButton variant="secondary" color="info">Info</button>
+                            <button appButton variant="secondary" color="success">Success</button>
+                            <button appButton variant="secondary" color="warning">Warning</button>
+                            <button appButton variant="secondary" color="danger">Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Tertiary</app-box-base>
+                            <button appButton variant="tertiary">Default</button>
+                            <button appButton variant="tertiary" color="main">Main</button>
+                            <button appButton variant="tertiary" color="accent">Accent</button>
+                            <button appButton variant="tertiary" color="info">Info</button>
+                            <button appButton variant="tertiary" color="success">Success</button>
+                            <button appButton variant="tertiary" color="warning">Warning</button>
+                            <button appButton variant="tertiary" color="danger">Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Quaternary</app-box-base>
+                            <button appButton variant="quaternary">Default</button>
+                            <button appButton variant="quaternary" color="main">Main</button>
+                            <button appButton variant="quaternary" color="accent">Accent</button>
+                            <button appButton variant="quaternary" color="info">Info</button>
+                            <button appButton variant="quaternary" color="success">Success</button>
+                            <button appButton variant="quaternary" color="warning">Warning</button>
+                            <button appButton variant="quaternary" color="danger">Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Plain</app-box-base>
+                            <button appButton>Default</button>
+                            <button appButton color="main">Main</button>
+                            <button appButton color="accent">Accent</button>
+                            <button appButton color="info">Info</button>
+                            <button appButton color="success">Success</button>
+                            <button appButton color="warning">Warning</button>
+                            <button appButton color="danger">Danger</button>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 370" @fade>
+                <app-card-header>
+                    <app-card-title>Icon Button</app-card-title>
+                    <app-card-subtitle>Colors</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(8)">
+                        <app-icon>{{ examples.isSelected(8) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(8)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html8' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html8" (copied)="onCopy('html8')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html8>
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Primary&lt;/app-box-base&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="primary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Secondary&lt;/app-box-base&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="secondary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Tertiary&lt;/app-box-base&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="tertiary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Quaternary&lt;/app-box-base&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>variant</em>="quaternary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Plain&lt;/app-box-base&gt;
+    &lt;button <em>appIconButton</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appIconButton</em> <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" padding justify="start">
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Primary</app-box-base>
+                            <button appIconButton variant="primary"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="main"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="accent"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="info"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="success"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="warning"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="primary" color="danger"><app-icon>home</app-icon></button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Secondary</app-box-base>
+                            <button appIconButton variant="secondary"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="main"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="accent"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="info"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="success"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="warning"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="secondary" color="danger"><app-icon>home</app-icon></button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Tertiary</app-box-base>
+                            <button appIconButton variant="tertiary"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="main"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="accent"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="info"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="success"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="warning"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="tertiary" color="danger"><app-icon>home</app-icon></button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Quaternary</app-box-base>
+                            <button appIconButton variant="quaternary"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="main"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="accent"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="info"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="success"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="warning"><app-icon>home</app-icon></button>
+                            <button appIconButton variant="quaternary" color="danger"><app-icon>home</app-icon></button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Plain</app-box-base>
+                            <button appIconButton><app-icon>home</app-icon></button>
+                            <button appIconButton color="main"><app-icon>home</app-icon></button>
+                            <button appIconButton color="accent"><app-icon>home</app-icon></button>
+                            <button appIconButton color="info"><app-icon>home</app-icon></button>
+                            <button appIconButton color="success"><app-icon>home</app-icon></button>
+                            <button appIconButton color="warning"><app-icon>home</app-icon></button>
+                            <button appIconButton color="danger"><app-icon>home</app-icon></button>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 410" @fade>
+                <app-card-header>
+                    <app-card-title>Fab</app-card-title>
+                    <app-card-subtitle>Colors</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(9)">
+                        <app-icon>{{ examples.isSelected(9) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(9)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html9' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html9' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html9" (copied)="onCopy('html9')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html9>
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Primary&lt;/app-box-base&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Default&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Main&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Accent&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Info&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Success&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Warning&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="primary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Secondary&lt;/app-box-base&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Default&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Main&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Accent&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Info&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Success&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Warning&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="secondary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Tertiary&lt;/app-box-base&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Default&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Main&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Accent&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Info&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Success&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Warning&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="tertiary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Quaternary&lt;/app-box-base&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Default&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Main&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Accent&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Info&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Success&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Warning&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>variant</em>="quaternary" <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-stack orientation="horizontal" align="center"&gt;
+    &lt;app-box-base width="100"&gt;Plain&lt;/app-box-base&gt;
+    &lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Default&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="main"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Main&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="accent"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Accent&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="info"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Info&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="success"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Success&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="warning"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Warning&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;button <em>appFab</em> <em>color</em>="danger"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Danger&lt;/button&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" padding justify="start">
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Primary</app-box-base>
+                            <button appFab variant="primary"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary"><app-icon>home</app-icon>Default</button>
+                            <button appFab variant="primary" color="main"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="main"><app-icon>home</app-icon>Main</button>
+                            <button appFab variant="primary" color="accent"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="accent"><app-icon>home</app-icon>Accent</button>
+                            <button appFab variant="primary" color="info"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="info"><app-icon>home</app-icon>Info</button>
+                            <button appFab variant="primary" color="success"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="success"><app-icon>home</app-icon>Success</button>
+                            <button appFab variant="primary" color="warning"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="warning"><app-icon>home</app-icon>Warning</button>
+                            <button appFab variant="primary" color="danger"><app-icon>home</app-icon></button>
+                            <button appFab variant="primary" color="danger"><app-icon>home</app-icon>Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Secondary</app-box-base>
+                            <button appFab variant="secondary"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary"><app-icon>home</app-icon>Default</button>
+                            <button appFab variant="secondary" color="main"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="main"><app-icon>home</app-icon>Main</button>
+                            <button appFab variant="secondary" color="accent"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="accent"><app-icon>home</app-icon>Accent</button>
+                            <button appFab variant="secondary" color="info"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="info"><app-icon>home</app-icon>Info</button>
+                            <button appFab variant="secondary" color="success"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="success"><app-icon>home</app-icon>Success</button>
+                            <button appFab variant="secondary" color="warning"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="warning"><app-icon>home</app-icon>Warning</button>
+                            <button appFab variant="secondary" color="danger"><app-icon>home</app-icon></button>
+                            <button appFab variant="secondary" color="danger"><app-icon>home</app-icon>Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Tertiary</app-box-base>
+                            <button appFab variant="tertiary"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary"><app-icon>home</app-icon>Default</button>
+                            <button appFab variant="tertiary" color="main"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="main"><app-icon>home</app-icon>Main</button>
+                            <button appFab variant="tertiary" color="accent"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="accent"><app-icon>home</app-icon>Accent</button>
+                            <button appFab variant="tertiary" color="info"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="info"><app-icon>home</app-icon>Info</button>
+                            <button appFab variant="tertiary" color="success"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="success"><app-icon>home</app-icon>Success</button>
+                            <button appFab variant="tertiary" color="warning"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="warning"><app-icon>home</app-icon>Warning</button>
+                            <button appFab variant="tertiary" color="danger"><app-icon>home</app-icon></button>
+                            <button appFab variant="tertiary" color="danger"><app-icon>home</app-icon>Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Quaternary</app-box-base>
+                            <button appFab variant="quaternary"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary"><app-icon>home</app-icon>Default</button>
+                            <button appFab variant="quaternary" color="main"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="main"><app-icon>home</app-icon>Main</button>
+                            <button appFab variant="quaternary" color="accent"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="accent"><app-icon>home</app-icon>Accent</button>
+                            <button appFab variant="quaternary" color="info"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="info"><app-icon>home</app-icon>Info</button>
+                            <button appFab variant="quaternary" color="success"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="success"><app-icon>home</app-icon>Success</button>
+                            <button appFab variant="quaternary" color="warning"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="warning"><app-icon>home</app-icon>Warning</button>
+                            <button appFab variant="quaternary" color="danger"><app-icon>home</app-icon></button>
+                            <button appFab variant="quaternary" color="danger"><app-icon>home</app-icon>Danger</button>
+                        </app-stack>
+
+                        <app-stack orientation="horizontal" align="center">
+                            <app-box-base width="100">Plain</app-box-base>
+                            <button appFab><app-icon>home</app-icon></button>
+                            <button appFab><app-icon>home</app-icon>Default</button>
+                            <button appFab color="main"><app-icon>home</app-icon></button>
+                            <button appFab color="main"><app-icon>home</app-icon>Main</button>
+                            <button appFab color="accent"><app-icon>home</app-icon></button>
+                            <button appFab color="accent"><app-icon>home</app-icon>Accent</button>
+                            <button appFab color="info"><app-icon>home</app-icon></button>
+                            <button appFab color="info"><app-icon>home</app-icon>Info</button>
+                            <button appFab color="success"><app-icon>home</app-icon></button>
+                            <button appFab color="success"><app-icon>home</app-icon>Success</button>
+                            <button appFab color="warning"><app-icon>home</app-icon></button>
+                            <button appFab color="warning"><app-icon>home</app-icon>Warning</button>
+                            <button appFab color="danger"><app-icon>home</app-icon></button>
+                            <button appFab color="danger"><app-icon>home</app-icon>Danger</button>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Appearance</h3>
+            
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 160" @fade>
+                <app-card-header>
+                    <app-card-title>Basic Button</app-card-title>
+                    <app-card-subtitle>Appearance</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(10)">
+                        <app-icon>{{ examples.isSelected(10) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(10)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html10' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html10' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html10" (copied)="onCopy('html10')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html10>
+&lt;button <em>appButton</em>&gt;Flat&lt;/button&gt;
+&lt;button <em>appButton</em> <em>appearance</em>="float"&gt;Float&lt;/button&gt;
+&lt;button <em>appButton</em> <em>appearance</em>="outlined"&gt;Outlined&lt;/button&gt;
+&lt;button <em>appButton</em> <em>appearance</em>="raised"&gt;Raised&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appButton backgroundColor>Flat</button>
+                        <button appButton backgroundColor appearance="float">Float</button>
+                        <button appButton backgroundColor appearance="outlined">Outlined</button>
+                        <button appButton backgroundColor appearance="raised">Raised</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 148" @fade>
+                <app-card-header>
+                    <app-card-title>Icon Button</app-card-title>
+                    <app-card-subtitle>Appearance</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(11)">
+                        <app-icon>{{ examples.isSelected(11) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(11)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html11' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html11' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html11" (copied)="onCopy('html11')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html11>
+&lt;button <em>appIconButton</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>appearance</em>="float"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>appearance</em>="outlined"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appIconButton</em> <em>appearance</em>="raised"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appIconButton backgroundColor><app-icon>home</app-icon></button>
+                        <button appIconButton backgroundColor appearance="float"><app-icon>home</app-icon></button>
+                        <button appIconButton backgroundColor appearance="outlined"><app-icon>home</app-icon></button>
+                        <button appIconButton backgroundColor appearance="raised"><app-icon>home</app-icon></button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised" *appDefer="0; defaultHeight: 156" @fade>
+                <app-card-header>
+                    <app-card-title>Fab</app-card-title>
+                    <app-card-subtitle>Appearance</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(12)">
+                        <app-icon>{{ examples.isSelected(12) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(12)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html12' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html12' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html12" (copied)="onCopy('html12')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html12>
+&lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em>&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Flat&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="float"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="float"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Float&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="outlined"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="outlined"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Outlined&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="raised"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;&lt;/button&gt;
+&lt;button <em>appFab</em> <em>appearance</em>="raised"&gt;&lt;app-icon&gt;home&lt;/app-icon&gt;Raised&lt;/button&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding justify="start" align="center">
+                        <button appFab><app-icon>home</app-icon></button>
+                        <button appFab><app-icon>home</app-icon>Flat</button>
+                        <button appFab appearance="float"><app-icon>home</app-icon></button>
+                        <button appFab appearance="float"><app-icon>home</app-icon>Float</button>
+                        <button appFab appearance="outlined"><app-icon>home</app-icon></button>
+                        <button appFab appearance="outlined"><app-icon>home</app-icon>Outlined</button>
+                        <button appFab appearance="raised"><app-icon>home</app-icon></button>
+                        <button appFab appearance="raised"><app-icon>home</app-icon>Raised</button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

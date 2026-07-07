@@ -1,0 +1,31 @@
+// Summit GLPI — Mixins
+
+@mixin button-variant($bg, $color, $hover-bg) {
+  background: $bg;
+  color: $color;
+  border: none;
+  &:hover:not(:disabled) { background: $hover-bg; }
+}
+
+@mixin badge-variant($bg, $color) {
+  background: $bg;
+  color: $color;
+}
+
+@mixin focus-ring($color: var(--navy-700)) {
+  outline: none;
+  border-color: $color;
+  box-shadow: 0 0 0 3px rgba(20, 63, 92, .12);
+}
+
+@mixin skeleton {
+  background: linear-gradient(90deg, var(--ink-100) 25%, var(--ink-50) 50%, var(--ink-100) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: var(--r-sm);
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

@@ -1,0 +1,59 @@
+<div class="sm-table-wrap">
+  <table class="sm-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Frecuencia</th>
+        <th>Próxima ejecución</th>
+        <th>Destinatarios</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (report of reports(); track report.id) {
+        <tr>
+          <td class="report-name">{{ report.name }}</td>
+          <td class="report-type">{{ report.type || 'Sencillo' }}</td>
+          <td>
+            @if (report.frequency === 'DAILY') {
+              <span class="badge is-navy">Diario</span>
+            } @else if (report.frequency === 'WEEKLY') {
+              <span class="badge is-teal">Semanal</span>
+            } @else {
+              <span class="badge is-pending">Mensual</span>
+            }
+          </td>
+          <td class="report-next">{{ report.nextRun }}</td>
+          <td>
+            <div class="recipients-cell">
+              <lucide-angular name="users" class="recipients-icon" [size]="14"></lucide-angular>
+              {{ report.recipients.join(', ') }}
+            </div>
+          </td>
+          <td>
+            @if (report.isActive) {
+              <span class="badge is-resolved">Activo</span>
+            } @else {
+              <span class="badge is-pending">Pausa</span>
+            }
+          </td>
+          <td>
+            <div class="actions-cell">
+              <button class="btn btn-ghost btn-sm" title="Ejecutar ahora" (click)="onRunNow(report.id)">
+                <lucide-angular name="play" [size]="14" class="btn-icon"></lucide-angular>
+              </button>
+              <button class="btn btn-ghost btn-sm" title="Editar">
+                <lucide-angular name="pencil" [size]="14" class="btn-icon"></lucide-angular>
+              </button>
+              <button class="btn btn-ghost btn-sm" title="Eliminar" (click)="onDelete(report.id)">
+                <lucide-angular name="trash-2" [size]="14" class="btn-icon"></lucide-angular>
+              </button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,32 @@
+# Local container run that mirrors the Render environment.
+# Supply real values via a .env file next to this file, e.g.:
+#
+#   ConnectionStrings__DefaultConnection=Host=...;Database=glpidb;Username=...;Password=...;SSL Mode=VerifyFull;Channel Binding=Require;
+#   Jwt__Key=<a-long-random-secret>
+#   Cloudinary__CloudName=dvqt1zkla
+#   Cloudinary__ApiKey=534572695242884
+#   Cloudinary__ApiSecret=<rotated-secret>
+#   Cors__AllowedOrigins=https://your-frontend.example.com,https://admin.example.com
+#
+# ASP.NET reads nested config from env vars via the double-underscore (__) convention.
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Secrets / connection (supplied via .env or your shell) -----------------
+      ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
+      Jwt__Key: ${Jwt__Key}
+      Cloudinary__CloudName: ${Cloudinary__CloudName}
+      Cloudinary__ApiKey: ${Cloudinary__ApiKey}
+      Cloudinary__ApiSecret: ${Cloudinary__ApiSecret}
+      # Non-secret defaults -----------------------------------------------------
+      Jwt__Issuer: GlpiAPI
+      Jwt__Audience: GlpiApp
+      # Comma-separated list of allowed browser origins (empty = no CORS in prod)
+      Cors__AllowedOrigins: ${Cors__AllowedOrigins}

@@ -1,0 +1,83 @@
+<div class="config-section-content">
+  <div class="section-header">
+    <div class="icon-box">
+      <lucide-angular name="bell" [size]="20"></lucide-angular>
+    </div>
+    <div>
+      <h2 class="section-title">Preferencias de Notificación</h2>
+      <p class="section-desc">Configura qué eventos disparan alertas automáticas por correo.</p>
+    </div>
+  </div>
+
+  <div class="sm-divider"></div>
+
+  @if (loading()) {
+    <div class="config-loading-state">
+      <lucide-angular name="loader" class="spinner" [size]="22"></lucide-angular>
+      <span>Cargando preferencias...</span>
+    </div>
+  }
+
+  <form [formGroup]="notifForm" class="config-form" [class.config-loading-dim]="loading()">
+    <div class="config-grid">
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="notifyNewTicket">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Nuevos Tickets</span>
+            <p class="field-help">Notificar al usuario y soporte cuando se crea un caso.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="notifyTicketUpdate">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Actualizaciones de Caso</span>
+            <p class="field-help">Notificar al solicitante sobre nuevos comentarios o cambios de estado.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="notifyTicketResolve">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Casos Resueltos</span>
+            <p class="field-help">Notificar cuando un ticket pasa a estado resuelto.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="notifySlaRisk">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Riesgos de SLA</span>
+            <p class="field-help">Alertar a coordinadores cuando un ticket está próximo a vencer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="saving()">
+        <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+        <span>Guardar Preferencias</span>
+      </button>
+    </div>
+  </form>
+</div>

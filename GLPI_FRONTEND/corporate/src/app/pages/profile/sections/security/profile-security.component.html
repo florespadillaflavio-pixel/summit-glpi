@@ -1,0 +1,147 @@
+<div class="sm-card pf-tab-card">
+  <h3 class="pf-section-title">Cambiar contraseña</h3>
+
+  @if (secSuccess()) {
+    <div class="pf-alert pf-alert-success">
+      <lucide-angular name="check-circle-2" [size]="15"></lucide-angular>
+      Contraseña actualizada correctamente
+    </div>
+  }
+  @if (secError()) {
+    <div class="pf-alert pf-alert-error">
+      <lucide-angular name="alert-circle" [size]="15"></lucide-angular>
+      {{ secError() }}
+    </div>
+  }
+
+  <form [formGroup]="secForm" (ngSubmit)="onSave()" class="pf-form">
+    <!-- Contraseña actual -->
+    <div class="sm-field">
+      <label class="sm-label" for="sec-current">Contraseña actual</label>
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left" style="display:flex;">
+          <lucide-angular name="lock" [size]="15"></lucide-angular>
+        </span>
+        <input id="sec-current" class="sm-input with-icon-left"
+          [type]="showSecCurrent() ? 'text' : 'password'"
+          formControlName="currentPassword"
+          placeholder="Contraseña actual"
+          style="padding-right:40px;"
+          autocomplete="current-password">
+        <button type="button" class="sm-input-icon right pf-eye-btn"
+          (click)="showSecCurrent.set(!showSecCurrent())">
+          <lucide-angular [name]="showSecCurrent() ? 'eye-off' : 'eye'" [size]="15"></lucide-angular>
+        </button>
+      </div>
+      @if (secForm.get('currentPassword')!.invalid && secForm.get('currentPassword')!.touched) {
+        <span class="pf-field-error">
+          @if (secForm.get('currentPassword')!.hasError('maxlength')) {
+            No puede superar los 255 caracteres
+          } @else {
+            La contraseña actual es requerida
+          }
+        </span>
+      }
+    </div>
+
+    <!-- Nueva contraseña -->
+    <div class="sm-field">
+      <label class="sm-label" for="sec-new">Nueva contraseña</label>
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left" style="display:flex;">
+          <lucide-angular name="lock" [size]="15"></lucide-angular>
+        </span>
+        <input id="sec-new" class="sm-input with-icon-left"
+          [type]="showSecNew() ? 'text' : 'password'"
+          formControlName="newPassword"
+          placeholder="Nueva contraseña"
+          style="padding-right:40px;"
+          autocomplete="new-password">
+        <button type="button" class="sm-input-icon right pf-eye-btn"
+          (click)="showSecNew.set(!showSecNew())">
+          <lucide-angular [name]="showSecNew() ? 'eye-off' : 'eye'" [size]="15"></lucide-angular>
+        </button>
+      </div>
+
+      @if (formValue().newPassword) {
+        <div class="pf-strength-bar" style="margin-top:8px;">
+          <div class="pf-strength-segs">
+            @for (seg of [1,2,3,4]; track seg) {
+              <div class="pf-strength-seg"
+                [class.pf-seg-weak]="secStrength() >= seg && secStrength() === 1"
+                [class.pf-seg-fair]="secStrength() >= seg && secStrength() === 2"
+                [class.pf-seg-good]="secStrength() >= seg && secStrength() === 3"
+                [class.pf-seg-strong]="secStrength() >= seg && secStrength() === 4"
+                [class.pf-seg-empty]="secStrength() < seg">
+              </div>
+            }
+          </div>
+          <span class="pf-strength-lbl pf-sl-{{ secStrengthKey() }}">
+            {{ secStrengthLabel() }}
+          </span>
+        </div>
+        <div class="pf-strength-hints">
+          <span [class.hint-ok]="formValue().newPassword!.length >= 8">Mín. 8 caracteres</span>
+          <span [class.hint-ok]="/[A-Z]/.test(formValue().newPassword!)">Una mayúscula</span>
+          <span [class.hint-ok]="/[0-9]/.test(formValue().newPassword!)">Un número</span>
+        </div>
+      }
+
+      @if (secForm.get('newPassword')!.invalid && secForm.get('newPassword')!.touched) {
+        <span class="pf-field-error">
+          @if (secForm.get('newPassword')!.hasError('required')) {
+            La nueva contraseña es obligatoria
+          } @else if (secForm.get('newPassword')!.hasError('maxlength')) {
+            No puede superar los 255 caracteres
+          } @else {
+            Mínimo 8 caracteres, una mayúscula y un número
+          }
+        </span>
+      }
+    </div>
+
+    <!-- Confirmar -->
+    <div class="sm-field">
+      <label class="sm-label" for="sec-confirm">Confirmar nueva contraseña</label>
+      <div class="sm-input-wrap">
+        <span class="sm-input-icon left" style="display:flex;">
+          <lucide-angular name="lock" [size]="15"></lucide-angular>
+        </span>
+        <input id="sec-confirm" class="sm-input with-icon-left"
+          [type]="showSecConfirm() ? 'text' : 'password'"
+          formControlName="confirmPassword"
+          placeholder="Repite la nueva contraseña"
+          style="padding-right:40px;"
+          [class.pf-input-error]="secForm.get('confirmPassword')!.touched && secForm.hasError('passwordMismatch')"
+          autocomplete="new-password">
+        <button type="button" class="sm-input-icon right pf-eye-btn"
+          (click)="showSecConfirm.set(!showSecConfirm())">
+          <lucide-angular [name]="showSecConfirm() ? 'eye-off' : 'eye'" [size]="15"></lucide-angular>
+        </button>
+      </div>
+      @if (secForm.get('confirmPassword')!.touched && (secForm.get('confirmPassword')!.invalid || secForm.hasError('passwordMismatch'))) {
+        <span class="pf-field-error">
+          @if (secForm.get('confirmPassword')!.hasError('required')) {
+            Confirma la nueva contraseña
+          } @else if (secForm.get('confirmPassword')!.hasError('maxlength')) {
+            No puede superar los 255 caracteres
+          } @else {
+            Las contraseñas no coinciden
+          }
+        </span>
+      }
+    </div>
+
+    <div class="pf-form-footer">
+      <button type="submit" class="btn btn-primary"
+        [disabled]="secLoading() || secForm.invalid">
+        @if (secLoading()) {
+          <span class="pf-spinner"></span> Actualizando…
+        } @else {
+          <lucide-angular name="shield" [size]="15"></lucide-angular>
+          <span>Actualizar contraseña</span>
+        }
+      </button>
+    </div>
+  </form>
+</div>

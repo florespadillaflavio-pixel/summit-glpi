@@ -1,0 +1,42 @@
+<div class="sm-field" [class.full-width]="fullWidth()">
+  @if (label()) {
+    <label class="sm-label">
+      {{ label() }}
+      @if (optional()) { <span class="field-optional">(opcional)</span> }
+    </label>
+  }
+
+  <div class="sm-input-wrap">
+    @if (icon()) {
+      <span class="sm-input-icon left">
+        <lucide-angular [name]="icon()!" [size]="16"></lucide-angular>
+      </span>
+    }
+
+    <input 
+      class="sm-input" 
+      [class.with-icon-left]="icon()"
+      [class.input-error]="error()"
+      [type]="isPassword() ? (showPassword() ? 'text' : 'password') : type()"
+      [placeholder]="placeholder()"
+      [value]="value"
+      (input)="onInputChange($event)"
+      (blur)="onBlur()"
+      [disabled]="disabled"
+    >
+
+    @if (isPassword()) {
+      <button type="button" class="sm-input-icon right btn-icon-wrap" (click)="togglePassword()" aria-label="Mostrar u ocultar contraseña">
+        <lucide-angular [name]="showPassword() ? 'eye-off' : 'eye'" [size]="16"></lucide-angular>
+      </button>
+    }
+  </div>
+
+  @if (help()) {
+    <p class="field-help">{{ help() }}</p>
+  }
+
+  @if (error()) {
+    <span class="field-error">{{ error() }}</span>
+  }
+</div>

@@ -1,0 +1,47 @@
+<div class="sm-card">
+  <div class="sm-card-header">
+    <h2 class="sm-card-title">Información general</h2>
+  </div>
+  @if (loading()) {
+    <div class="config-loading-state">
+      <lucide-angular name="loader" class="spinner" [size]="22"></lucide-angular>
+      <span>Cargando configuración...</span>
+    </div>
+  }
+  <form [formGroup]="generalForm" class="cfg-form" [class.config-loading-dim]="loading()">
+    <div class="cfg-grid">
+      <div class="sm-field">
+        <label class="sm-label">Nombre de la empresa</label>
+        <input class="sm-input" formControlName="companyName" [class.input-error]="fieldError('companyName')">
+        @if (fieldError('companyName')) { <span class="field-error">{{ fieldError('companyName') }}</span> }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Dominio</label>
+        <input class="sm-input" formControlName="domain" placeholder="empresa.pe" [class.input-error]="fieldError('domain')">
+        @if (fieldError('domain')) { <span class="field-error">{{ fieldError('domain') }}</span> }
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Zona horaria</label>
+        <select class="sm-input" formControlName="timezone">
+          <option>America/Lima (UTC-5)</option>
+          <option>America/Bogota (UTC-5)</option>
+          <option>America/Santiago (UTC-3)</option>
+          <option>America/Buenos_Aires (UTC-3)</option>
+        </select>
+      </div>
+      <div class="sm-field">
+        <label class="sm-label">Idioma</label>
+        <select class="sm-input" formControlName="language">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+    <div class="cfg-actions">
+      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="saving() || generalForm.invalid">
+        <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+        {{ saving() ? 'Guardando...' : 'Guardar cambios' }}
+      </button>
+    </div>
+  </form>
+</div>

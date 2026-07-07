@@ -1,0 +1,21 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# IDE / editor
+**/.vs/
+**/*.user
+
+# Legacy SQL assets (not needed in the image)
+_sql_legacy/
+
+# Never ship local dev secrets into the image
+**/appsettings.Development.json
+
+# Docker / VCS noise
+.git/
+.gitignore
+**/.DS_Store
+Dockerfile
+.dockerignore
+docker-compose.yml

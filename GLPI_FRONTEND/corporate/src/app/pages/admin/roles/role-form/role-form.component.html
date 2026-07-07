@@ -1,0 +1,60 @@
+<app-modal
+  [title]="editingRole() ? 'Editar Perfil de Acceso' : 'Nuevo Perfil de Acceso'"
+  [subtitle]="'Define las capacidades y alcances para este rol'"
+  [icon]="editingRole() ? 'pencil' : 'shield-plus'"
+  [loading]="loading()"
+  (close)="onClose()"
+>
+  <form [formGroup]="roleForm">
+    <app-input-field
+      label="Nombre Identificador"
+      placeholder="Ej: Analista de Seguridad Nivel 2"
+      formControlName="name"
+      help="Este nombre se mostrará en la asignación de usuarios."
+      [error]="getFieldError('name')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Descripción Funcional <span class="field-optional">(opcional)</span></label>
+      <textarea
+        class="sm-input role-textarea"
+        formControlName="description"
+        placeholder="Explica qué responsabilidades cubre este rol dentro de la organización..."
+        rows="3"
+        [class.input-error]="getFieldError('description')"
+      ></textarea>
+      @if (getFieldError('description')) {
+        <span class="field-error">{{ getFieldError('description') }}</span>
+      }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Alcance del rol</label>
+      <select class="sm-input" formControlName="roleType" [class.input-error]="getFieldError('roleType')">
+        <option value="CUSTOM">Interno: administradores, técnicos y personal de soporte</option>
+        <option value="CLIENT">Cliente: usuarios de empresas atendidas</option>
+      </select>
+      <p class="field-help" style="margin: 4px 0 0 0;">
+        @if (editingRole()) {
+          El alcance se define al crear el rol y no puede cambiarse después para proteger usuarios ya asignados.
+        } @else {
+          Este alcance define en qué empresas se podrá asignar el rol al crear usuarios.
+        }
+      </p>
+      @if (getFieldError('roleType')) {
+        <span class="field-error">{{ getFieldError('roleType') }}</span>
+      }
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="saveRole()" [disabled]="roleForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (editingRole() ? 'Actualizar Perfil' : 'Crear Perfil') }}</span>
+    </button>
+  </div>
+</app-modal>

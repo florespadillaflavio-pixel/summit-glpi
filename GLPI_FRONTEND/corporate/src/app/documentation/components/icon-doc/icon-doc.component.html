@@ -1,0 +1,169 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Icon Module</h2>
+
+                <app-alert color="info">
+                    <app-icon appAlertIcon fill>info</app-icon>
+                    <app-stack>
+                        <div><strong>INFO:</strong> El listado de íconos se encuentran en el siguiente enlace:</div>
+                        <a appButton variant="secondary" target="_blank" href="https://fonts.google.com/icons?icon.size=24&icon.color=%235f6368&icon.platform=ios&icon.set=Material+Symbols&icon.style=Rounded">Google Material Symbols</a>
+                    </app-stack>
+                </app-alert>
+                
+                <app-alert color="main">
+                    <app-icon appAlertIcon fill>help</app-icon>
+                    <app-stack>
+                        <div><strong>USO:</strong> Convertir los nombres a nomenclatura <b>Snake case</b>.</div>
+                        <app-stack orientation="horizontal" justify="center" align="center">
+                            <app-stack noGap>
+                                <app-icon fontSize="36">check_circle</app-icon>
+                                Check Circle
+                            </app-stack>
+                            <app-icon fontSize="48">arrow_forward</app-icon>
+                            <samp>check_circle</samp>
+                        </app-stack>
+                    </app-stack>
+                </app-alert>
+
+                <app-alert color="warning">
+                    <app-icon appAlertIcon fill>warning</app-icon>
+                    <strong>ADVERTENCIA:</strong> Usar solo los íconos del estilo <b>Material Symbols (new)</b> - <b>Rounded</b>.
+                </app-alert>
+                
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-icon</em>&gt;home&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em> <em>fill</em>&gt;home&lt;/<em>app-icon</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-icon</em> extends <em>TextBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>fill</em>]: boolean = false</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Some Examples</app-card-title>
+                    <app-card-subtitle>Icon</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-icon</em>&gt;home&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em>&gt;verified&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em>&gt;inventory_2&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em>&gt;create_new_folder&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em>&gt;add_to_drive&lt;/<em>app-icon</em>&gt;
+&lt;<em>app-icon</em>&gt;qr_code_scanner&lt;/<em>app-icon</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appTextBase fontSize="24" orientation="horizontal" wrap="wrap" paddingTop>
+                        <app-icon>home</app-icon>
+                        <app-icon>verified</app-icon>
+                        <app-icon>inventory_2</app-icon>
+                        <app-icon>create_new_folder</app-icon>
+                        <app-icon>add_to_drive</app-icon>
+                        <app-icon>qr_code_scanner</app-icon>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Fill</app-card-title>
+                    <app-card-subtitle>Icon</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-stack appTextBase fontSize="24" orientation="horizontal" wrap="wrap"&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;home&lt;/<em>app-icon</em>&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;verified&lt;/<em>app-icon</em>&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;inventory_2&lt;/<em>app-icon</em>&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;create_new_folder&lt;/<em>app-icon</em>&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;deployed_code&lt;/<em>app-icon</em>&gt;
+    &lt;<em>app-icon</em> [<em>fill</em>]="fill.checked"&gt;package_2&lt;/<em>app-icon</em>&gt;
+&lt;/app-stack&gt;
+
+&lt;app-slide-toggle #fill&gt;Fill&lt;/app-slide-toggle&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack appTextBase fontSize="24" orientation="horizontal" wrap="wrap">
+                            <app-icon [fill]="fill.checked">home</app-icon>
+                            <app-icon [fill]="fill.checked">verified</app-icon>
+                            <app-icon [fill]="fill.checked">inventory_2</app-icon>
+                            <app-icon [fill]="fill.checked">create_new_folder</app-icon>
+                            <app-icon [fill]="fill.checked">deployed_code</app-icon>
+                            <app-icon [fill]="fill.checked">package_2</app-icon>
+                        </app-stack>
+
+                        <app-slide-toggle #fill>Fill</app-slide-toggle>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> El input '<samp>[<em>fill</em>]</samp>' tiene coersión con valor <samp>true</samp> por defecto. Por lo que no es necesario proporcionarle el valor de forma explicita.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

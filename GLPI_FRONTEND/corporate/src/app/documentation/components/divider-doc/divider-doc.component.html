@@ -1,0 +1,175 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Divider Module</h2>
+                
+                <app-alert color="main">
+                    <app-icon appAlertIcon fill>priority_high</app-icon>
+                    <strong>IMPORTANTE:</strong> Este componente está diseñado para usarse dentro de '<samp><em>app-stack</em></samp>' o padres con la propiedad '<samp>display: flex</samp>'.
+                </app-alert>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-divider</em> <em>orientation</em>="horizontal"&gt;&lt;/<em>app-divider</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-divider</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>orientation</em>]: 'vertical' | 'horizontal' = 'horizontal'</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Horizontal Orientation (Default)</app-card-title>
+                    <app-card-subtitle>Divider</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;app-stack&gt;
+    &lt;b&gt;Section A&lt;/b&gt;
+    Content A
+
+    &lt;<em>app-divider</em>&gt;&lt;/<em>app-divider</em>&gt;
+
+    &lt;b&gt;Section B&lt;/b&gt;
+    Content B
+
+    &lt;<em>app-divider</em>&gt;&lt;/<em>app-divider</em>&gt;
+
+    &lt;b&gt;Section C&lt;/b&gt;
+    Content C
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack>
+                            <b>Section A</b>
+                            Content A
+
+                            <app-divider></app-divider>
+
+                            <b>Section B</b>
+                            Content B
+
+                            <app-divider></app-divider>
+
+                            <b>Section C</b>
+                            Content C
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Vertical Orientation</app-card-title>
+                    <app-card-subtitle>Divider</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-stack orientation="horizontal"&gt;
+    &lt;app-stack appSpacer&gt;
+        &lt;b&gt;Section A&lt;/b&gt;
+        Content A
+    &lt;/app-stack&gt;
+
+    &lt;<em>app-divider</em> <em>orientation</em>="vertical"&gt;&lt;/<em>app-divider</em>&gt;
+
+    &lt;app-stack appSpacer&gt;
+        &lt;b&gt;Section B&lt;/b&gt;
+        Content B
+    &lt;/app-stack&gt;
+
+    &lt;<em>app-divider</em> <em>orientation</em>="vertical"&gt;&lt;/<em>app-divider</em>&gt;
+
+    &lt;app-stack appSpacer&gt;
+        &lt;b&gt;Section C&lt;/b&gt;
+        Content C
+    &lt;/app-stack&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack orientation="horizontal">
+                            <app-stack appSpacer>
+                                <b>Section A</b>
+                                Content A
+                            </app-stack>
+
+                            <app-divider orientation="vertical"></app-divider>
+
+                            <app-stack appSpacer>
+                                <b>Section B</b>
+                                Content B
+                            </app-stack>
+
+                            <app-divider orientation="vertical"></app-divider>
+
+                            <app-stack appSpacer>
+                                <b>Section C</b>
+                                Content C
+                            </app-stack>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

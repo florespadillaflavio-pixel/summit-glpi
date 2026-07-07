@@ -1,0 +1,224 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Slide Toggle Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-slide-toggle</em>
+    <em>checked</em>="true"
+    <em>disabled</em>="false"
+    <em>labelPosition</em>="after"
+    (<em>change</em>)="onChange($event)"
+&gt;
+    Label
+&lt;/<em>app-slide-toggle</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-slide-toggle</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>checked</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>disabled</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>labelPosition</em>]: 'before' | 'after' = 'after'</samp></li>
+                    <li><samp>[<em>name</em>]: string | null = null</samp></li>
+                    <li><samp>[<em>value</em>]: any = null</samp></li>
+                </ul>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+                <ul>
+                    <li><samp>(<em>change</em>): <em>EventEmitter</em>&lt;<em>AppSlideToggleChange</em>&gt;</samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Classes</h3>
+                <ul>
+                    <li><samp><em>AppSlideToggleChange</em></samp></li>
+                    <ul>
+                        <li><samp><em>source</em>: <em>AppSlideToggleChange</em></samp></li>
+                        <li><samp><em>checked</em>: boolean</samp></li>
+                    </ul>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Simple slide-toggle</app-card-title>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-slide-toggle</em>&gt;Check Me!&lt;/<em>app-slide-toggle</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-slide-toggle>Check Me!</app-slide-toggle>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Disabled and before label slide-toggle</app-card-title>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-slide-toggle</em>
+    <em>disabled</em>
+    <em>labelPosition</em>="before"
+&gt;
+    Disabled & Before
+&lt;/<em>app-slide-toggle</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-slide-toggle
+                            disabled
+                            labelPosition="before"
+                        >
+                            Disabled & Before
+                        </app-slide-toggle>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Slide Toggles with Reactive Forms</app-card-title>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;app-stack [formGroup]="aditivos"&gt;
+    &lt;b>Seleccione aditivos:&lt;/b&gt;
+    &lt;<em>app-slide-toggle</em> formControlName="gaseosa"&gt;Gaseosa&lt;/<em>app-slide-toggle</em>&gt;
+    &lt;<em>app-slide-toggle</em> formControlName="papas"&gt;Papas&lt;/<em>app-slide-toggle</em>&gt;
+    &lt;<em>app-slide-toggle</em> formControlName="pure"&gt;Puré&lt;/<em>app-slide-toggle</em>&gt;
+
+    &lt;b>Seleccionados:&lt;/b&gt;
+    {{ aditivos.value | json }}
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+import &#123; SelectionModel &#125; from '&#64;angular/cdk/collections';
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormBuilder, FormControl &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+    constructor(private readonly _formBuilder: FormBuilder) &#123;&#125;
+
+    readonly aditivos = this._formBuilder.group(&#123;
+        gaseosa: new FormControl(false),
+        papas: new FormControl(false),
+        pure: new FormControl(false),
+    &#125;);
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-stack [formGroup]="configuracion">
+                            <b>Configuración:</b>
+                            <app-slide-toggle formControlName="notificaciones">Notificaciones</app-slide-toggle>
+                            <app-slide-toggle formControlName="camara">Acceso a cámara</app-slide-toggle>
+                            <app-slide-toggle formControlName="fotos">Acceso a fotos</app-slide-toggle>
+
+                            <b>Resumen:</b>
+                            {{ configuracion.value | json }}
+                        </app-stack>
+                        
+                        <app-alert color="main">
+                            <app-icon appAlertIcon fill>flag</app-icon>
+                            <p><strong>NOTA:</strong> Es importante recalcar la diferencia entre <b>Slide Toggle</b> '<samp><em>app-slide-toggle</em></samp>', <b>Radio</b> '<samp><em>app-radio</em></samp>' y <b>Checkbox</b> '<samp><em>app-checkbox</em></samp>'.</p>
+                            <p>El <b>Slide Toggle</b> o <b>Switch</b> se usa como un <b>habilitador/deshabilitador</b>. Cada <b>Slide Toggle</b> es independiente uno del otro.</p>
+                            <p>En cambio, los <b>Radios</b> y los <b>Checkboxes</b> se usan en el contexto de <b>selección en una lista de opciones</b>. Los <b>Radios</b> para <b>selección única</b> y los <b>Checkboxes</b> para <b>selección múltiple</b>. </p>
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

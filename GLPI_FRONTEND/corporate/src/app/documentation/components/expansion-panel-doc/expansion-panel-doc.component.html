@@ -1,0 +1,418 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Expansion Panel Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-expansion-panel</em>
+    <em>appearance</em>="flat"
+    <em>expanded</em>="false"
+    <em>disabled</em>="false"
+    (<em>opened</em>)="onOpened()"
+    (<em>closed</em>)="onClosed()"
+&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        Expansion Panel Header
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-expansion-panel</em></samp></li>
+                    <li><samp><em>app-expansion-panel-header</em> extends <em>ListItemComponent</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-expansion-panel</em></h4></samp>
+                    <ul>
+                        <li><samp>[<em>appearance</em>]: boolean = false</samp></li>
+                        <li><samp>[<em>expanded</em>]: boolean = false</samp></li>
+                        <li><samp>[<em>disabled</em>]: boolean = false</samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+
+                <app-stack noGap>
+                    <samp><h4><em>app-expansion-panel</em></h4></samp>
+                    <ul>
+                        <li><samp>(<em>opened</em>): <em>EventEmitter</em>&lt;<em>void</em>&gt;</samp></li>
+                        <li><samp>(<em>closed</em>): <em>EventEmitter</em>&lt;<em>void</em>&gt;</samp></li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Actions</h3>
+                
+                <app-stack noGap>
+                    <samp><h4><em>app-expansion-panel</em></h4></samp>
+                    <ul>
+                        <li><samp><em>open</em>()</samp> - Opens panel</li>
+                        <li><samp><em>close</em>()</samp> - Closes panel</li>
+                        <li><samp><em>toggle</em>()</samp> - Toggles panel</li>
+                    </ul>
+                </app-stack>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <h3>Appearance</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Appearance</app-card-title>
+                    <app-card-subtitle>Expansion Panel</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-expansion-panel</em>&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        Flat (default)
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+
+&lt;<em>app-expansion-panel</em> <em>appearance</em>="outlined"&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        Outlined
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+
+&lt;<em>app-expansion-panel</em> <em>appearance</em>="raised"&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        Raised
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+
+&lt;<em>app-expansion-panel</em> <em>disabled</em>&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        Disabled
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-expansion-panel>
+                            <app-expansion-panel-header>
+                                Flat (default)
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+                        
+                        <app-expansion-panel appearance="outlined">
+                            <app-expansion-panel-header>
+                                Outlined
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+
+                        <app-expansion-panel appearance="raised">
+                            <app-expansion-panel-header>
+                                Raised
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+
+                        <app-expansion-panel disabled>
+                            <app-expansion-panel-header>
+                                Disabled
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-divider></app-divider>
+
+            <h3>Variants (inherited from List Item)</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Variants</app-card-title>
+                    <app-card-subtitle>Expansion Panel Header &nbsp; | &nbsp; List Item</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-expansion-panel</em>&gt;
+    &lt;<em>app-expansion-panel-header</em>&gt;
+        &lt;app-icon appListItemIcon&gt;home&lt;/app-icon&gt;Basic (default)
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+
+&lt;<em>app-expansion-panel</em>&gt;
+    &lt;<em>app-expansion-panel-header</em> <em>variant</em>="menu"&gt;
+        &lt;app-icon appListItemIcon&gt;home&lt;/app-icon&gt;Menu
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+
+&lt;<em>app-expansion-panel</em>&gt;
+    &lt;<em>app-expansion-panel-header</em> <em>variant</em>="submenu"&gt;
+        &lt;app-icon appListItemIcon&gt;home&lt;/app-icon&gt;Submenu
+    &lt;/<em>app-expansion-panel-header</em>&gt;
+    
+    &lt;app-stack padding&gt;
+        Content
+    &lt;/app-stack&gt;
+&lt;/<em>app-expansion-panel</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-expansion-panel>
+                            <app-expansion-panel-header>
+                                <app-icon appListItemIcon>home</app-icon>Basic (default)
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+
+                        <app-expansion-panel>
+                            <app-expansion-panel-header variant="menu">
+                                <app-icon appListItemIcon>home</app-icon>Menu
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+                        
+                        <app-expansion-panel>
+                            <app-expansion-panel-header variant="submenu">
+                                <app-icon appListItemIcon>home</app-icon>Submenu
+                            </app-expansion-panel-header>
+                            
+                            <app-stack padding>
+                                Content
+                            </app-stack>
+                        </app-expansion-panel>
+
+                        <app-alert color="info">
+                            <app-icon appAlertIcon fill>info</app-icon>
+                            <strong>INFO:</strong> Estas variantes son heredadas del componente '<samp><em>app-list-item</em></samp>, [<samp><em>appListItem</em></samp>]', no de '[<samp><em>appFab</em></samp>]'.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-divider></app-divider>
+
+            <h3>Accordion</h3>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Accordion</app-card-title>
+                    <app-card-subtitle>Expansion Panel Header</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em><b>app-accordion</b></em> <em><b>appearance</b></em>=<em class="app-warning">"raised"</em>&gt;
+    &lt;<em><b>app-expansion-panel</b></em>&gt;
+        &lt;<em><b>app-expansion-panel-header</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em> <em class="app-main">appListItemIcon</em>&gt;home&lt;/<em class="app-danger">app-icon</em>&gt;Ítem 1
+        &lt;/<em><b>app-expansion-panel-header</b></em>&gt;
+        
+        &lt;<em class="app-danger">app-stack</em> <em class="app-main">padding</em>&gt;
+            Contenido 1
+        &lt;/<em class="app-danger">app-stack</em>&gt;
+    &lt;/<em><b>app-expansion-panel</b></em>&gt;
+    
+    &lt;<em><b>app-expansion-panel</b></em>&gt;
+        &lt;<em><b>app-expansion-panel-header</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em> <em class="app-main">appListItemIcon</em>&gt;home&lt;/<em class="app-danger">app-icon</em>&gt;Ítem 2
+        &lt;/<em><b>app-expansion-panel-header</b></em>&gt;
+        
+        &lt;<em class="app-danger">app-stack</em> <em class="app-main">padding</em>&gt;
+            Contenido 2
+        &lt;/<em class="app-danger">app-stack</em>&gt;
+    &lt;/<em><b>app-expansion-panel</b></em>&gt;
+    
+    &lt;<em><b>app-expansion-panel</b></em>&gt;
+        &lt;<em><b>app-expansion-panel-header</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em> <em class="app-main">appListItemIcon</em>&gt;home&lt;/<em class="app-danger">app-icon</em>&gt;Ítem 3
+        &lt;/<em><b>app-expansion-panel-header</b></em>&gt;
+        
+        &lt;<em class="app-danger">app-stack</em> <em class="app-main">padding</em>&gt;
+            Contenido 3
+        &lt;/<em class="app-danger">app-stack</em>&gt;
+    &lt;/<em><b>app-expansion-panel</b></em>&gt;
+    
+    &lt;<em><b>app-expansion-panel</b></em>&gt;
+        &lt;<em><b>app-expansion-panel-header</b></em>&gt;
+            &lt;<em class="app-danger">app-icon</em> <em class="app-main">appListItemIcon</em>&gt;home&lt;/<em class="app-danger">app-icon</em>&gt;Ítem 4
+        &lt;/<em><b>app-expansion-panel-header</b></em>&gt;
+        
+        &lt;<em class="app-danger">app-stack</em> <em class="app-main">padding</em>&gt;
+            Contenido 4
+        &lt;/<em class="app-danger">app-stack</em>&gt;
+    &lt;/<em><b>app-expansion-panel</b></em>&gt;
+&lt;/<em><b>app-accordion</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-accordion appearance="raised">
+                            <app-expansion-panel>
+                                <app-expansion-panel-header>
+                                    <app-icon appListItemIcon>home</app-icon>
+                                    Ítem 1
+                                </app-expansion-panel-header>
+                                
+                                <app-stack padding>
+                                    Contenido 1
+                                </app-stack>
+                            </app-expansion-panel>
+                            
+                            <app-expansion-panel>
+                                <app-expansion-panel-header>
+                                    <app-icon appListItemIcon>home</app-icon>
+                                    Ítem 2
+                                </app-expansion-panel-header>
+                                
+                                <app-stack padding>
+                                    Contenido 2
+                                </app-stack>
+                            </app-expansion-panel>
+                            
+                            <app-expansion-panel>
+                                <app-expansion-panel-header>
+                                    <app-icon appListItemIcon>home</app-icon>
+                                    Ítem 3
+                                </app-expansion-panel-header>
+                                
+                                <app-stack padding>
+                                    Contenido 3
+                                </app-stack>
+                            </app-expansion-panel>
+                            
+                            <app-expansion-panel>
+                                <app-expansion-panel-header>
+                                    <app-icon appListItemIcon>home</app-icon>
+                                    Ítem 4
+                                </app-expansion-panel-header>
+                                
+                                <app-stack padding>
+                                    Contenido 4
+                                </app-stack>
+                            </app-expansion-panel>
+                        </app-accordion>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

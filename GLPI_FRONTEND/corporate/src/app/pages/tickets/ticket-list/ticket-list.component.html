@@ -1,0 +1,184 @@
+<div class="tickets-page">
+  <!-- Page Header -->
+  <div class="tickets-hero">
+    <div class="tickets-hero-copy">
+      <span class="tickets-eyebrow">
+        <lucide-angular name="headset" [size]="15"></lucide-angular>
+        Centro de soporte
+      </span>
+      <h1 class="sm-page-title">Mesa de Ayuda</h1>
+      <p class="sm-page-sub">Prioriza, asigna y atiende solicitudes con seguimiento de SLA y conversación en tiempo real.</p>
+    </div>
+    <div class="sm-page-actions tickets-actions">
+      <button class="btn btn-secondary btn-md" (click)="onExport()">
+        <lucide-angular name="download" class="btn-icon"></lucide-angular>
+        <span>Exportar</span>
+      </button>
+      <button class="btn btn-primary btn-md" [routerLink]="['/tickets/new']">
+        <lucide-angular name="plus" class="btn-icon"></lucide-angular>
+        <span>Nuevo Ticket</span>
+      </button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="full-page-loading">
+      <div class="sm-loading-container">
+        <lucide-angular name="loader" class="spinner" [size]="48"></lucide-angular>
+        <p>Sincronizando mesa de ayuda...</p>
+      </div>
+    </div>
+  } @else {
+    <div class="ticket-kpi-grid" aria-label="Indicadores de mesa de ayuda">
+      <div class="ticket-kpi-card">
+        <span class="ticket-kpi-icon is-navy"><lucide-angular name="ticket-check" [size]="18"></lucide-angular></span>
+        <div><strong>{{ totalTickets() }}</strong><span>Total tickets</span></div>
+      </div>
+      <div class="ticket-kpi-card">
+        <span class="ticket-kpi-icon is-info"><lucide-angular name="clock" [size]="18"></lucide-angular></span>
+        <div><strong>{{ openTickets() }}</strong><span>En atención</span></div>
+      </div>
+      <div class="ticket-kpi-card">
+        <span class="ticket-kpi-icon is-danger"><lucide-angular name="alert-triangle" [size]="18"></lucide-angular></span>
+        <div><strong>{{ criticalTickets() }}</strong><span>Alta prioridad</span></div>
+      </div>
+      <div class="ticket-kpi-card">
+        <span class="ticket-kpi-icon is-success"><lucide-angular name="check-circle" [size]="18"></lucide-angular></span>
+        <div><strong>{{ resolvedTickets() }}</strong><span>Resueltos</span></div>
+      </div>
+      <div class="ticket-kpi-card">
+        <span class="ticket-kpi-icon is-closed"><lucide-angular name="lock" [size]="18"></lucide-angular></span>
+        <div><strong>{{ closedTickets() }}</strong><span>Cerrados</span></div>
+      </div>
+    </div>
+
+    <div class="ticket-flow-help">
+      <span><strong>Activo:</strong> soporte atiende y conversa.</span>
+      <span><strong>Resuelto:</strong> solución aplicada, pendiente de cierre.</span>
+      <span><strong>Cerrado:</strong> caso finalizado, solo lectura.</span>
+    </div>
+
+    @if (errorMsg()) {
+      <div class="sm-alert warning audit-alert">
+        <lucide-angular name="alert-circle" [size]="16"></lucide-angular>
+        <span>{{ errorMsg() }}</span>
+      </div>
+    }
+
+    <!-- Filtros y Búsqueda -->
+    <div class="filters-card">
+      <div class="filters-title-row">
+        <div>
+          <strong>Bandeja de atención</strong>
+          <span>{{ filteredTickets().length }} resultados con los filtros actuales</span>
+        </div>
+        <span class="live-chip">
+          <lucide-angular name="refresh-cw" [size]="12"></lucide-angular>
+          Tiempo real
+        </span>
+      </div>
+      <div class="filters-row">
+        <div class="sm-input-wrap filter-search">
+          <lucide-angular name="search" class="sm-input-icon left" [size]="18"></lucide-angular>
+          <input
+            type="text"
+            class="sm-input with-icon-left"
+            placeholder="Buscar por asunto, número o solicitante..."
+            [value]="searchQuery()"
+            (input)="onSearch($event)"
+          />
+        </div>
+        <div class="filter-group filter-status">
+          <select class="sm-input filter-select" [value]="filterStatus()" (change)="onFilterStatus($event)">
+            <option value="ACTIVE">Activos</option>
+            <option value="">Todos</option>
+            <option value="RESOLVED">Resueltos</option>
+            <option value="CLOSED">Cerrados</option>
+          </select>
+        </div>
+        <div class="filter-group filter-priority">
+          <select class="sm-input filter-select" [value]="filterPriority()" (change)="onFilterPriority($event)">
+            <option value="">Cualquier prioridad</option>
+            <option value="CRITICAL">Crítica</option>
+            <option value="HIGH">Alta</option>
+            <option value="MEDIUM">Media</option>
+            <option value="LOW">Baja</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de Tickets -->
+    <div class="tickets-list-panel">
+      @if (pagedTickets().length) {
+        <div class="tickets-list-head">
+          <span>Caso</span>
+          <span>Solicitante</span>
+          <span>Asignación</span>
+          <span>Estado</span>
+          <span></span>
+        </div>
+      }
+      @for (ticket of pagedTickets(); track ticket.id) {
+        <button type="button" class="ticket-row" [class]="statusClass(ticket.statusCode)" (click)="goToDetail(ticket.id)">
+          <span class="ticket-row-accent"></span>
+          <div class="ticket-row-main">
+            <div class="ticket-row-title">
+              <span class="ticket-number">{{ ticket.ticketNumber }}</span>
+              <span class="badge" [class]="priorityClass(ticket.priorityCode)">{{ ticket.priorityName }}</span>
+            </div>
+            <h3 class="ticket-subject">{{ ticket.subject }}</h3>
+            <p class="ticket-description">{{ ticket.description }}</p>
+          </div>
+
+          <div class="ticket-row-person">
+            <lucide-angular name="user" [size]="15"></lucide-angular>
+            <div>
+              <strong>{{ ticket.requesterName }}</strong>
+              <span>{{ ticket.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+
+          <div class="ticket-row-assignee">
+            <lucide-angular name="user-check" [size]="15"></lucide-angular>
+            <div>
+              <strong>{{ ticket.assignedToName || 'Sin asignar' }}</strong>
+              <span>{{ statusStage(ticket.statusCode) }}</span>
+            </div>
+          </div>
+
+          <div class="ticket-row-status">
+            <span class="status-badge" [style.color]="statusPhaseColor(ticket.statusCode, ticket.statusColor)">
+              <span class="status-dot" [style.background]="statusPhaseColor(ticket.statusCode, ticket.statusColor)"></span>
+              {{ statusPhaseLabel(ticket.statusCode) }}
+            </span>
+          </div>
+
+          <div class="ticket-row-action">
+            <span>Ver detalle</span>
+            <lucide-angular name="chevron-right" [size]="16" class="footer-arrow"></lucide-angular>
+          </div>
+        </button>
+      } @empty {
+        <div class="sm-empty-state tickets-empty-state">
+          <div class="empty-icon-box">
+            <lucide-angular name="inbox" [size]="48"></lucide-angular>
+          </div>
+          <h3>Bandeja vacía</h3>
+          <p>No hay tickets activos, resueltos o cerrados con estos filtros.</p>
+        </div>
+      }
+    </div>
+
+    <div class="sm-card list-pagination-card">
+      <app-pagination
+        [totalItems]="filteredTickets().length"
+        [page]="page()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[6, 12, 24, 48]"
+        (setPage)="setPage($event)"
+        (setPageSize)="setPageSize($event)">
+      </app-pagination>
+    </div>
+  }
+</div>

@@ -1,0 +1,911 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Card Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/card</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em><b>app-card</b></em> <em><b>appearance</b></em>=<em class="app-warning">"flat"</em>&gt;
+    &lt;<em><b>app-card-header</b></em> <em><b>variant</b></em>=<em class="app-warning">"plain"</em> <em><b>size</b></em>=<em class="app-warning">"medium"</em>&gt;
+        &lt;<em><b>app-card-title</b></em>&gt;Title&lt;/<em><b>app-card-title</b></em>&gt;
+        &lt;<em><b>app-card-subtitle</b></em>&gt;Subtitle&lt;/<em><b>app-card-subtitle</b></em>&gt;
+        &lt;<em class="app-danger">img</em> <em><b>appCardAvatar</b></em> <em class="app-main">src</em>=<em class="app-warning">"https://picsum.photos/250"</em> <em class="app-main">alt</em>=<em class="app-warning">"Card avatar"</em>&gt;
+        Extra header content
+    &lt;/<em><b>app-card-header</b></em>&gt;
+    &lt;<em><b>app-card-content</b></em>&gt;
+        Card content
+    &lt;/<em><b>app-card-content</b></em>&gt;
+    &lt;<em class="app-danger">img</em> <em>appCardImage</em> <em class="app-main">src</em>=<em class="app-warning">"https://picsum.photos/250"</em> <em class="app-main">alt</em>=<em class="app-warning">"Card Image"</em>&gt;
+    &lt;<em><b>app-card-footer</b></em>&gt;
+        &lt;<em class="app-danger">app-chip</em>&gt;Tag 1&lt;/<em class="app-danger">app-chip</em>&gt;
+        &lt;<em class="app-danger">app-chip</em>&gt;Tag 2&lt;/<em class="app-danger">app-chip</em>&gt;
+    &lt;/<em><b>app-card-footer</b></em>&gt;
+&lt;/<em><b>app-card</b></em>&gt;
+
+&lt;<em><b>app-card</b></em> <em><b>appearance</b></em>=<em class="app-warning">"flat"</em>&gt;
+    &lt;<em><b>app-card-header</b></em> <em><b>variant</b></em>=<em class="app-warning">"plain"</em> <em><b>size</b></em>=<em class="app-warning">"medium"</em>&gt;
+        &lt;<em><b>app-card-title</b></em>&gt;Title&lt;/<em><b>app-card-title</b></em>&gt;
+        &lt;<em><b>app-card-subtitle</b></em>&gt;Subtitle&lt;/<em><b>app-card-subtitle</b></em>&gt;
+        &lt;<em class="app-danger">img</em> <em><b>appCardAvatar</b></em>  <em class="app-main">src</em>=<em class="app-warning">"https://picsum.photos/250"</em> <em class="app-main">alt</em>=<em class="app-warning">"Card avatar"</em>&gt;
+        Extra header content
+    &lt;/<em><b>app-card-header</b></em>&gt;
+    &lt;<em><b>app-card-content</b></em>&gt;
+        Card content
+    &lt;/<em><b>app-card-content</b></em>&gt;
+    &lt;<em class="app-danger">img</em> <em>appCardImage</em>  <em class="app-main">src</em>=<em class="app-warning">"https://picsum.photos/250"</em> <em class="app-main">alt</em>=<em class="app-warning">"Card Image"</em>&gt;
+    &lt;<em><b>app-card-actions</b></em> <em><b>justify</b></em>=<em class="app-warning">"end"</em>&gt;
+        &lt;<em class="app-danger">button</em> <em class="app-main">appIconButton</em> <em class="app-main">color</em>=<em class="app-warning">"danger"</em>&gt;&lt;<em class="app-danger">app-icon</em>&gt;favorite&lt;/<em class="app-danger">app-icon</em>&gt;&lt;/<em class="app-danger">button</em>&gt;
+        &lt;<em class="app-danger">button</em> <em class="app-main">appIconButton</em> <em class="app-main">color</em>=<em class="app-warning">"info"</em>&gt;&lt;<em class="app-danger">app-icon</em>&gt;thumb_up&lt;/<em class="app-danger">app-icon</em>&gt;&lt;/<em class="app-danger">button</em>&gt;
+    &lt;/<em><b>app-card-actions</b></em>&gt;
+&lt;/<em><b>app-card</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCard</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card</em></samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appCard</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%"
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                    >
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>appearance</em>:
+                                    <em class="app-warning">'flat'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'outlined'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'raised'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'flat'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>variant</em>:
+                                    <em class="app-warning">'primary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'secondary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'tertiary'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'plain'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'plain'</em>
+                                </samp>
+                                <br>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>size</em>:
+                                    <em class="app-warning">'small'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'medium'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'large'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'medium'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardHeader</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-header</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardTitle</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-title</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title backgroundColor
+                                                appImageBase="sepia hueRotate brightness saturate grayScale"
+                                                sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                            >
+                                                Título
+                                            </app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardSubtitle</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-subtitle</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle backgroundColor
+                                                appImageBase="sepia hueRotate brightness saturate grayScale"
+                                                sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                            >
+                                                Subtítulo
+                                            </app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardAvatar</b></em> extends <em>ImageBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appCardAvatar</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center"
+                                                appImageBase="sepia hueRotate brightness saturate grayScale"
+                                                sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                            >
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardContent</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-content</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            Contenido
+                                        </app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardImage</b></em> extends <em>ImageBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appCardImage</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-stack appCardAvatar background border justify="center" align="center" height="175"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <app-icon fontSize="144" textColor="--grey-1">image</app-icon>
+                                        </app-stack>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardFooter</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-footer</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                        <app-card-footer backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <app-chip>Tag 1</app-chip>
+                                            <app-chip>Tag 2</app-chip>
+                                        </app-card-footer>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppCardActions</b></em> extends <em>AppStack</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-card-actions</em></samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appCardActions</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title>Título</app-card-title>
+                                            <app-card-subtitle>Subtítulo</app-card-subtitle>
+                                            <app-stack appCardAvatar background border borderRadius="8" justify="center" align="center">
+                                                <app-icon fontSize="24" textColor="--grey-1">image</app-icon>
+                                            </app-stack>
+                                        </app-card-header>
+                                        <app-divider></app-divider>
+                                        <app-card-content paddingTop>Contenido</app-card-content>
+                                        <app-card-actions justify="end" backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <button appIconButton color="danger"><app-icon>favorite</app-icon></button>
+                                            <button appIconButton color="info"><app-icon>thumb_up</app-icon></button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                            
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>justify</em>:
+                                    <em class="app-warning">'start'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'center'</em> <em class="app-danger">&nbsp;|&nbsp;</em>
+                                    <em class="app-warning">'end'</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-warning">'start'</em>
+                                </samp>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Appearance</app-card-title>
+                    <app-card-subtitle>Basic Cards</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;app-card appStack padding backgroundColor&gt;
+    &lt;<em>app-card</em>&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Flat (default)&lt;/<em>app-card-title</em>&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+
+    &lt;<em>app-card</em> <em>appearance</em>="outlined"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Outlined&lt;/<em>app-card-title</em>&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+
+    &lt;<em>app-card</em> <em>appearance</em>="raised"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Raised&lt;/<em>app-card-title</em>&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+&lt;/app-card&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap padding>
+                        <app-card appStack padding backgroundColor>
+                            <app-card>
+                                <app-card-header>
+                                    <app-card-title>Flat (default)</app-card-title>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+
+                            <app-card appearance="outlined">
+                                <app-card-header>
+                                    <app-card-title>Outlined</app-card-title>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+
+                            <app-card appearance="raised">
+                                <app-card-header>
+                                    <app-card-title>Raised</app-card-title>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                        </app-card>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Variants</app-card-title>
+                    <app-card-subtitle>Card Header</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-card appStack padding backgroundColor&gt;
+    &lt;<em>app-card</em> <em>appearance</em>="raised" <em>variant</em>="primary"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Primary&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Variant&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em> paddingTop&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+    
+    &lt;<em>app-card</em> <em>appearance</em>="raised" <em>variant</em>="secondary"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Secondary&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Variant&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em> paddingTop&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+    
+    &lt;<em>app-card</em> <em>appearance</em>="raised" <em>variant</em>="tertiary"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Tertiary&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Variant&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+    
+    &lt;<em>app-card</em> <em>appearance</em>="raised"&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Plain (default)&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Variant&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+&lt;/app-card&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap padding>
+                        <app-card appStack padding backgroundColor>
+                            <app-card appearance="raised" variant="primary">
+                                <app-card-header>
+                                    <app-card-title>Primary</app-card-title>
+                                    <app-card-subtitle>Variant</app-card-subtitle>
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content paddingTop>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                            
+                            <app-card appearance="raised" variant="secondary">
+                                <app-card-header>
+                                    <app-card-title>Secondary</app-card-title>
+                                    <app-card-subtitle>Variant</app-card-subtitle>
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content paddingTop>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                            
+                            <app-card appearance="raised" variant="tertiary">
+                                <app-card-header>
+                                    <app-card-title>Tertiary</app-card-title>
+                                    <app-card-subtitle>Variant</app-card-subtitle>
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                            
+                            <app-card appearance="raised">
+                                <app-card-header>
+                                    <app-card-title>Plain (default)</app-card-title>
+                                    <app-card-subtitle>Variant</app-card-subtitle>
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                        </app-card>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Sizes</app-card-title>
+                    <app-card-subtitle>Card Header</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;app-stack paddingTop&gt;
+    &lt;<em>app-card</em> <em>appearance</em>="outlined" <em>size</em>="small" backgroundColor&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Small&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Size&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+    
+    &lt;<em>app-card</em> <em>appearance</em>="outlined" backgroundColor&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Medium (default)&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Size&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+    
+    &lt;<em>app-card</em> <em>appearance</em>="outlined" <em>size</em>="large" backgroundColor&gt;
+        &lt;<em>app-card-header</em>&gt;
+            &lt;<em>app-card-title</em>&gt;Large&lt;/<em>app-card-title</em>&gt;
+            &lt;<em>app-card-subtitle</em>&gt;Size&lt;/<em>app-card-subtitle</em>&gt;
+            &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+            &lt;app-spacer justify="end"&gt;Extra header content&lt;/app-spacer&gt;
+        &lt;/<em>app-card-header</em>&gt;
+        &lt;<em>app-card-content</em>&gt;
+            Card content
+        &lt;/<em>app-card-content</em>&gt;
+    &lt;/<em>app-card</em>&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap padding>
+                        <app-stack paddingTop>
+                            <app-card appearance="outlined" size="small" backgroundColor>
+                                <app-card-header>
+                                    <app-card-title>Small</app-card-title>
+                                    <app-card-subtitle>Size</app-card-subtitle>
+                                    <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                            
+                            <app-card appearance="outlined" backgroundColor>
+                                <app-card-header>
+                                    <app-card-title>Medium (default)</app-card-title>
+                                    <app-card-subtitle>Size</app-card-subtitle>
+                                    <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                            
+                            <app-card appearance="outlined" size="large" backgroundColor>
+                                <app-card-header>
+                                    <app-card-title>Large</app-card-title>
+                                    <app-card-subtitle>Size</app-card-subtitle>
+                                    <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                    <app-spacer justify="end">Extra header content</app-spacer>
+                                </app-card-header>
+                                <app-card-content>
+                                    Card content
+                                </app-card-content>
+                            </app-card>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Card Image</app-card-title>
+                    <app-card-subtitle>Card</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(4)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html4>
+&lt;<em>app-card</em> <em>appearance</em>="outlined" backgroundColor minWidth="250"&gt;
+    &lt;<em>app-card-header</em>&gt;
+        &lt;<em>app-card-title</em>&gt;Title&lt;/<em>app-card-title</em>&gt;
+        &lt;<em>app-card-subtitle</em>&gt;Subtitle&lt;/<em>app-card-subtitle</em>&gt;
+        &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+        &lt;app-spacer justify="end"&gt;25min&lt;/app-spacer&gt;
+    &lt;/<em>app-card-header</em>&gt;
+    &lt;img <em>appCardImage</em> src="https://picsum.photos/250" alt="Card image"&gt;
+    &lt;<em>app-card-content</em> paddingTop&gt;
+        Card description
+    &lt;/<em>app-card-content</em>&gt;
+&lt;/<em>app-card</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding>
+                        <app-card appearance="outlined" backgroundColor minWidth="250">
+                            <app-card-header>
+                                <app-card-title>Title</app-card-title>
+                                <app-card-subtitle>Subtitle</app-card-subtitle>
+                                <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                <app-spacer justify="end">25min</app-spacer>
+                            </app-card-header>
+                            <img appCardImage src="https://picsum.photos/250" alt="Card image">
+                            <app-card-content paddingTop>
+                                Card description
+                            </app-card-content>
+                        </app-card>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Card Footer</app-card-title>
+                    <app-card-subtitle>Basic Footer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(5)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html5>
+&lt;<em>app-card</em> <em>appearance</em>="outlined" backgroundColor minWidth="250"&gt;
+    &lt;<em>app-card-header</em>&gt;
+        &lt;<em>app-card-title</em>&gt;Title&lt;/<em>app-card-title</em>&gt;
+        &lt;<em>app-card-subtitle</em>&gt;Subtitle&lt;/<em>app-card-subtitle</em>&gt;
+        &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+        &lt;app-spacer justify="end"&gt;25min&lt;/app-spacer&gt;
+    &lt;/<em>app-card-header</em>&gt;
+    &lt;img <em>appCardImage</em> src="https://picsum.photos/250" alt="Card image"&gt;
+    &lt;<em>app-card-content</em> paddingTop&gt;
+        Card description
+    &lt;/<em>app-card-content</em>&gt;
+    &lt;<em>app-card-footer</em>&gt;
+        &lt;app-chip marginRight&gt;Tag1&lt;/app-chip&gt;
+        &lt;app-chip&gt;Tag2&lt;/app-chip&gt;
+    &lt;/<em>app-card-footer</em>&gt;
+&lt;/<em>app-card</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding>
+                        <app-card appearance="outlined" backgroundColor minWidth="250">
+                            <app-card-header>
+                                <app-card-title>Title</app-card-title>
+                                <app-card-subtitle>Subtitle</app-card-subtitle>
+                                <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                <app-spacer justify="end">25min</app-spacer>
+                            </app-card-header>
+                            <img appCardImage src="https://picsum.photos/250" alt="Card image">
+                            <app-card-content paddingTop>
+                                Card description
+                            </app-card-content>
+                            <app-card-footer>
+                                <app-chip marginRight>Tag1</app-chip>
+                                <app-chip>Tag2</app-chip>
+                            </app-card-footer>
+                        </app-card>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Card Actions</app-card-title>
+                    <app-card-subtitle>Actions Footer</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(6)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html6>
+&lt;<em>app-card</em> <em>appearance</em>="outlined" backgroundColor minWidth="250"&gt;
+    &lt;<em>app-card-header</em>&gt;
+        &lt;<em>app-card-title</em>&gt;Title&lt;/<em>app-card-title</em>&gt;
+        &lt;<em>app-card-subtitle</em>&gt;Subtitle&lt;/<em>app-card-subtitle</em>&gt;
+        &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+        &lt;app-spacer justify="end"&gt;25min&lt;/app-spacer&gt;
+    &lt;/<em>app-card-header</em>&gt;
+    &lt;<em>app-card-content</em> paddingBottom&gt;
+        Card description
+    &lt;/<em>app-card-content</em>&gt;
+    &lt;img <em>appCardImage</em> src="https://picsum.photos/250" alt="Card image"&gt;
+    &lt;<em>app-card-actions</em>&gt;
+        &lt;button <em>appIconButton</em> color="danger"&gt;&lt;app-icon&gt;favorite&lt;/app-icon&gt;&lt;/button&gt;
+        &lt;button <em>appIconButton</em> color="info"&gt;&lt;app-icon&gt;thumb_up&lt;/app-icon&gt;&lt;/button&gt;
+        &lt;app-spacer&gt;&lt;/app-spacer&gt;
+        &lt;button <em>appIconButton</em>&gt;&lt;app-icon&gt;comment&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;/<em>app-card-actions</em>&gt;
+&lt;/<em>app-card</em>&gt;
+
+&lt;<em>app-card</em> <em>appearance</em>="outlined" backgroundColor minWidth="250"&gt;
+    &lt;img <em>appCardImage</em> src="https://picsum.photos/250" alt="Card image"&gt;
+    &lt;<em>app-card-header</em>&gt;
+        &lt;<em>app-card-title</em>&gt;Title&lt;/<em>app-card-title</em>&gt;
+        &lt;<em>app-card-subtitle</em>&gt;Subtitle&lt;/<em>app-card-subtitle</em>&gt;
+        &lt;img <em>appCardAvatar</em> borderRadius="8" src="https://picsum.photos/250" alt="Card avatar"&gt;
+        &lt;app-spacer justify="end"&gt;25min&lt;/app-spacer&gt;
+    &lt;/<em>app-card-header</em>&gt;
+    &lt;<em>app-card-content</em> paddingBottom&gt;
+        Card description
+    &lt;/<em>app-card-content</em>&gt;
+    &lt;app-divider&gt;&lt;/app-divider&gt;
+    &lt;<em>app-card-actions</em> <em>justify</em>="end"&gt;
+        &lt;button <em>appIconButton</em> color="danger"&gt;&lt;app-icon&gt;favorite&lt;/app-icon&gt;&lt;/button&gt;
+        &lt;button <em>appIconButton</em>&gt;&lt;app-icon&gt;comment&lt;/app-icon&gt;&lt;/button&gt;
+    &lt;/<em>app-card-actions</em>&gt;
+&lt;/<em>app-card</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack appScrollable="horizontal" orientation="horizontal" padding align="start">
+                        <app-card appearance="outlined" backgroundColor minWidth="250">
+                            <app-card-header>
+                                <app-card-title>Title</app-card-title>
+                                <app-card-subtitle>Subtitle</app-card-subtitle>
+                                <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                <app-spacer justify="end">25min</app-spacer>
+                            </app-card-header>
+                            <app-card-content paddingBottom>
+                                Card description
+                            </app-card-content>
+                            <img appCardImage src="https://picsum.photos/250" alt="Card image">
+                            <app-card-actions>
+                                <button appIconButton color="danger"><app-icon>favorite</app-icon></button>
+                                <button appIconButton color="info"><app-icon>thumb_up</app-icon></button>
+                                <app-spacer></app-spacer>
+                                <button appIconButton><app-icon>comment</app-icon></button>
+                            </app-card-actions>
+                        </app-card>
+
+                        <app-card appearance="outlined" backgroundColor minWidth="250">
+                            <img appCardImage src="https://picsum.photos/250" alt="Card image">
+                            <app-card-header>
+                                <app-card-title>Title</app-card-title>
+                                <app-card-subtitle>Subtitle</app-card-subtitle>
+                                <img appCardAvatar borderRadius="8" src="https://picsum.photos/250" alt="Card avatar">
+                                <app-spacer justify="end">25min</app-spacer>
+                            </app-card-header>
+                            <app-card-content paddingBottom>
+                                Card description
+                            </app-card-content>
+                            <app-divider></app-divider>
+                            <app-card-actions justify="end">
+                                <button appIconButton color="danger"><app-icon>favorite</app-icon></button>
+                                <button appIconButton><app-icon>comment</app-icon></button>
+                            </app-card-actions>
+                        </app-card>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

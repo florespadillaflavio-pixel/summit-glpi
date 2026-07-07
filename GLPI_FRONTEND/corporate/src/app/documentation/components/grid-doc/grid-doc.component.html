@@ -1,0 +1,317 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Grid Module</h2>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-grid</em>
+    <em>columns</em>="auto-fill"
+    <em>min</em>="100"
+    <em>max</em>="1fr"
+    <em>gap</em>="16"
+    <em>noGap</em>="false"
+    <em>template</em>=""
+    <em>justify</em>="normal"
+    <em>align</em>="normal"
+&gt;
+&lt;/<em>app-grid</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-grid</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+                <ul>
+                    <li><samp>[<em>columns</em>]: number | 'auto-fit' | 'auto-fill' = 'auto-fill'</samp></li>
+                    <li><samp>[<em>min</em>]: string | number = '100px'</samp></li>
+                    <li><samp>[<em>max</em>]: string | number = '1fr'</samp></li>
+                    <li><samp>[<em>gap</em>]: string | number = '16px'</samp></li>
+                    <li><samp>[<em>noGap</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>template</em>]: string | number</samp></li>
+                    <li><samp>[<em>justify</em>]: 'center' | 'start' | 'end' | 'normal' = 'normal'</samp></li>
+                    <li><samp>[<em>align</em>]: 'center' | 'start' | 'end' | 'stretch' | 'baseline' | 'normal' = 'normal'</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Simple Grid</app-card-title>
+                    <app-card-subtitle>Grid</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-grid</em>&gt;
+    &lt;app-card *ngFor="let c of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')"
+        appRipple appButtonBase
+        appearance="raised" height="100" backgroundColor
+    &gt;
+        {{ c }}
+    &lt;/app-card&gt;
+&lt;/<em>app-grid</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-grid>
+                            <app-card *ngFor="let c of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')"
+                                appRipple appButtonBase
+                                appearance="raised" height="100" backgroundColor
+                            >
+                                {{ c }}
+                            </app-card>
+                        </app-grid>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Custom Grid</app-card-title>
+                    <app-card-subtitle>Grid</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;app-form-field&gt;
+    &lt;app-label&gt;Columns&lt;/app-label&gt;
+    &lt;button appPrefix appIconButton variant="tertiary" *ngIf="!columns.value.includes('auto')"
+        [disabled]="+columns.value &lt; 2"
+        (click)="columns.value = +columns.value - 1"
+    &gt;
+        &lt;app-icon&gt;remove&lt;/app-icon&gt;
+    &lt;/button&gt;
+    &lt;input appInput textAlign="center" min="1" max="5" value="5" #columns&gt;
+    &lt;button appSuffix appIconButton variant="tertiary" *ngIf="!columns.value.includes('auto')"
+        [disabled]="+columns.value &gt; 4"
+        (click)="columns.value = +columns.value + 1"
+    &gt;
+        &lt;app-icon&gt;add&lt;/app-icon&gt;
+    &lt;/button&gt;
+
+    &lt;app-stack orientation="horizontal" padding&gt;
+        &lt;app-chip appRipple (click)="columns.value = 5"&gt;&lt;app-icon&gt;tag&lt;/app-icon&gt;Número&lt;/app-chip&gt;
+        &lt;app-chip appRipple (click)="columns.value = 'auto-fit'"&gt;&lt;app-icon&gt;grid_on&lt;/app-icon&gt;Auto Fit&lt;/app-chip&gt;
+        &lt;app-chip appRipple (click)="columns.value = 'auto-fill'"&gt;&lt;app-icon&gt;grid_4x4&lt;/app-icon&gt;Auto Fill&lt;/app-chip&gt;
+    &lt;/app-stack&gt;
+&lt;/app-form-field&gt;
+
+&lt;app-stack orientation="horizontal" wrap="wrap" align="end"&gt;
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;Min (ancho de ítem)&lt;/app-label&gt;
+        &lt;button appPrefix appIconButton variant="tertiary"
+            [disabled]="+min.value &lt; 60"
+            (click)="min.value = +min.value - 10"
+        &gt;
+            &lt;app-icon&gt;remove&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;input appInput textAlign="center" min="50" max="200" value="100" #min&gt;
+        &lt;button appSuffix appIconButton variant="tertiary"
+            [disabled]="+min.value &gt; 190"
+            (click)="min.value = +min.value + 10"
+        &gt;
+            &lt;app-icon&gt;add&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;app-hint&gt;Probar con columns en 'auto-fill'&lt;/app-hint&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;Max (ancho de ítem)&lt;/app-label&gt;
+        &lt;button appPrefix appIconButton variant="tertiary"
+            [disabled]="max.value &lt; min.value + 10"
+            (click)="max.value = +max.value ? +max.value - 10 : 200"
+        &gt;
+            &lt;app-icon&gt;remove&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;input appInput textAlign="center" min="50" max="200" placeholder="1fr" #max&gt;
+        &lt;button appSuffix appIconButton variant="tertiary"
+            [disabled]="max.value &gt; 190"
+            (click)="max.value = +max.value ? +max.value + 10 : 200"
+        &gt;
+            &lt;app-icon&gt;add&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;app-hint&gt;Probar con columns en 'auto-fill'&lt;/app-hint&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;Gap&lt;/app-label&gt;
+        &lt;button appPrefix appIconButton variant="tertiary"
+            [disabled]="gap.value &lt; 10"
+            (click)="gap.value = +gap.value - 10"
+        &gt;
+            &lt;app-icon&gt;remove&lt;/app-icon&gt;
+        &lt;/button&gt;
+        &lt;input appInput textAlign="center" min="0" max="50" value="16" #gap&gt;
+        &lt;button appSuffix appIconButton variant="tertiary"
+            [disabled]="gap.value &gt; 40"
+            (click)="gap.value = +gap.value + 10"
+        &gt;
+            &lt;app-icon&gt;add&lt;/app-icon&gt;
+        &lt;/button&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;app-slide-toggle #noGap&gt;No Gap&lt;/app-slide-toggle&gt;
+&lt;/app-stack&gt;
+
+&lt;<em>app-grid</em> [<em>columns</em>]="columns.value"
+    [<em>min</em>]="min.value" [<em>max</em>]="max.value || '1fr'"
+    [<em>gap</em>]="gap.value" [<em>noGap</em>]="noGap.checked"
+&gt;
+    &lt;app-card *ngFor="let c of 'ABCDE'.split('')"
+        appRipple appButtonBase
+        appearance="raised" height="100" backgroundColor
+    &gt;
+        {{ c }}
+    &lt;/app-card&gt;
+&lt;/<em>app-grid</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack paddingTop>
+                        <app-form-field>
+                            <app-label>Columns</app-label>
+                            <button appPrefix appIconButton variant="tertiary" *ngIf="!columns.value.includes('auto')"
+                                [disabled]="+columns.value < 2"
+                                (click)="columns.value = +columns.value - 1"
+                            >
+                                <app-icon>remove</app-icon>
+                            </button>
+                            <input appInput textAlign="center" min="1" max="5" value="5" #columns>
+                            <button appSuffix appIconButton variant="tertiary" *ngIf="!columns.value.includes('auto')"
+                                [disabled]="+columns.value > 4"
+                                (click)="columns.value = +columns.value + 1"
+                            >
+                                <app-icon>add</app-icon>
+                            </button>
+
+                            <app-stack orientation="horizontal" padding>
+                                <app-chip appRipple (click)="columns.value = 5"><app-icon>tag</app-icon>Número</app-chip>
+                                <app-chip appRipple (click)="columns.value = 'auto-fit'"><app-icon>grid_on</app-icon>Auto Fit</app-chip>
+                                <app-chip appRipple (click)="columns.value = 'auto-fill'"><app-icon>grid_4x4</app-icon>Auto Fill</app-chip>
+                            </app-stack>
+                        </app-form-field>
+
+                        <app-stack orientation="horizontal" wrap="wrap" align="end">
+                            <app-form-field>
+                                <app-label>Min (ancho de ítem)</app-label>
+                                <button appPrefix appIconButton variant="tertiary"
+                                    [disabled]="+min.value < 60"
+                                    (click)="min.value = +min.value - 10"
+                                >
+                                    <app-icon>remove</app-icon>
+                                </button>
+                                <input appInput textAlign="center" min="50" max="200" value="100" #min>
+                                <button appSuffix appIconButton variant="tertiary"
+                                    [disabled]="+min.value > 190"
+                                    (click)="min.value = +min.value + 10"
+                                >
+                                    <app-icon>add</app-icon>
+                                </button>
+                                <app-hint>Probar con columns en 'auto-fill'</app-hint>
+                            </app-form-field>
+
+                            <app-form-field>
+                                <app-label>Max (ancho de ítem)</app-label>
+                                <button appPrefix appIconButton variant="tertiary"
+                                    [disabled]="max.value < min.value + 10"
+                                    (click)="max.value = +max.value ? +max.value - 10 : 200"
+                                >
+                                    <app-icon>remove</app-icon>
+                                </button>
+                                <input appInput textAlign="center" min="50" max="200" placeholder="1fr" #max>
+                                <button appSuffix appIconButton variant="tertiary"
+                                    [disabled]="max.value > 190"
+                                    (click)="max.value = +max.value ? +max.value + 10 : 200"
+                                >
+                                    <app-icon>add</app-icon>
+                                </button>
+                                <app-hint>Probar con columns en 'auto-fill'</app-hint>
+                            </app-form-field>
+
+                            <app-form-field>
+                                <app-label>Gap</app-label>
+                                <button appPrefix appIconButton variant="tertiary"
+                                    [disabled]="gap.value < 10"
+                                    (click)="gap.value = +gap.value - 10"
+                                >
+                                    <app-icon>remove</app-icon>
+                                </button>
+                                <input appInput textAlign="center" min="0" max="50" value="16" #gap>
+                                <button appSuffix appIconButton variant="tertiary"
+                                    [disabled]="gap.value > 40"
+                                    (click)="gap.value = +gap.value + 10"
+                                >
+                                    <app-icon>add</app-icon>
+                                </button>
+                            </app-form-field>
+
+                            <app-slide-toggle #noGap>No Gap</app-slide-toggle>
+                        </app-stack>
+
+                        <app-grid [columns]="columns.value"
+                            [min]="min.value" [max]="max.value || '1fr'"
+                            [gap]="gap.value" [noGap]="noGap.checked"
+                        >
+                            <app-card *ngFor="let c of 'ABCDE'.split('')"
+                                appRipple appButtonBase
+                                appearance="raised" height="100" backgroundColor
+                            >
+                                {{ c }}
+                            </app-card>
+                        </app-grid>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

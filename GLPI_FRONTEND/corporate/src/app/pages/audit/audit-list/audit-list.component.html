@@ -1,0 +1,230 @@
+<div class="audit-page">
+  <div class="sm-page-header audit-header">
+    <div>
+      <h1 class="sm-page-title">Auditoría</h1>
+      <p class="sm-page-sub">Registro de cambios, accesos y operaciones sensibles del sistema</p>
+    </div>
+    <button type="button" class="btn btn-secondary btn-md" (click)="load()" [disabled]="loading()">
+      <lucide-angular name="refresh-cw" class="btn-icon" [class.spinner]="loading()"></lucide-angular>
+      <span>Actualizar</span>
+    </button>
+  </div>
+
+  <div class="audit-kpi-grid">
+    <div class="sm-card audit-kpi-card">
+      <span class="audit-kpi-icon is-navy"><lucide-angular name="shield" [size]="18"></lucide-angular></span>
+      <div>
+        <strong>{{ totalCount() }}</strong>
+        <span>Eventos registrados</span>
+      </div>
+    </div>
+    <div class="sm-card audit-kpi-card">
+      <span class="audit-kpi-icon is-success"><lucide-angular name="plus" [size]="18"></lucide-angular></span>
+      <div>
+        <strong>{{ createCount() }}</strong>
+        <span>Creaciones pág.</span>
+      </div>
+    </div>
+    <div class="sm-card audit-kpi-card">
+      <span class="audit-kpi-icon is-info"><lucide-angular name="pencil" [size]="18"></lucide-angular></span>
+      <div>
+        <strong>{{ updateCount() }}</strong>
+        <span>Actualizaciones pág.</span>
+      </div>
+    </div>
+    <div class="sm-card audit-kpi-card">
+      <span class="audit-kpi-icon is-danger"><lucide-angular name="trash-2" [size]="18"></lucide-angular></span>
+      <div>
+        <strong>{{ deleteCount() }}</strong>
+        <span>Eliminaciones pág.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sm-card audit-filter-card">
+    <div class="audit-filter-grid">
+      <div class="sm-input-wrap audit-search">
+        <span class="sm-input-icon left">
+          <lucide-angular name="search" [size]="16"></lucide-angular>
+        </span>
+        <input
+          type="text"
+          class="sm-input with-icon-left"
+          placeholder="Buscar por usuario, entidad, ID o resumen..."
+          [value]="searchQuery()"
+          (input)="updateSearchQuery($event)"
+        />
+      </div>
+
+      <select class="sm-input audit-action" [value]="filterAction()" (change)="updateFilterAction($event)">
+        <option value="">Todas las acciones</option>
+        <option value="CREATE">CREATE</option>
+        <option value="INSERT">INSERT</option>
+        <option value="UPDATE">UPDATE</option>
+        <option value="DELETE">DELETE</option>
+        <option value="LOGIN">LOGIN</option>
+      </select>
+
+      <select class="sm-input audit-entity" [value]="filterEntity()" (change)="updateFilterEntity($event)">
+        <option value="">Todas las entidades</option>
+        @for (entity of availableEntities(); track entity) {
+          <option [value]="entity">{{ entity }}</option>
+        }
+      </select>
+
+      <div class="audit-date-field audit-date-from">
+        <app-date-picker label="Desde" [value]="dateFrom()" (valueChange)="dateFrom.set($event)"></app-date-picker>
+      </div>
+
+      <div class="audit-date-field audit-date-to">
+        <app-date-picker label="Hasta" [value]="dateTo()" (valueChange)="dateTo.set($event)"></app-date-picker>
+      </div>
+
+      <div class="audit-filter-actions">
+        <button type="button" class="btn btn-primary btn-md" (click)="onFilter()" [disabled]="loading()">
+          <lucide-angular name="list-filter" class="btn-icon"></lucide-angular>
+          <span>Filtrar</span>
+        </button>
+        <button type="button" class="btn btn-ghost btn-md" (click)="clearFilters()" [disabled]="loading()">
+          <lucide-angular name="x" class="btn-icon"></lucide-angular>
+          <span>Limpiar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (errorMsg()) {
+    <div class="sm-alert warning audit-alert">
+      <lucide-angular name="alert-circle" [size]="16"></lucide-angular>
+      <span>{{ errorMsg() }}</span>
+    </div>
+  }
+
+  <div class="sm-card audit-table-card" [class.is-loading]="loading()">
+    <div class="audit-table-header">
+      <div class="audit-table-title">
+        <span class="audit-table-icon">
+          <lucide-angular name="database" [size]="18"></lucide-angular>
+        </span>
+        <div>
+          <h2>Bitácora de eventos</h2>
+          <p>{{ pageStart() }}-{{ pageEnd() }} de {{ totalCount() }} resultado(s) · {{ dateFrom() }} hasta {{ dateTo() }}</p>
+        </div>
+      </div>
+      @if (loading()) {
+        <span class="badge is-info">Cargando...</span>
+      } @else {
+        <span class="badge is-navy">Auditoría activa</span>
+      }
+    </div>
+
+    <div class="audit-table-scroll">
+      <table class="sm-table log-table">
+        <colgroup>
+          <col class="audit-col-date" />
+          <col class="audit-col-user" />
+          <col class="audit-col-action" />
+          <col class="audit-col-entity" />
+          <col class="audit-col-id" />
+          <col class="audit-col-summary" />
+          <col class="audit-col-detail" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Fecha y hora</th>
+            <th>Usuario</th>
+            <th>Acción</th>
+            <th>Entidad</th>
+            <th>ID</th>
+            <th>Resumen</th>
+            <th class="audit-action-col">Detalle</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of filteredEntries(); track entry.id) {
+            <tr
+              class="log-row"
+              [class.is-create]="entry.action === 'CREATE'"
+              [class.is-update]="entry.action === 'UPDATE'"
+              [class.is-delete]="entry.action === 'DELETE'"
+              [class.is-login]="entry.action === 'LOGIN'">
+              <td data-label="Fecha y hora">
+                <div class="audit-time-cell">
+                  <span class="timestamp">{{ formatDate(entry.timestamp) }}</span>
+                  <small>Evento registrado</small>
+                </div>
+              </td>
+              <td data-label="Usuario">
+                <div class="audit-user-cell">
+                  <span class="audit-user-avatar">{{ (entry.user || 'S').slice(0, 2).toUpperCase() }}</span>
+                  <div>
+                    <span>{{ entry.user || 'Sistema' }}</span>
+                    <small>Actor</small>
+                  </div>
+                </div>
+              </td>
+              <td data-label="Acción">
+                <span class="badge audit-action-badge" [class]="actionBadgeClass(entry.action)">
+                  <lucide-angular [name]="actionIcon(entry.action)" [size]="12"></lucide-angular>
+                  {{ actionLabel(entry.action) }}
+                </span>
+              </td>
+              <td data-label="Entidad">
+                <div class="audit-entity-cell">
+                  <span class="audit-entity-dot"></span>
+                  <span>{{ displayEntity(entry.entity) }}</span>
+                </div>
+              </td>
+              <td data-label="ID">
+                <div class="audit-record-id" [title]="entry.entityId || ''">
+                  <lucide-angular name="copy" [size]="12"></lucide-angular>
+                  <span>{{ shortId(entry.entityId) }}</span>
+                </div>
+              </td>
+              <td data-label="Resumen">
+                <div class="audit-summary-cell">
+                  <span class="summary-text" [title]="entry.summary">{{ entry.summary }}</span>
+                  @if (entry.ip) {
+                    <span class="audit-ip">IP {{ entry.ip }}</span>
+                  }
+                </div>
+              </td>
+              <td data-label="Detalle" class="audit-action-col">
+                <button class="btn btn-secondary btn-sm audit-view-btn" (click)="onViewDetail(entry)" title="Ver detalle">
+                  <lucide-angular name="eye" class="btn-icon"></lucide-angular>
+                  <span>Ver</span>
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7">
+                <div class="audit-empty-state">
+                  <lucide-angular name="database" [size]="34"></lucide-angular>
+                  <strong>No hay registros de auditoría</strong>
+                  <span>Cuando se registren operaciones del sistema aparecerán aquí.</span>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination
+      [totalItems]="totalItems()"
+      [page]="page()"
+      [pageSize]="pageSize()"
+      [disabled]="loading()"
+      (setPage)="setPage($event)"
+      (setPageSize)="onPageSizeChange($event)">
+    </app-pagination>
+  </div>
+</div>
+
+@if (showDetail()) {
+  <app-audit-detail
+    [entry]="selectedEntry()"
+    (close)="onCloseDetail()">
+  </app-audit-detail>
+}

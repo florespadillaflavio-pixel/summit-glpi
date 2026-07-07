@@ -1,0 +1,287 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>File Input Module</h2>
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em>app-file-input</em>
+    <em>multiple</em>="false"
+    <em>accept</em>=".xlsx, .xls"
+    (<em>change</em>)="onChange($event)"
+    (<em>rejected</em>)="onRejected($event)"
+&gt;
+    Content
+&lt;/<em>app-file-input</em>&gt;
+</pre>
+                </div>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                <ul>
+                    <li><samp><em>app-file-input</em> extends <em>BoxBase</em></samp></li>
+                </ul>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Inputs</h3>
+
+                <ul>
+                    <li><samp>[<em>multiple</em>]: boolean = false</samp></li>
+                    <li><samp>[<em>accept</em>]: string = ''</samp></li>
+                </ul>
+            </app-stack>
+
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Outputs</h3>
+
+                <ul>
+                    <li><samp>(<em>change</em>): <em>EventEmitter</em>&lt;<em>File</em>[]&gt;</samp></li>
+                    <li><samp>(<em>rejected</em>): <em>EventEmitter</em>&lt;<em>File</em>[]&gt;</samp></li>
+                </ul>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Single file input</app-card-title>
+                    <app-card-subtitle>File Input</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em>app-file-input</em> <em>accept</em>=".png, .jpg"
+    (<em>change</em>)="onChange($event)"
+    (<em>rejected</em>)="onRejected($event)"
+&gt;
+    &lt;app-stack justify="center"&gt;
+        &lt;app-icon fontSize="36"&gt;upload_file&lt;/app-icon&gt;
+        &lt;span&gt;Arrastre una imagen PNG o JPG o haga clic para seleccionar&lt;/span&gt;
+    &lt;/app-stack&gt;
+&lt;/<em>app-file-input</em>&gt;
+</pre>
+                            </app-tab>
+
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts1" (copied)="onCopy('ts1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts1>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+    onChange(files: File[]) &#123;
+        console.log('Accepted:', files);
+    &#125;
+
+    onRejected(files: File[]) &#123;
+        console.log('Rejected:',files);
+    &#125;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap paddingTop>
+                        <app-file-input accept=".png, .jpg"
+                            (change)="onChange($event)"
+                            (rejected)="onRejected($event)"
+                        >
+                            <app-stack justify="center">
+                                <app-icon fontSize="36">upload_file</app-icon>
+                                <span>Arrastre una imagen PNG o JPG o haga clic para seleccionar</span>
+                            </app-stack>
+                        </app-file-input>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Multiple files input</app-card-title>
+                    <app-card-subtitle>File Input</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;<em>app-file-input</em> <em>multiple</em> <em>accept</em>=".xlsx, .xls"
+    (<em>change</em>)="onChange($event)"
+    (<em>rejected</em>)="onRejected($event)"
+&gt;
+    &lt;app-stack justify="center"&gt;
+        &lt;app-icon fontSize="36"&gt;cloud_upload&lt;/app-icon&gt;
+        &lt;span&gt;Arrastre y suelte sus archivos EXCEL aquí&lt;/span&gt;
+    &lt;/app-stack&gt;
+&lt;/<em>app-file-input</em>&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts2" (copied)="onCopy('ts2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts2>
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;...&#125;)
+export class MyComponent &#123;
+    onChange(files: File[]) &#123;
+        console.log('Accepted:', files);
+    &#125;
+
+    onRejected(files: File[]) &#123;
+        console.log('Rejected:',files);
+    &#125;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap paddingTop>
+                        <app-file-input multiple accept=".xlsx, .xls"
+                            (change)="onChange($event)"
+                            (rejected)="onRejected2($event)"
+                        >
+                            <app-stack justify="center">
+                                <app-icon fontSize="36">cloud_upload</app-icon>
+                                <span>Arrastre y suelte sus archivos EXCEL aquí</span>
+                            </app-stack>
+                        </app-file-input>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Rejected files error messages</app-card-title>
+                    <app-card-subtitle>File Input</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+
+                <app-card-content>
+                    <app-card appearance="outlined" *ngIf="examples.isSelected(3)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html3>
+&lt;<em>app-file-input</em> <em>multiple</em> <em>accept</em>=".xlsx, .xls"
+    (<em>change</em>)="onChange($event)"
+    (<em>rejected</em>)="onRejected($event)"
+&gt;
+    &lt;app-stack justify="center"&gt;
+        &lt;app-icon fontSize="36"&gt;cloud_upload&lt;/app-icon&gt;
+        &lt;span&gt;Arrastre y suelte sus archivos EXCEL aquí&lt;/span&gt;
+    &lt;/app-stack&gt;
+&lt;/<em>app-file-input</em>&gt;
+
+&lt;app-stack noGap *ngIf="rejectedFiles.length &gt; 0" &#64;expandY&gt;
+    &lt;app-error *ngFor="let file of rejectedFiles"&gt;&#123;&#123; file.name &#125;&#125; ha sido rechazado.&lt;/app-error&gt;
+&lt;/app-stack&gt;
+</pre>
+                            </app-tab>
+                            
+                            <app-tab label="TS">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #ts3>
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; expandY &#125; from '&#64;app/shared/animations/animations';
+
+&#64;Component(&#123;
+    ...
+    animations: [expandY],
+&#125;)
+export class MyComponent &#123;
+    rejectedFiles: File[] = [];
+
+    onChange(files: File[]) &#123;
+        console.log('Accepted:', files);
+    &#125;
+
+    onRejected(files: File[]) &#123;
+        this.rejectedFiles = files;
+        console.log('Rejected:',files);
+        setTimeout(() => this.rejectedFiles = [], 2000 * files.length);
+    &#125;
+&#125;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack noGap paddingTop>
+                        <app-file-input multiple accept=".xlsx, .xls"
+                            (change)="onChange($event)"
+                            (rejected)="onRejected2($event)"
+                        >
+                            <app-stack justify="center">
+                                <app-icon fontSize="36">cloud_upload</app-icon>
+                                <span>Arrastre y suelte sus archivos EXCEL aquí</span>
+                            </app-stack>
+                        </app-file-input>
+
+                        <app-stack noGap *ngIf="rejectedFiles.length > 0" @expandY>
+                            <app-error *ngFor="let file of rejectedFiles">{{ file.name }} ha sido rechazado.</app-error>
+                        </app-stack>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>

@@ -1,0 +1,62 @@
+<div class="config-section-content">
+  <div class="section-header">
+    <div class="icon-box">
+      <lucide-angular name="shield" [size]="20"></lucide-angular>
+    </div>
+    <div>
+      <h2 class="section-title">Políticas de Seguridad</h2>
+      <p class="section-desc">Fortalece el acceso y la protección de datos del sistema.</p>
+    </div>
+  </div>
+
+  <div class="sm-divider"></div>
+
+  @if (loading()) {
+    <div class="config-loading-state">
+      <lucide-angular name="loader" class="spinner" [size]="22"></lucide-angular>
+      <span>Cargando políticas...</span>
+    </div>
+  }
+
+  <form [formGroup]="securityForm" class="config-form" [class.config-loading-dim]="loading()">
+    <div class="config-grid">
+      <div class="sm-field">
+        <label class="sm-label">Longitud Mínima de Contraseña</label>
+        <input type="number" class="sm-input" formControlName="passwordMinLength" [class.input-error]="fieldError('passwordMinLength')">
+        @if (fieldError('passwordMinLength')) { <span class="field-error">{{ fieldError('passwordMinLength') }}</span> }
+      </div>
+
+      <div class="sm-field">
+        <label class="sm-label">Intentos Máximos de Login</label>
+        <input type="number" class="sm-input" formControlName="maxLoginAttempts" [class.input-error]="fieldError('maxLoginAttempts')">
+        @if (fieldError('maxLoginAttempts')) { <span class="field-error">{{ fieldError('maxLoginAttempts') }}</span> }
+      </div>
+
+      <div class="sm-field">
+        <label class="sm-label">Tiempo de Sesión (Minutos)</label>
+        <input type="number" class="sm-input" formControlName="sessionTimeoutMins" [class.input-error]="fieldError('sessionTimeoutMins')">
+        @if (fieldError('sessionTimeoutMins')) { <span class="field-error">{{ fieldError('sessionTimeoutMins') }}</span> }
+      </div>
+
+      <div class="sm-field full-width">
+        <div class="switch-row">
+          <label class="sm-switch">
+            <input type="checkbox" formControlName="requireMfa">
+            <span class="sm-switch-slider"></span>
+          </label>
+          <div class="switch-info">
+            <span class="switch-text">Requerir Doble Factor (MFA)</span>
+            <p class="field-help">Obliga a los administradores a usar códigos de verificación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="saving() || securityForm.invalid">
+        <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+        <span>Actualizar Políticas</span>
+      </button>
+    </div>
+  </form>
+</div>

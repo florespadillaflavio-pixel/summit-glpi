@@ -1,0 +1,1439 @@
+<app-tab-group backgroundColor="--white">
+    <app-tab label="Overview">
+        <app-stack noGap backgroundColor>
+            <app-stack padding>
+                <h2>Dialog Module</h2>
+
+                <span><app-chip>&#64;app/shared/material/dialog</app-chip></span>
+
+                <div appPosition="relative">
+                    <div appPosition="absolute" top right>
+                        <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                        <button [@fadeSwitch]="copied === 'template' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="template" (copied)="onCopy('template')"><app-icon>content_copy</app-icon></button>
+                    </div>
+<pre #template ngNonBindable appBoxBase borderRadius backgroundColor="--white" border>
+&lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> [<em><b>appDialogTriggerFor</b></em>]=<em class="app-warning">"</em>dialogPanel<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">app-icon</em>&gt;add&lt;/<em class="app-danger">app-icon</em>&gt;Open Dialog
+&lt;/<em class="app-danger">button</em>&gt;
+
+&lt;<em><b>app-dialog</b></em> <em class="app-info">#dialogPanel</em>&gt;
+    &lt;<em class="app-danger">h2</em> <em><b>appDialogTitle</b></em>&gt;Título&lt;/<em class="app-danger">h2</em>&gt;
+    &lt;<em><b>app-dialog-content</b></em>&gt;
+        Dialog content.
+    &lt;/<em><b>app-dialog-content</b></em>&gt;
+    &lt;<em><b>app-dialog-actions</b></em> <em class="app-main">justify</em>=<em class="app-warning">"end"</em>&gt;
+        &lt;<em class="app-danger">button</em> <em><b>appDialogClose</b></em> <em class="app-main">appButton</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">color</em>=<em class="app-warning">"danger"</em>&gt;Cancel&lt;/<em class="app-danger">button</em>&gt;
+    &lt;/<em><b>app-dialog-actions</b></em>&gt;
+&lt;/<em><b>app-dialog</b></em>&gt;
+</pre>
+                </div>
+            </app-stack>
+            
+            <app-divider></app-divider>
+
+            <app-stack padding>
+                <h3>Components/Directives</h3>
+                
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialogTrigger</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appDialogTriggerFor</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appDialogTrigger</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack orientation="horizontal" justify="start" align="center">
+                                    <button appButton variant="primary" size="small"
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                    >
+                                        Abrir
+                                    </button>
+
+                                    <app-card appearance="outlined" size="small" width="100%" minWidth="200">
+                                        <app-card-header>
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content>Contenido</app-card-content>
+                                        <app-card-actions justify="end">
+                                            <button appButton variant="primary" color="danger" size="small">Cancel</button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>(<em class="app-warning">'appDialogTriggerFor'</em>)
+                                    <em>dialog</em>!:
+                                    <em><b>AppDialog</b></em>&lt;<em class="app-hint">T</em>&gt;
+                                </samp> - Diálogo embebido
+                            </p>
+                            
+                            <h6><b>Methods</b></h6>
+                            <p>
+                                <samp><em class="app-main">openDialog</em>()</samp> - Abre el diálogo embebido desde el botón
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialog</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-dialog</em></samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appDialog</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%" backgroundColor="--white"
+                                        appImageBase="sepia hueRotate brightness saturate grayScale"
+                                        sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                    >
+                                        <app-card-header>
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content>Contenido</app-card-content>
+                                        <app-card-actions justify="end">
+                                            <button appButton variant="primary" color="danger" size="small">Cancel</button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>()
+                                    <em>hasBackdrop</em>:
+                                    <em class="app-hint">boolean</em> <em class="app-danger">&nbsp;=&nbsp;</em>
+                                    <em class="app-info">true</em>
+                                </samp> (Con coerción)
+                            </p>
+                            
+                            <h6><b>Outputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Output</em>()
+                                    <em><b>closed</b></em>:
+                                    <em class="app-main">EventEmitter</em>&lt;<em class="app-hint">any</em>&gt;
+                                </samp> - Emite un valor de cualquier tipo al cerrar el diálogo
+                            </p>
+                            
+                            <h6><b>Methods</b></h6>
+                            <p>
+                                <samp><em class="app-main">open</em>()</samp> - Abre el diálogo embebido
+                                <samp><em class="app-main">close</em>()</samp> - Cierra el diálogo, ya sea embebido o dinámico. Y emite el evento <code>(<em>closed</em>)</code>
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialogTitle</b></em> extends <em>TextBase</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-dialog-title</em>, [<em>appDialogTitle</em>]</samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content>Contenido</app-card-content>
+                                        <app-card-actions justify="end">
+                                            <button appButton variant="primary" color="danger" size="small">Cancel</button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialogContent</b></em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-dialog-content</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="90" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            Contenido
+                                        </app-card-content>
+                                        <app-card-actions justify="end">
+                                            <button appButton variant="primary" color="danger" size="small">Cancel</button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialogActions</b></em> extends <em>AppStack</em> extends <em>BoxBase</em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp><em>app-dialog-actions</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content>Contenido</app-card-content>
+                                        <app-card-actions justify="end" backgroundColor="--white"
+                                            appImageBase="sepia hueRotate brightness saturate grayScale"
+                                            sepia="50%" hueRotate="145" brightness="98%" saturate="2" grayScale="25%"
+                                        >
+                                            <button appButton variant="primary" color="danger" size="small">Cancel</button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                        </div>
+                    </app-expansion-panel>
+                    
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>AppDialogClose</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <p><b>selector:</b> &nbsp; <samp>[<em>appDialogClose</em>]</samp></p>
+                            <p><b>exportAs:</b> &nbsp; <samp><em>appDialogClose</em></samp></p>
+
+                            <app-stack justify="center">
+                                <app-stack justify="start" minWidth="200">
+                                    <app-card appearance="outlined" size="small" width="100%">
+                                        <app-card-header>
+                                            <app-card-title><h4>Título</h4></app-card-title>
+                                        </app-card-header>
+                                        <app-card-content>Contenido</app-card-content>
+                                        <app-card-actions justify="end">
+                                            <button appButton variant="primary" color="danger" size="small"
+                                                appImageBase="sepia hueRotate brightness saturate grayScale"
+                                                sepia="50%" hueRotate="145" brightness="98%" saturate="2" grayScale="25%"
+                                            >
+                                                Cancel
+                                            </button>
+                                        </app-card-actions>
+                                    </app-card>
+                                </app-stack>
+                            </app-stack>
+                            
+                            <h6><b>Inputs</b></h6>
+                            <p>
+                                <samp>
+                                    &#64;<em class="app-main">Input</em>(<em class="app-warning">'appDialogClose'</em>)
+                                    <em>output</em>:
+                                    <em class="app-hint">any</em>
+                                </samp> - Output del diálogo
+                            </p>
+                            
+                            <app-alert color="main">
+                                <app-icon appAlertIcon fill>tooltip</app-icon>
+                                <strong>ACLARACIÓN:</strong> El 'input' <code>[<em>appDialogClose</em>]</code> se usa tanto para cerrar el diálogo como para enviar un dato de cualquier tipo (<code>any</code>) al momento del cierre.
+                                Este dato se captura en el 'output' <code>(<em>closed</em>)</code> de <code><em>AppDialog</em></code>.
+                            </app-alert>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+
+            <app-divider></app-divider>
+            
+            <app-stack padding>
+                <h3>Services</h3>
+
+                <app-accordion appearance="raised">
+                    <app-expansion-panel>
+                        <app-expansion-panel-header>
+                            <samp><em><b>DialogService</b></em></samp>
+                        </app-expansion-panel-header>
+                        
+                        <div appBoxBase padding>
+                            <h6><b>Methods</b></h6>
+                            <p>
+                                <samp><em class="app-main">open</em>&lt;<em class="app-hint">T</em>&gt;(component: <em class="app-main">Type</em>&lt;<em class="app-hint">T</em>&gt;,
+                                hasBackdrop: <em class="app-hint">boolean</em> = <em class="app-info">false</em>)</samp>
+                                - Crea y abre un díalogo dinámico con contenido dado desde una componente
+                            </p>
+                        </div>
+                    </app-expansion-panel>
+                </app-accordion>
+            </app-stack>
+        </app-stack>
+    </app-tab>
+
+    <app-tab label="Examples">
+        <app-stack padding backgroundColor>
+            <!-- Example 1 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dialog embebido simple</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(1)">
+                        <app-icon>{{ examples.isSelected(1) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(1)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html1' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html1" (copied)="onCopy('html1')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html1>
+&lt;<em class="app-danger">button</em> <em class="app-main">appFab</em> <em class="app-main">variant</em>=<em class="app-warning">"secondary"</em> [<em><b>appDialogTriggerFor</b></em>]=<em class="app-warning">"</em>simpleDialog<em class="app-warning">"</em>&gt;
+    &lt;<em class="app-danger">app-icon</em>&gt;add&lt;/<em class="app-danger">app-icon</em>&gt;Open Dialog
+&lt;/<em class="app-danger">button</em>&gt;
+
+&lt;<em><b>app-dialog</b></em> <em class="app-info">#simpleDialog</em>&gt;
+    &lt;<em class="app-danger">h2</em> <em><b>appDialogTitle</b></em>&gt;Título&lt;/<em class="app-danger">h2</em>&gt;
+    &lt;<em><b>app-dialog-content</b></em>&gt;
+        Dialog content.
+    &lt;/<em><b>app-dialog-content</b></em>&gt;
+    &lt;<em><b>app-dialog-actions</b></em> <em class="app-main">justify</em>=<em class="app-warning">"end"</em>&gt;
+        &lt;<em class="app-danger">button</em> <em><b>appDialogClose</b></em> <em class="app-main">appButton</em> <em class="app-main">variant</em>=<em class="app-warning">"primary"</em> <em class="app-main">color</em>=<em class="app-warning">"danger"</em>&gt;Cancel&lt;/<em class="app-danger">button</em>&gt;
+    &lt;/<em><b>app-dialog-actions</b></em>&gt;
+&lt;/<em><b>app-dialog</b></em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack padding justify="start">
+                        <button appFab variant="secondary" [appDialogTriggerFor]="simpleDialog">
+                            <app-icon>add</app-icon>Open Dialog
+                        </button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+
+            <!-- Example 2 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dialog embebido con contenido extenso</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(2)">
+                        <app-icon>{{ examples.isSelected(2) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(2)" @expandY>
+                        <app-tab-group>
+                            <app-tab label="HTML">
+                                <div appPosition="absolute" top right>
+                                    <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                    <button [@fadeSwitch]="copied === 'html2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html2" (copied)="onCopy('html2')"><app-icon>content_copy</app-icon></button>
+                                </div>
+<pre ngNonBindable #html2>
+&lt;button appFab variant="secondary" [<em>appDialogTriggerFor</em>]="terminos"&gt;
+    &lt;app-icon&gt;contract&lt;/app-icon&gt;Términos y Condiciones
+&lt;/button&gt;
+
+&lt;<em>app-dialog</em> #terminos&gt;
+    &lt;h3 <em>appDialogTitle</em>&gt;Términos y Condiciones&lt;/h3&gt;
+
+    &lt;<em>app-dialog-content</em>&gt;
+        &lt;p&gt;Bienvenido a &lt;strong&gt;QuipuERP&lt;/strong&gt;. Antes de continuar, debes aceptar estos Términos y Condiciones:&lt;/p&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;1. Definiciones&lt;/h5&gt;
+            &lt;p&gt;En estos términos, los siguientes términos tendrán los significados indicados:&lt;/p&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;strong&gt;Cliente:&lt;/strong&gt; La persona física o jurídica que utiliza el software QuipuERP.&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;Proveedor:&lt;/strong&gt; La empresa desarrolladora de QuipuERP.&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;Servicios:&lt;/strong&gt; El uso del software, actualizaciones y soporte técnico.&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;2. Alcance del servicio&lt;/h5&gt;
+            &lt;p&gt;QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...&lt;/p&gt;
+            &lt;p&gt;El Cliente acepta que el Proveedor no garantiza:&lt;/p&gt;
+            &lt;ol&gt;
+                &lt;li&gt;La continuidad absoluta del servicio sin interrupciones.&lt;/li&gt;
+                &lt;li&gt;La exactitud de los datos ingresados por el usuario.&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;3. Obligaciones del Cliente&lt;/h5&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Conservar en secreto sus credenciales de acceso.&lt;/li&gt;
+                &lt;li&gt;Respaldar periódicamente sus datos.&lt;/li&gt;
+                &lt;li&gt;Notificar al Proveedor de cualquier incidencia o error.&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;4. Propiedad Intelectual&lt;/h5&gt;
+            &lt;p&gt;
+                Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+                Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+            &lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;5. Responsabilidad y Limitaciones&lt;/h5&gt;
+            &lt;p&gt;
+                El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+                del uso o imposibilidad de uso del servicio.
+            &lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;6. Política de Privacidad&lt;/h5&gt;
+            &lt;p&gt;
+                El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+                &lt;a href="/politica-privacidad" target="_blank"&gt;Política de Privacidad&lt;/a&gt;.
+            &lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;7. Modificaciones y Actualizaciones&lt;/h5&gt;
+            &lt;p&gt;
+                QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+                al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+            &lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;section&gt;
+            &lt;h5 appTextBase bold&gt;8. Vigencia y Terminación&lt;/h5&gt;
+            &lt;p&gt;
+                Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+                o el acuerdo de rescisión mutua.
+            &lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/<em>app-dialog-content</em>&gt;
+
+    &lt;<em>app-dialog-actions</em> justify="end"&gt;
+        &lt;button <em>appDialogClose</em> appButton variant="primary" color="danger"&gt;Cancel&lt;/button&gt;
+        &lt;button [<em>appDialogClose</em>]="true" appButton variant="tertiary" appearance="outlined"&gt;Aceptar&lt;/button&gt;
+    &lt;/<em>app-dialog-actions</em>&gt;
+&lt;/<em>app-dialog</em>&gt;
+</pre>
+                            </app-tab>
+                        </app-tab-group>
+                    </app-card>
+
+                    <app-stack padding justify="start">
+                        <button appFab variant="secondary" [appDialogTriggerFor]="terminos">
+                            <app-icon>contract</app-icon>Términos y Condiciones
+                        </button>
+
+                        <app-alert color="accent">
+                            <app-icon appAlertIcon fill>flag</app-icon>
+                            <p><strong>OBSERVACIÓN:</strong> La directiva <code>[<em>appDialogClose</em>]</code> almacena un string vacío <code>""</code> por defecto cuando no se proporciona valor.</p>
+                            <strong>OJO:</strong> Si se cierra el diálogo mediante un click en el 'backdrop', el evento <code>(<em>closed</em>)</code> del diálogo no captura ningún valor, por lo que este emite un <code>undefined</code>.
+                        </app-alert>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 3 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dialog dinámico (componentes apartes)</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(3)">
+                        <app-icon>{{ examples.isSelected(3) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(3)" @expandY>
+                        <app-drawer-container height="500">
+                            <app-drawer #drawer opened width="250" borderRight>
+                                <app-list-item variant="menu" active paddingHorizontal="8" borderRadius="0">
+                                    <app-icon appListItemIcon>folder_open</app-icon>
+                                    main
+                                </app-list-item>
+
+                                <app-divider></app-divider>
+
+                                <app-tree [control]="treeControl" [dataSource]="dataSource" noOverflow>
+                                    <app-tree-node *appTreeNodeDef="let node">
+                                        <label appTreeNodeToggle [node]="node" appStack noGap orientation="horizontal" align="center" [for]="node.name">
+                                            <div appTransform [rotate]="treeControl.isExpanded(node) ? 90 : 0">
+                                                <button appIconButton variant="tertiary" [id]="node.name" *ngIf="treeControl.hasChildren(node)">
+                                                    <app-icon>chevron_right</app-icon>
+                                                </button>
+                                            </div>
+                                            <button appListItem variant="submenu" padding="8"
+                                                [active]="treeControl.isExpanded(node)"
+                                                (click)="!treeControl.hasChildren(node) ? openTab(node.name) : null"
+                                            >
+                                                <app-icon appListItemIcon>{{ treeControl.hasChildren(node) ? treeControl.isExpanded(node) ? 'folder_open' : 'folder' : node.icon }}</app-icon>
+                                                {{ node.name }}
+                                            </button>
+                                        </label>
+                                    </app-tree-node>
+                                </app-tree>
+                            </app-drawer>
+
+                            <app-drawer-content>
+                                <app-tab-group stretchTabs="false" #tabs>
+                                    <app-tab id="main.component.html" *ngIf="openedTabs.isSelected('main.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3" (copied)="onCopy('html3')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html3 appBoxBase height="447">
+&lt;app-stack orientation="horizontal" wrap="wrap" align="end"&gt;
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;¿Cuál es tu nombre?&lt;/app-label&gt;
+        &lt;input appInput type="text" [formControl]="adoptante"&gt;
+    &lt;/app-form-field&gt;
+
+    &lt;button appFab variant="secondary" <b>(click)="openDialog</b>()"&gt;
+        &lt;app-icon&gt;pets&lt;/app-icon&gt;Adoptar Cachorro
+    &lt;/button&gt;
+&lt;/app-stack&gt;
+
+&lt;app-success bold fontSize="--large-text" *ngIf="nombreCachorro"&gt;
+    ¡Felicidades{{ adoptante.value ? ' ' + adoptante.value : '' }}!
+    Has adoptado a {{ nombreCachorro }}.
+&lt;/app-success&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="main.component.ts" *ngIf="openedTabs.isSelected('main.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts3' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts3' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3" (copied)="onCopy('ts3')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts3 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl &#125; from '&#64;angular/forms';
+import &#123; <em>DialogService</em> &#125; from '&#64;app/shared/material/dialog';
+import &#123; <b>AdopcionDialogComponent</b> &#125; from './adopcion-dialog/adopcion-dialog.component';
+
+&#64;Component(&#123;...&#125;)
+export class MainComponent &#123;
+
+    nombreCachorro?: string;
+    adoptante = new FormControl('');
+
+    constructor(private dialogService: <em>DialogService</em>) &#123; &#125;
+
+    <b>openDialog</b>() &#123;
+        const dialogRef = this.dialogService.open(<b>AdopcionDialogComponent</b>);
+        dialogRef.<em>component</em>.prototype.nombreAdoptante = this.adoptante.value;
+        dialogRef.<em>closed</em>.subscribe((nombreCachorro: string) =&gt; &#123;
+            if (nombreCachorro) this.nombreCachorro = nombreCachorro;
+        &#125;);
+    &#125;
+
+&#125;
+</pre>
+                                    </app-tab>
+                                    
+                                    <app-tab id="adopcion-dialog.component.html" *ngIf="openedTabs.isSelected('adopcion-dialog.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            adopcion-dialog.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('adopcion-dialog.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html3_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html3_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html3_2" (copied)="onCopy('html3_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html3_2 appBoxBase height="447">
+&lt;h3 <em>appDialogTitle</em>&gt;Hola{{ nombreAdoptante ? ', ' + nombreAdoptante : '' }}&lt;/h3&gt;
+&lt;<em>app-dialog-content</em>&gt;
+    &lt;app-form-field&gt;
+        &lt;app-label&gt;¿Cómo vas a llamar a tu cachorro?&lt;/app-label&gt;
+        &lt;input appInput type="text" [formControl]="cachorro"&gt;
+    &lt;/app-form-field&gt;
+&lt;/<em>app-dialog-content</em>&gt;
+&lt;<em>app-dialog-actions</em>&gt;
+    &lt;button <em>appDialogClose</em> appButton variant="primary" color="danger"&gt;Cancelar&lt;/button&gt;
+    &lt;button [<em>appDialogClose</em>]="cachorro.value"
+        appButton variant="primary" color="main"
+        [disabled]="cachorro.invalid"
+    &gt;
+        Adoptar
+    &lt;/button&gt;
+&lt;/<em>app-dialog-actions</em>&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="adopcion-dialog.component.ts" *ngIf="openedTabs.isSelected('adopcion-dialog.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            adopcion-dialog.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('adopcion-dialog.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts3_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts3_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts3_2" (copied)="onCopy('ts3_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts3_2 appBoxBase height="447">
+import &#123; Component, Input &#125; from '&#64;angular/core';
+import &#123; FormControl, Validators &#125; from '&#64;angular/forms';
+
+&#64;Component(&#123;
+    selector: 'app-adopcion-dialog',
+    templateUrl: './adopcion-dialog.component.html',
+&#125;)
+export class AdopcionDialogComponent &#123;
+    &#64;Input() nombreAdoptante?: string;
+    cachorro = new FormControl('', Validators.required);
+&#125;
+</pre>
+                                    </app-tab>
+                                </app-tab-group>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-card>
+
+                    <app-stack padding>
+                        <app-stack orientation="horizontal" wrap="wrap" align="end">
+                            <app-form-field>
+                                <app-label>¿Cuál es tu nombre?</app-label>
+                                <input appInput type="text" [formControl]="adoptante">
+                            </app-form-field>
+
+                            <button appFab variant="secondary" (click)="openDialog()">
+                                <app-icon>pets</app-icon>Adoptar Cachorro
+                            </button>
+                        </app-stack>
+
+                        <app-success bold fontSize="--large-text" *ngIf="nombreCachorro" @expandY>
+                            ¡Felicidades{{ adoptante.value ? ' ' + adoptante.value : '' }}!
+                            Has adoptado a {{ nombreCachorro }}.
+                        </app-success>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 4 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dialog dinámico tamaño grande</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(4)">
+                        <app-icon>{{ examples.isSelected(4) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(4)" @expandY>
+                        <app-drawer-container height="500">
+                            <app-drawer #drawer opened width="250" borderRight>
+                                <app-list-item variant="menu" active paddingHorizontal="8" borderRadius="0">
+                                    <app-icon appListItemIcon>folder_open</app-icon>
+                                    main
+                                </app-list-item>
+
+                                <app-divider></app-divider>
+
+                                <app-tree [control]="treeControl" [dataSource]="dataSource2" noOverflow>
+                                    <app-tree-node *appTreeNodeDef="let node">
+                                        <label appTreeNodeToggle [node]="node" appStack noGap orientation="horizontal" align="center" [for]="node.name">
+                                            <div appTransform [rotate]="treeControl.isExpanded(node) ? 90 : 0">
+                                                <button appIconButton variant="tertiary" [id]="node.name" *ngIf="treeControl.hasChildren(node)">
+                                                    <app-icon>chevron_right</app-icon>
+                                                </button>
+                                            </div>
+                                            <button appListItem variant="submenu" padding="8"
+                                                [active]="treeControl.isExpanded(node)"
+                                                (click)="!treeControl.hasChildren(node) ? openTab(node.name) : null"
+                                            >
+                                                <app-icon appListItemIcon>{{ treeControl.hasChildren(node) ? treeControl.isExpanded(node) ? 'folder_open' : 'folder' : node.icon }}</app-icon>
+                                                {{ node.name }}
+                                            </button>
+                                        </label>
+                                    </app-tree-node>
+                                </app-tree>
+                            </app-drawer>
+
+                            <app-drawer-content>
+                                <app-tab-group stretchTabs="false" #tabs>
+                                    <app-tab id="main.component.html" *ngIf="openedTabs.isSelected('main.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4" (copied)="onCopy('html4')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html4 appBoxBase height="447">
+&lt;button appFab variant="secondary" <b>(click)="openDialog</b>()"&gt;
+    &lt;app-icon&gt;contract&lt;/app-icon&gt;Términos y Condiciones
+&lt;/button&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="main.component.ts" *ngIf="openedTabs.isSelected('main.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts4' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts4' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts4" (copied)="onCopy('ts4')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts4 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl &#125; from '&#64;angular/forms';
+import &#123; <em>DialogService</em> &#125; from '&#64;app/shared/material/dialog';
+import &#123; <b>TerminosDialogComponent</b> &#125; from './terminos-dialog/terminos-dialog.component';
+
+&#64;Component(&#123;...&#125;)
+export class MainComponent &#123;
+
+    nombreCachorro?: string;
+    adoptante = new FormControl('');
+
+    constructor(private dialogService: <em>DialogService</em>) &#123; &#125;
+
+    <b>openDialog</b>() &#123;
+        const dialogRef = this.dialogService.open(<b>TerminosDialogComponent</b>);
+        dialogRef.width = '100%';
+        dialogRef.maxWidth = 800;
+        dialogRef.<em>closed</em>.subscribe((result: boolean) =&gt; &#123;
+            if (!result) return;
+        &#125;);
+    &#125;
+
+&#125;
+</pre>
+                                    </app-tab>
+                                    
+                                    <app-tab id="terminos-dialog.component.html" *ngIf="openedTabs.isSelected('terminos-dialog.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html4_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html4_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html4_2" (copied)="onCopy('html4_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html4_2 appBoxBase height="447">
+&lt;h3 <em>appDialogTitle</em>&gt;Términos y Condiciones&lt;/h3&gt;
+
+&lt;<em>app-dialog-content</em>&gt;
+    &lt;p&gt;Bienvenido a &lt;strong&gt;QuipuERP&lt;/strong&gt;. Antes de continuar, debes aceptar estos Términos y Condiciones:&lt;/p&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;1. Definiciones&lt;/h5&gt;
+        &lt;p&gt;En estos términos, los siguientes términos tendrán los significados indicados:&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;strong&gt;Cliente:&lt;/strong&gt; La persona física o jurídica que utiliza el software QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Proveedor:&lt;/strong&gt; La empresa desarrolladora de QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Servicios:&lt;/strong&gt; El uso del software, actualizaciones y soporte técnico.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;2. Alcance del servicio&lt;/h5&gt;
+        &lt;p&gt;QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...&lt;/p&gt;
+        &lt;p&gt;El Cliente acepta que el Proveedor no garantiza:&lt;/p&gt;
+        &lt;ol&gt;
+            &lt;li&gt;La continuidad absoluta del servicio sin interrupciones.&lt;/li&gt;
+            &lt;li&gt;La exactitud de los datos ingresados por el usuario.&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;3. Obligaciones del Cliente&lt;/h5&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Conservar en secreto sus credenciales de acceso.&lt;/li&gt;
+            &lt;li&gt;Respaldar periódicamente sus datos.&lt;/li&gt;
+            &lt;li&gt;Notificar al Proveedor de cualquier incidencia o error.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;4. Propiedad Intelectual&lt;/h5&gt;
+        &lt;p&gt;
+            Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+            Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;5. Responsabilidad y Limitaciones&lt;/h5&gt;
+        &lt;p&gt;
+            El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+            del uso o imposibilidad de uso del servicio.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;6. Política de Privacidad&lt;/h5&gt;
+        &lt;p&gt;
+            El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+            &lt;a href="/politica-privacidad" target="_blank"&gt;Política de Privacidad&lt;/a&gt;.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;7. Modificaciones y Actualizaciones&lt;/h5&gt;
+        &lt;p&gt;
+            QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+            al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;8. Vigencia y Terminación&lt;/h5&gt;
+        &lt;p&gt;
+            Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+            o el acuerdo de rescisión mutua.
+        &lt;/p&gt;
+    &lt;/section&gt;
+&lt;/<em>app-dialog-content</em>&gt;
+
+&lt;<em>app-dialog-actions</em> justify="end"&gt;
+    &lt;button <em>appDialogClose</em> appButton variant="primary" color="danger"&gt;Cancel&lt;/button&gt;
+    &lt;button [<em>appDialogClose</em>]="true" appButton variant="tertiary" appearance="outlined"&gt;Aceptar&lt;/button&gt;
+&lt;/<em>app-dialog-actions</em>&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="terminos-dialog.component.ts" *ngIf="openedTabs.isSelected('terminos-dialog.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts4_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts4_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts4_2" (copied)="onCopy('ts4_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts4_2 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;
+    selector: 'app-terminos-dialog',
+    templateUrl: './terminos-dialog.component.html',
+&#125;)
+export class TerminosDialogComponent &#123; &#125;
+</pre>
+                                    </app-tab>
+                                </app-tab-group>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-card>
+
+                    <app-stack padding justify="start">
+                        <button appFab variant="secondary" (click)="openBiggerDialog()">
+                            <app-icon>contract</app-icon>Términos y Condiciones
+                        </button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 5 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Dialog dinámico en pantalla completa</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(5)">
+                        <app-icon>{{ examples.isSelected(5) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(5)" @expandY>
+                        <app-drawer-container height="500">
+                            <app-drawer #drawer opened width="250" borderRight>
+                                <app-list-item variant="menu" active paddingHorizontal="8" borderRadius="0">
+                                    <app-icon appListItemIcon>folder_open</app-icon>
+                                    main
+                                </app-list-item>
+
+                                <app-divider></app-divider>
+
+                                <app-tree [control]="treeControl" [dataSource]="dataSource2" noOverflow>
+                                    <app-tree-node *appTreeNodeDef="let node">
+                                        <label appTreeNodeToggle [node]="node" appStack noGap orientation="horizontal" align="center" [for]="node.name">
+                                            <div appTransform [rotate]="treeControl.isExpanded(node) ? 90 : 0">
+                                                <button appIconButton variant="tertiary" [id]="node.name" *ngIf="treeControl.hasChildren(node)">
+                                                    <app-icon>chevron_right</app-icon>
+                                                </button>
+                                            </div>
+                                            <button appListItem variant="submenu" padding="8"
+                                                [active]="treeControl.isExpanded(node)"
+                                                (click)="!treeControl.hasChildren(node) ? openTab(node.name) : null"
+                                            >
+                                                <app-icon appListItemIcon>{{ treeControl.hasChildren(node) ? treeControl.isExpanded(node) ? 'folder_open' : 'folder' : node.icon }}</app-icon>
+                                                {{ node.name }}
+                                            </button>
+                                        </label>
+                                    </app-tree-node>
+                                </app-tree>
+                            </app-drawer>
+
+                            <app-drawer-content>
+                                <app-tab-group stretchTabs="false" #tabs>
+                                    <app-tab id="main.component.html" *ngIf="openedTabs.isSelected('main.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5" (copied)="onCopy('html5')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html5 appBoxBase height="447">
+&lt;button appFab variant="secondary" <b>(click)="openDialog</b>()"&gt;
+    &lt;app-icon&gt;contract&lt;/app-icon&gt;Términos y Condiciones
+&lt;/button&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="main.component.ts" *ngIf="openedTabs.isSelected('main.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts5' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts5' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5" (copied)="onCopy('ts5')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts5 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl &#125; from '&#64;angular/forms';
+import &#123; <em>DialogService</em> &#125; from '&#64;app/shared/material/dialog';
+import &#123; <b>TerminosDialogComponent</b> &#125; from './terminos-dialog/terminos-dialog.component';
+
+&#64;Component(&#123;...&#125;)
+export class MainComponent &#123;
+
+    nombreCachorro?: string;
+    adoptante = new FormControl('');
+
+    constructor(private dialogService: <em>DialogService</em>) &#123; &#125;
+
+    <b>openDialog</b>() &#123;
+        const dialogRef = this.dialogService.open(<b>TerminosDialogComponent</b>);
+        dialogRef.width = '100%';
+        dialogRef.maxWidth = '100%';
+        dialogRef.<em>closed</em>.subscribe((result: boolean) =&gt; &#123;
+            if (!result) return;
+        &#125;);
+    &#125;
+
+&#125;
+</pre>
+                                    </app-tab>
+                                    
+                                    <app-tab id="terminos-dialog.component.html" *ngIf="openedTabs.isSelected('terminos-dialog.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html5_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html5_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html5_2" (copied)="onCopy('html5_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html5_2 appBoxBase height="447">
+&lt;h3 <em>appDialogTitle</em>&gt;Términos y Condiciones&lt;/h3&gt;
+
+&lt;<em>app-dialog-content</em>&gt;
+    &lt;p&gt;Bienvenido a &lt;strong&gt;QuipuERP&lt;/strong&gt;. Antes de continuar, debes aceptar estos Términos y Condiciones:&lt;/p&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;1. Definiciones&lt;/h5&gt;
+        &lt;p&gt;En estos términos, los siguientes términos tendrán los significados indicados:&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;strong&gt;Cliente:&lt;/strong&gt; La persona física o jurídica que utiliza el software QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Proveedor:&lt;/strong&gt; La empresa desarrolladora de QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Servicios:&lt;/strong&gt; El uso del software, actualizaciones y soporte técnico.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;2. Alcance del servicio&lt;/h5&gt;
+        &lt;p&gt;QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...&lt;/p&gt;
+        &lt;p&gt;El Cliente acepta que el Proveedor no garantiza:&lt;/p&gt;
+        &lt;ol&gt;
+            &lt;li&gt;La continuidad absoluta del servicio sin interrupciones.&lt;/li&gt;
+            &lt;li&gt;La exactitud de los datos ingresados por el usuario.&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;3. Obligaciones del Cliente&lt;/h5&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Conservar en secreto sus credenciales de acceso.&lt;/li&gt;
+            &lt;li&gt;Respaldar periódicamente sus datos.&lt;/li&gt;
+            &lt;li&gt;Notificar al Proveedor de cualquier incidencia o error.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;4. Propiedad Intelectual&lt;/h5&gt;
+        &lt;p&gt;
+            Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+            Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;5. Responsabilidad y Limitaciones&lt;/h5&gt;
+        &lt;p&gt;
+            El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+            del uso o imposibilidad de uso del servicio.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;6. Política de Privacidad&lt;/h5&gt;
+        &lt;p&gt;
+            El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+            &lt;a href="/politica-privacidad" target="_blank"&gt;Política de Privacidad&lt;/a&gt;.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;7. Modificaciones y Actualizaciones&lt;/h5&gt;
+        &lt;p&gt;
+            QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+            al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;8. Vigencia y Terminación&lt;/h5&gt;
+        &lt;p&gt;
+            Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+            o el acuerdo de rescisión mutua.
+        &lt;/p&gt;
+    &lt;/section&gt;
+&lt;/<em>app-dialog-content</em>&gt;
+
+&lt;<em>app-dialog-actions</em> justify="end"&gt;
+    &lt;button <em>appDialogClose</em> appButton variant="primary" color="danger"&gt;Cancel&lt;/button&gt;
+    &lt;button [<em>appDialogClose</em>]="true" appButton variant="tertiary" appearance="outlined"&gt;Aceptar&lt;/button&gt;
+&lt;/<em>app-dialog-actions</em>&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="terminos-dialog.component.ts" *ngIf="openedTabs.isSelected('terminos-dialog.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts5_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts5_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts5_2" (copied)="onCopy('ts5_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts5_2 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+
+&#64;Component(&#123;
+    selector: 'app-terminos-dialog',
+    templateUrl: './terminos-dialog.component.html',
+&#125;)
+export class TerminosDialogComponent &#123; &#125;
+</pre>
+                                    </app-tab>
+                                </app-tab-group>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-card>
+
+                    <app-stack padding justify="start">
+                        <button appFab variant="secondary" (click)="openFullscreenDialog()">
+                            <app-icon>contract</app-icon>Términos y Condiciones
+                        </button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+            
+            <!-- Example 6 -->
+            <app-card appearance="raised">
+                <app-card-header>
+                    <app-card-title>Cerrado manual desde el dialog dinámico</app-card-title>
+                    <app-card-subtitle>Dialog</app-card-subtitle>
+                    <app-spacer></app-spacer>
+                    <button appIconButton appearance="raised" backgroundColor (click)="examples.toggle(6)">
+                        <app-icon>{{ examples.isSelected(6) ? 'code' : 'code_off' }}</app-icon>
+                    </button>
+                </app-card-header>
+                <app-card-content noPadding>
+                    <app-card appearance="outlined" marginHorizontal *ngIf="examples.isSelected(6)" @expandY>
+                        <app-drawer-container height="500">
+                            <app-drawer #drawer opened width="250" borderRight>
+                                <app-list-item variant="menu" active paddingHorizontal="8" borderRadius="0">
+                                    <app-icon appListItemIcon>folder_open</app-icon>
+                                    main
+                                </app-list-item>
+
+                                <app-divider></app-divider>
+
+                                <app-tree [control]="treeControl" [dataSource]="dataSource2" noOverflow>
+                                    <app-tree-node *appTreeNodeDef="let node">
+                                        <label appTreeNodeToggle [node]="node" appStack noGap orientation="horizontal" align="center" [for]="node.name">
+                                            <div appTransform [rotate]="treeControl.isExpanded(node) ? 90 : 0">
+                                                <button appIconButton variant="tertiary" [id]="node.name" *ngIf="treeControl.hasChildren(node)">
+                                                    <app-icon>chevron_right</app-icon>
+                                                </button>
+                                            </div>
+                                            <button appListItem variant="submenu" padding="8"
+                                                [active]="treeControl.isExpanded(node)"
+                                                (click)="!treeControl.hasChildren(node) ? openTab(node.name) : null"
+                                            >
+                                                <app-icon appListItemIcon>{{ treeControl.hasChildren(node) ? treeControl.isExpanded(node) ? 'folder_open' : 'folder' : node.icon }}</app-icon>
+                                                {{ node.name }}
+                                            </button>
+                                        </label>
+                                    </app-tree-node>
+                                </app-tree>
+                            </app-drawer>
+
+                            <app-drawer-content>
+                                <app-tab-group stretchTabs="false" #tabs>
+                                    <app-tab id="main.component.html" *ngIf="openedTabs.isSelected('main.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6" (copied)="onCopy('html6')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html6 appBoxBase height="447">
+&lt;button appFab variant="secondary" <b>(click)="openDialog</b>()"&gt;
+    &lt;app-icon&gt;contract&lt;/app-icon&gt;Términos y Condiciones
+&lt;/button&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="main.component.ts" *ngIf="openedTabs.isSelected('main.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            main.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('main.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts6' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts6' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6" (copied)="onCopy('ts6')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts6 appBoxBase height="447">
+import &#123; Component &#125; from '&#64;angular/core';
+import &#123; FormControl &#125; from '&#64;angular/forms';
+import &#123; <em>DialogService</em> &#125; from '&#64;app/shared/material/dialog';
+import &#123; <b>TerminosDialogComponent</b> &#125; from './terminos-dialog/terminos-dialog.component';
+
+&#64;Component(&#123;...&#125;)
+export class MainComponent &#123;
+
+    nombreCachorro?: string;
+    adoptante = new FormControl('');
+
+    constructor(private dialogService: <em>DialogService</em>) &#123; &#125;
+
+    <b>openDialog</b>() &#123;
+        const dialogRef = this.dialogService.open(<b>TerminosDialogComponent</b>);
+        dialogRef.width = '100%';
+        dialogRef.maxWidth = 800;
+        dialogRef.<em>closed</em>.subscribe((result: boolean) =&gt; &#123;
+            if (!result) return;
+        &#125;);
+    &#125;
+
+&#125;
+</pre>
+                                    </app-tab>
+                                    
+                                    <app-tab id="terminos-dialog.component.html" *ngIf="openedTabs.isSelected('terminos-dialog.component.html')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.html
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.html'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html6_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'html6_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="html6_2" (copied)="onCopy('html6_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #html6_2 appBoxBase height="447">
+&lt;h3 <em>appDialogTitle</em>&gt;Términos y Condiciones&lt;/h3&gt;
+
+&lt;<em>app-dialog-content</em>&gt;
+    &lt;p&gt;Bienvenido a &lt;strong&gt;QuipuERP&lt;/strong&gt;. Antes de continuar, debes aceptar estos Términos y Condiciones:&lt;/p&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;1. Definiciones&lt;/h5&gt;
+        &lt;p&gt;En estos términos, los siguientes términos tendrán los significados indicados:&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;strong&gt;Cliente:&lt;/strong&gt; La persona física o jurídica que utiliza el software QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Proveedor:&lt;/strong&gt; La empresa desarrolladora de QuipuERP.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Servicios:&lt;/strong&gt; El uso del software, actualizaciones y soporte técnico.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;2. Alcance del servicio&lt;/h5&gt;
+        &lt;p&gt;QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...&lt;/p&gt;
+        &lt;p&gt;El Cliente acepta que el Proveedor no garantiza:&lt;/p&gt;
+        &lt;ol&gt;
+            &lt;li&gt;La continuidad absoluta del servicio sin interrupciones.&lt;/li&gt;
+            &lt;li&gt;La exactitud de los datos ingresados por el usuario.&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;3. Obligaciones del Cliente&lt;/h5&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Conservar en secreto sus credenciales de acceso.&lt;/li&gt;
+            &lt;li&gt;Respaldar periódicamente sus datos.&lt;/li&gt;
+            &lt;li&gt;Notificar al Proveedor de cualquier incidencia o error.&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;4. Propiedad Intelectual&lt;/h5&gt;
+        &lt;p&gt;
+            Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+            Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;5. Responsabilidad y Limitaciones&lt;/h5&gt;
+        &lt;p&gt;
+            El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+            del uso o imposibilidad de uso del servicio.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;6. Política de Privacidad&lt;/h5&gt;
+        &lt;p&gt;
+            El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+            &lt;a href="/politica-privacidad" target="_blank"&gt;Política de Privacidad&lt;/a&gt;.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;7. Modificaciones y Actualizaciones&lt;/h5&gt;
+        &lt;p&gt;
+            QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+            al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+        &lt;h5 appTextBase bold&gt;8. Vigencia y Terminación&lt;/h5&gt;
+        &lt;p&gt;
+            Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+            o el acuerdo de rescisión mutua.
+        &lt;/p&gt;
+    &lt;/section&gt;
+&lt;/<em>app-dialog-content</em>&gt;
+
+&lt;<em>app-dialog-actions</em> justify="end"&gt;
+    &lt;button <em>appDialogClose</em> appButton variant="primary" color="danger"&gt;Cancel&lt;/button&gt;
+    &lt;button appButton variant="tertiary" appearance="outlined" (click)="realizarTask(true)"&gt;Aceptar&lt;/button&gt;
+&lt;/<em>app-dialog-actions</em>&gt;
+</pre>
+                                    </app-tab>
+                            
+                                    <app-tab id="terminos-dialog.component.ts" *ngIf="openedTabs.isSelected('terminos-dialog.component.ts')">
+                                        <app-tab-label *appTabLabelDef>
+                                            terminos-dialog.component.ts
+                                            <button appIconButton color="danger" size="small" (click)="openedTabs.deselect('terminos-dialog.component.ts'); tabs.selectTab(0)"><app-icon>close</app-icon></button>
+                                        </app-tab-label>
+
+                                        <div appPosition="absolute" top right>
+                                            <button [@fadeSwitch]="'placeholder'" appIconButton><app-icon>content_copy</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts6_2' ? 'in' : 'out'" appIconButton variant="quaternary" color="main"><app-icon>check</app-icon></button>
+                                            <button [@fadeSwitch]="copied === 'ts6_2' ? 'out' : 'in'" appIconButton [appCopyToClipboard]="ts6_2" (copied)="onCopy('ts6_2')"><app-icon>content_copy</app-icon></button>
+                                        </div>
+<pre ngNonBindable #ts6_2 appBoxBase height="447">
+import &#123; Component, Optional &#125; from '&#64;angular/core';
+import &#123; AppDialog &#125; from '&#64;app/shared/material/dialog';
+
+&#64;Component(&#123;
+    selector: 'app-terminos-dialog',
+    templateUrl: './terminos-dialog.component.html',
+&#125;)
+export class TerminosDialogComponent &#123;
+    constructor(&#64;Optional() private dialog: <em>AppDialog</em>&lt;boolean&gt;) &#123; &#125;
+
+    realizarTask(dato: boolean) &#123;
+        // Algún Task
+        // ...
+        this.dialog.close(dato);
+    &#125;
+&#125;
+</pre>
+                                    </app-tab>
+                                </app-tab-group>
+                            </app-drawer-content>
+                        </app-drawer-container>
+                    </app-card>
+
+                    <app-stack padding justify="start">
+                        <button appFab variant="secondary" (click)="openBiggerDialog()">
+                            <app-icon>contract</app-icon>Términos y Condiciones
+                        </button>
+                    </app-stack>
+                </app-card-content>
+            </app-card>
+        </app-stack>
+    </app-tab>
+</app-tab-group>
+
+<app-dialog #simpleDialog>
+    <h3 appDialogTitle>Título</h3>
+    <app-dialog-content>
+        Dialog content.
+    </app-dialog-content>
+    <app-dialog-actions justify="end">
+        <button appButton appDialogClose variant="primary" color="danger">Cancel</button>
+    </app-dialog-actions>
+</app-dialog>
+
+<app-dialog #terminos>
+    <h3 appDialogTitle>Términos y Condiciones</h3>
+
+    <app-dialog-content>
+        <p>Bienvenido a <strong>QuipuERP</strong>. Antes de continuar, debes aceptar estos Términos y Condiciones:</p>
+
+        <section>
+            <h5 appTextBase bold>1. Definiciones</h5>
+            <p>En estos términos, los siguientes términos tendrán los significados indicados:</p>
+            <ul>
+                <li><strong>Cliente:</strong> La persona física o jurídica que utiliza el software QuipuERP.</li>
+                <li><strong>Proveedor:</strong> La empresa desarrolladora de QuipuERP.</li>
+                <li><strong>Servicios:</strong> El uso del software, actualizaciones y soporte técnico.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>2. Alcance del servicio</h5>
+            <p>QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...</p>
+            <p>El Cliente acepta que el Proveedor no garantiza:</p>
+            <ol>
+                <li>La continuidad absoluta del servicio sin interrupciones.</li>
+                <li>La exactitud de los datos ingresados por el usuario.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>3. Obligaciones del Cliente</h5>
+            <ul>
+                <li>Conservar en secreto sus credenciales de acceso.</li>
+                <li>Respaldar periódicamente sus datos.</li>
+                <li>Notificar al Proveedor de cualquier incidencia o error.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>4. Propiedad Intelectual</h5>
+            <p>
+                Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+                Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+            </p>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>5. Responsabilidad y Limitaciones</h5>
+            <p>
+                El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+                del uso o imposibilidad de uso del servicio.
+            </p>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>6. Política de Privacidad</h5>
+            <p>
+                El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+                <a href="/politica-privacidad" target="_blank">Política de Privacidad</a>.
+            </p>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>7. Modificaciones y Actualizaciones</h5>
+            <p>
+                QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+                al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+            </p>
+        </section>
+
+        <section>
+            <h5 appTextBase bold>8. Vigencia y Terminación</h5>
+            <p>
+                Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+                o el acuerdo de rescisión mutua.
+            </p>
+        </section>
+    </app-dialog-content>
+
+    <app-dialog-actions justify="end">
+        <button appButton appDialogClose variant="primary" color="danger">Cancel</button>
+        <button appButton [appDialogClose]="true" variant="tertiary" appearance="outlined">Aceptar</button>
+    </app-dialog-actions>
+</app-dialog>

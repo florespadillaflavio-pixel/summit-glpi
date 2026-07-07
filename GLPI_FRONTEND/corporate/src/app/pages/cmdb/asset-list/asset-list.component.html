@@ -1,0 +1,299 @@
+<div class="cmdb-page">
+  <section class="cmdb-hero">
+    <div>
+      <span class="tickets-eyebrow">
+        <lucide-angular name="package" [size]="15"></lucide-angular>
+        Inventario TI
+      </span>
+      <h1 class="sm-page-title">CMDB / Activos</h1>
+      <p class="sm-page-sub">Identifica equipos, relaciónalos con tickets y mantén contexto visual para soporte.</p>
+    </div>
+    <div class="sm-page-actions">
+      <button class="btn btn-secondary btn-md" (click)="onImport()">
+        <lucide-angular name="upload" class="btn-icon"></lucide-angular>
+        <span>Importar</span>
+      </button>
+      <button class="btn btn-primary btn-md" (click)="onCreateAsset()">
+        <lucide-angular name="plus" class="btn-icon"></lucide-angular>
+        <span>Nuevo Activo</span>
+      </button>
+    </div>
+  </section>
+
+  @if (loading()) {
+    <div class="asset-skeleton-grid">
+      <span class="sm-skeleton asset-sk"></span>
+      <span class="sm-skeleton asset-sk"></span>
+      <span class="sm-skeleton asset-sk"></span>
+    </div>
+  } @else {
+    <section class="asset-kpi-grid">
+      <div class="asset-kpi">
+        <span class="asset-kpi-icon is-navy"><lucide-angular name="database" [size]="18"></lucide-angular></span>
+        <strong>{{ totalAssets() }}</strong>
+        <span>Total activos</span>
+      </div>
+      <div class="asset-kpi">
+        <span class="asset-kpi-icon is-teal"><lucide-angular name="user-check" [size]="18"></lucide-angular></span>
+        <strong>{{ assignedAssets() }}</strong>
+        <span>Asignados</span>
+      </div>
+      <div class="asset-kpi">
+        <span class="asset-kpi-icon is-success"><lucide-angular name="check-circle" [size]="18"></lucide-angular></span>
+        <strong>{{ availableAssets() }}</strong>
+        <span>Disponibles</span>
+      </div>
+      <div class="asset-kpi">
+        <span class="asset-kpi-icon is-warning"><lucide-angular name="image" [size]="18"></lucide-angular></span>
+        <strong>{{ withPhotoAssets() }}</strong>
+        <span>Con foto</span>
+      </div>
+    </section>
+
+    <div class="sm-card asset-filter-card">
+      <div class="asset-filter-head">
+        <div>
+          <strong>Inventario</strong>
+          <span>{{ filteredAssets().length }} activos con los filtros actuales</span>
+        </div>
+      </div>
+      <div class="asset-filters-row">
+        <div class="sm-input-wrap asset-search">
+          <lucide-angular name="search" class="sm-input-icon left" [size]="18"></lucide-angular>
+          <input
+            type="text"
+            class="sm-input with-icon-left"
+            placeholder="Buscar por código, serie o tipo..."
+            [value]="searchQuery()"
+            (input)="onSearch($event)">
+        </div>
+        <div class="asset-filter-type">
+          <select class="sm-input filter-select" [value]="filterType()" (change)="onFilterType($event)">
+            <option value="">Todos los tipos</option>
+            @for (t of assetTypes(); track t.id) {
+              <option [value]="t.code">{{ t.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="asset-filter-status">
+          <select class="sm-input filter-select" [value]="filterStatus()" (change)="onFilterStatus($event)">
+            <option value="">Cualquier estado</option>
+            @for (st of assetStatuses(); track st.id) {
+              <option [value]="st.code">{{ st.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="assets-grid">
+      @for (asset of pagedAssets(); track asset.id) {
+        <article class="sm-card asset-card" [class.is-inactive]="!asset.isActive">
+          <div class="asset-visual" (click)="onViewDetail(asset.id)">
+            @if (asset.photoUrl) {
+              <img [src]="asset.photoUrl" [alt]="asset.assetTag">
+            } @else {
+              <div class="asset-visual-placeholder">
+                <lucide-angular [name]="getAssetIcon(asset.typeCode)" [size]="30"></lucide-angular>
+              </div>
+            }
+            <span class="asset-status-chip" [style.color]="asset.statusColor" [style.background]="asset.statusColor + '18'">
+              {{ asset.statusName || 'Sin estado' }}
+            </span>
+          </div>
+
+          <div class="asset-card-header">
+            <div class="asset-tag-box">
+              <span class="asset-tag">{{ asset.assetTag }}</span>
+            </div>
+            <div class="asset-actions">
+              <div class="role-actions-trigger" [class.active]="openMenuId() === asset.id" (click)="toggleAssetMenu(asset.id, $event)">
+                <lucide-angular name="more-vertical" [size]="18"></lucide-angular>
+                @if (openMenuId() === asset.id) {
+                  <div class="role-context-menu">
+                    <button (click)="onEditAsset(asset); openMenuId.set('')">
+                      <lucide-angular name="pencil" [size]="14"></lucide-angular>
+                      <span>Editar</span>
+                    </button>
+                    <button (click)="onViewHistory(asset); openMenuId.set('')">
+                      <lucide-angular name="clock" [size]="14"></lucide-angular>
+                      <span>Historial</span>
+                    </button>
+                    <button class="is-danger" (click)="onConfirmDelete(asset); openMenuId.set('')">
+                      <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+                      <span>Eliminar</span>
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="asset-card-body" (click)="onViewDetail(asset.id)">
+            <div class="asset-main-info">
+              <div>
+                <h3 class="asset-type-name">{{ asset.typeName || 'Activo TI' }}</h3>
+                <p class="asset-serial">SN: {{ asset.serialNumber || '---' }}</p>
+              </div>
+            </div>
+            <div class="asset-meta">
+              <div class="meta-item">
+                <span class="meta-label">Cliente</span>
+                <span class="meta-value">{{ asset.companyName || 'Sin cliente' }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Asignado a</span>
+                <span class="meta-value">{{ asset.assignedToName || 'Sin asignar' }}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Ubicación</span>
+                <span class="meta-value">{{ asset.locationName || 'Sin ubicación' }}</span>
+              </div>
+            </div>
+          </button>
+
+          <div class="asset-card-footer">
+            <span class="asset-date">Registrado: {{ asset.createdAt | date:'dd/MM/yyyy' }}</span>
+            <lucide-angular name="chevron-right" [size]="14" class="footer-arrow"></lucide-angular>
+          </div>
+        </article>
+      } @empty {
+        <div class="sm-empty-state full-width asset-empty">
+          <div class="empty-icon-box">
+            <lucide-angular name="package" [size]="48"></lucide-angular>
+          </div>
+          <h3>Inventario vacío</h3>
+          <p>No se encontraron activos que coincidan con los criterios de búsqueda.</p>
+        </div>
+      }
+    </div>
+
+    <div class="sm-card list-pagination-card">
+      <app-pagination
+        [totalItems]="filteredAssets().length"
+        [page]="page()"
+        [pageSize]="pageSize()"
+        [pageSizeOptions]="[6, 12, 24, 48]"
+        (setPage)="setPage($event)"
+        (setPageSize)="setPageSize($event)">
+      </app-pagination>
+    </div>
+  }
+</div>
+
+@if (showDeleteConfirm()) {
+  <app-modal
+    [title]="'Eliminar Activo'"
+    [subtitle]="'Esta acción requiere confirmación'"
+    [icon]="'alert-triangle'"
+    [dangerIcon]="true"
+    (close)="cancelDelete()">
+    <p style="margin-bottom: var(--s-3); color: var(--ink-700);">
+      ¿Estás seguro de que deseas eliminar permanentemente el activo <span class="role-tag">{{ assetToDelete()?.assetTag }}</span>?
+    </p>
+    <div class="sm-alert warning">
+      <lucide-angular name="info" [size]="16" style="flex-shrink: 0;"></lucide-angular>
+      <span>Se perderá el vínculo con los tickets y mantenimientos asociados.</span>
+    </div>
+
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <button class="btn btn-ghost" (click)="cancelDelete()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>No, cancelar</span>
+      </button>
+      <button class="btn btn-danger" (click)="executeDelete()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="trash-2" [size]="16"></lucide-angular>
+        <span>Sí, eliminar ahora</span>
+      </button>
+    </div>
+  </app-modal>
+}
+
+@if (showAssetForm()) {
+  <app-asset-form
+    [asset]="selectedAsset()"
+    [assetTypes]="assetTypes()"
+    [assetStatuses]="assetStatuses()"
+    [companies]="companies()"
+    [isInternal]="isInternal()"
+    (close)="onCloseForm()"
+    (saved)="onAssetSaved()">
+  </app-asset-form>
+}
+
+@if (selectedDetail(); as asset) {
+  <app-modal
+    [title]="asset.assetTag"
+    [subtitle]="asset.assetTypeName || 'Ficha de activo'"
+    [icon]="'package'"
+    [loading]="detailLoading()"
+    [maxWidth]="760"
+    (close)="onCloseDetail()">
+    <section class="asset-detail-modal">
+      <div class="asset-detail-media">
+        @if (asset.photoUrl) {
+          <img [src]="asset.photoUrl" [alt]="asset.assetTag">
+        } @else {
+          <div class="asset-detail-placeholder">
+            <lucide-angular name="package" [size]="42"></lucide-angular>
+            <span>Sin foto registrada</span>
+          </div>
+        }
+      </div>
+
+      <div class="asset-detail-info">
+        <div class="asset-detail-title">
+          <span class="asset-tag">{{ asset.assetTag }}</span>
+          <span class="asset-status-chip static" [style.color]="asset.statusColor" [style.background]="asset.statusColor + '18'">
+            {{ asset.statusName || 'Sin estado' }}
+          </span>
+        </div>
+
+        <div class="asset-detail-grid">
+          <div>
+            <small>Cliente</small>
+            <strong>{{ asset.companyName || 'Sin cliente' }}</strong>
+          </div>
+          <div>
+            <small>Tipo</small>
+            <strong>{{ asset.assetTypeName || 'Activo TI' }}</strong>
+          </div>
+          <div>
+            <small>Serie</small>
+            <strong>{{ asset.serialNumber || '---' }}</strong>
+          </div>
+          <div>
+            <small>Asignado a</small>
+            <strong>{{ asset.assignedToName || 'Sin asignar' }}</strong>
+          </div>
+          <div>
+            <small>Ubicación</small>
+            <strong>{{ asset.locationName || 'Sin ubicación' }}</strong>
+          </div>
+          <div>
+            <small>Compra</small>
+            <strong>{{ asset.purchaseDate ? (asset.purchaseDate | date:'dd/MM/yyyy') : 'No registrada' }}</strong>
+          </div>
+          <div>
+            <small>Garantía</small>
+            <strong>{{ asset.warrantyExpiresAt ? (asset.warrantyExpiresAt | date:'dd/MM/yyyy') : 'No registrada' }}</strong>
+          </div>
+        </div>
+
+        @if (asset.notes) {
+          <div class="asset-detail-notes">
+            <small>Notas</small>
+            <p>{{ asset.notes }}</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <div footer class="asset-detail-actions">
+      <button class="btn btn-secondary btn-md" (click)="onCloseDetail()">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>Cerrar</span>
+      </button>
+    </div>
+  </app-modal>
+}

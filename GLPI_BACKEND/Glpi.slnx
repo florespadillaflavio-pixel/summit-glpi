@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Glpi.API/Glpi.API.csproj" />
+  <Project Path="Glpi.Data/Glpi.Data.csproj" />
+  <Project Path="Glpi.Entities/Glpi.Entities.csproj" />
+  <Project Path="Glpi.Framework/Glpi.Framework.csproj" />
+  <Project Path="Glpi.Logic/Glpi.Logic.csproj" />
+</Solution>

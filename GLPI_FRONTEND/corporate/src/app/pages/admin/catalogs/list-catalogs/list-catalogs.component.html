@@ -1,0 +1,192 @@
+<div class="catalogs-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Configuración de Catálogos</h1>
+      <p class="sm-page-sub">Gestión de maestros, estados y tipologías del sistema</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="full-page-loading">
+      <div class="sm-loading-container">
+        <lucide-angular name="loader" class="spinner" [size]="48"></lucide-angular>
+        <p>Sincronizando diccionarios del sistema...</p>
+      </div>
+    </div>
+  } @else {
+    <div class="sm-split-layout">
+      <!-- Columna izquierda: Grupos -->
+      <div class="sm-side-col">
+        <div class="sm-side-list">
+          @for (group of pagedGroups(); track group.code) {
+            <div 
+              class="sm-side-item" 
+              [class.active]="selectedGroupCode() === group.code"
+              (click)="onSelectGroup(group.code)"
+            >
+              <div class="item-header">
+                <span class="item-title">{{ group.name }}</span>
+                <lucide-angular name="chevron-right" [size]="14" class="item-arrow"></lucide-angular>
+              </div>
+              <div class="item-meta">{{ group.moduleName }}</div>
+            </div>
+          }
+        </div>
+        <div class="sm-card list-pagination-card role-pagination-card">
+          <app-pagination
+            [totalItems]="filteredGroups().length"
+            [page]="groupPage()"
+            [pageSize]="groupPageSize()"
+            [pageSizeOptions]="[8, 16, 32]"
+            (setPage)="setGroupPage($event)"
+            (setPageSize)="setGroupPageSize($event)">
+          </app-pagination>
+        </div>
+      </div>
+
+      <!-- Detalle de Items (Columna derecha) -->
+      <div class="sm-main-col">
+        @if (selectedGroup()) {
+          <div class="sm-main-card">
+            <div class="sm-main-header">
+              <div class="header-flex">
+                <div>
+                  <h2 class="header-title">{{ selectedGroup()!.name }}</h2>
+                  <p class="header-subtitle">Gestionando valores para: <strong>{{ activeModule() }}</strong></p>
+                </div>
+                <button class="btn btn-primary btn-sm" (click)="onCreateItem()">
+                  <lucide-angular name="plus" class="btn-icon"></lucide-angular>
+                  <span>Nuevo Item</span>
+                </button>
+              </div>
+
+              <!-- Selector de Módulos (Tabs) -->
+              <div class="sm-tab-bar">
+                @for (mod of uniqueModules(); track mod) {
+                  <button 
+                    class="sm-tab-btn" 
+                    [class.active]="activeModule() === mod"
+                    (click)="onSelectModule(mod)"
+                  >
+                    <lucide-angular [name]="getModuleIcon(mod)" [size]="14"></lucide-angular>
+                    <span>{{ mod }}</span>
+                  </button>
+                }
+              </div>
+            </div>
+
+            <div class="sm-content-area">
+              @if (itemsLoading()) {
+                <div class="sm-loading-container" style="height: 200px;">
+                  <lucide-angular name="loader" class="spinner" [size]="32"></lucide-angular>
+                  <p>Cargando registros...</p>
+                </div>
+              } @else {
+                <div class="sm-item-grid">
+                  @for (item of pagedItems(); track item.id) {
+                    <div class="sm-item-row" [class.is-system]="item.isSystem">
+                      <div class="sm-item-visual">
+                        <div class="sm-item-dot" [style.background]="item.color"></div>
+                        <lucide-angular [name]="item.icon || 'circle'" [size]="18"></lucide-angular>
+                      </div>
+                      <div class="sm-item-info">
+                        <span class="name">{{ item.name }}</span>
+                        <code class="code">{{ item.code }}</code>
+                      </div>
+                      <div class="sm-item-badges">
+                        @if (item.isSystem) {
+                          <span class="badge is-navy badge-xs">Sistema</span>
+                        } @else {
+                          <span class="badge is-teal badge-xs">Personalizado</span>
+                        }
+                        
+                        @if (item.isActive) {
+                          <span class="badge is-success badge-xs">Activo</span>
+                        } @else {
+                          <span class="badge is-danger badge-xs">Inactivo</span>
+                        }
+                      </div>
+                      <div class="sm-item-actions">
+                        <button class="sm-action-btn" (click)="onEditItem(item)" title="Editar">
+                          <lucide-angular name="pencil" [size]="14"></lucide-angular>
+                        </button>
+                        @if (!item.isSystem) {
+                          <button class="sm-action-btn is-danger" (click)="onDeleteItem(item)" title="Eliminar">
+                            <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+                          </button>
+                        }
+                      </div>
+                    </div>
+                  } @empty {
+                    <div class="sm-empty-state">
+                      <p>Este catálogo no tiene valores definidos.</p>
+                    </div>
+                  }
+                </div>
+                <div class="list-pagination-card">
+                  <app-pagination
+                    [totalItems]="selectedItems().length"
+                    [page]="itemPage()"
+                    [pageSize]="itemPageSize()"
+                    [pageSizeOptions]="[10, 20, 50]"
+                    (setPage)="setItemPage($event)"
+                    (setPageSize)="setItemPageSize($event)">
+                  </app-pagination>
+                </div>
+              }
+            </div>
+          </div>
+        } @else {
+          <div class="sm-empty-state sm-main-card" style="justify-content: center; gap: 16px;">
+            <div class="empty-icon-box">
+              <lucide-angular name="database" [size]="48"></lucide-angular>
+            </div>
+            <h3 class="header-title">Selección Requerida</h3>
+            <p class="header-subtitle">Elige un grupo de la izquierda para gestionar sus valores maestros.</p>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Modal confirmación eliminación -->
+@if (showDeleteConfirm()) {
+  <app-modal
+    [title]="'Eliminar Item'"
+    [subtitle]="'Esta acción no se puede deshacer'"
+    [icon]="'alert-triangle'"
+    [dangerIcon]="true"
+    (close)="cancelDeleteItem()"
+  >
+    <p style="margin-bottom: var(--s-3); color: var(--ink-700);">
+      ¿Estás seguro de que deseas eliminar permanentemente <strong>"{{ itemToDelete()?.name }}"</strong>?
+    </p>
+    <div class="sm-alert warning">
+      <lucide-angular name="info" [size]="16" style="flex-shrink: 0;"></lucide-angular>
+      <span>Asegúrate de que no existan registros vinculados a este valor antes de proceder.</span>
+    </div>
+
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <button class="btn btn-ghost" (click)="cancelDeleteItem()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="x" [size]="16"></lucide-angular>
+        <span>Cancelar</span>
+      </button>
+      <button class="btn btn-danger" (click)="executeDeleteItem()" style="display: flex; align-items: center; gap: 8px;">
+        <lucide-angular name="trash-2" [size]="16"></lucide-angular>
+        <span>Sí, eliminar ahora</span>
+      </button>
+    </div>
+  </app-modal>
+}
+
+<!-- Formulario (Modal) -->
+@if (showCatalogForm()) {
+  <app-catalog-form
+    [item]="editingItem()"
+    [groupCode]="selectedGroupCode()"
+    (close)="onCloseForm()"
+    (saved)="onItemSaved()">
+  </app-catalog-form>
+}

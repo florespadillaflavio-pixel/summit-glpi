@@ -1,0 +1,79 @@
+<h3 appDialogTitle>Términos y Condiciones</h3>
+
+<app-dialog-content>
+    <p>Bienvenido a <strong>QuipuERP</strong>. Antes de continuar, debes aceptar estos Términos y Condiciones:</p>
+
+    <section>
+        <h5 appTextBase bold>1. Definiciones</h5>
+        <p>En estos términos, los siguientes términos tendrán los significados indicados:</p>
+        <ul>
+            <li><strong>Cliente:</strong> La persona física o jurídica que utiliza el software QuipuERP.</li>
+            <li><strong>Proveedor:</strong> La empresa desarrolladora de QuipuERP.</li>
+            <li><strong>Servicios:</strong> El uso del software, actualizaciones y soporte técnico.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>2. Alcance del servicio</h5>
+        <p>QuipuERP proporciona funcionalidades de gestión financiera, inventarios, nómina y CRM...</p>
+        <p>El Cliente acepta que el Proveedor no garantiza:</p>
+        <ol>
+            <li>La continuidad absoluta del servicio sin interrupciones.</li>
+            <li>La exactitud de los datos ingresados por el usuario.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>3. Obligaciones del Cliente</h5>
+        <ul>
+            <li>Conservar en secreto sus credenciales de acceso.</li>
+            <li>Respaldar periódicamente sus datos.</li>
+            <li>Notificar al Proveedor de cualquier incidencia o error.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>4. Propiedad Intelectual</h5>
+        <p>
+            Todos los derechos de propiedad intelectual sobre el software y la documentación corresponden al Proveedor.
+            Queda terminantemente prohibida la reproducción, distribución o ingeniería inversa sin autorización expresa por escrito.
+        </p>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>5. Responsabilidad y Limitaciones</h5>
+        <p>
+            El Proveedor no será responsable por daños indirectos, lucro cesante o pérdida de datos que pudieran derivarse
+            del uso o imposibilidad de uso del servicio.
+        </p>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>6. Política de Privacidad</h5>
+        <p>
+            El tratamiento de datos personales se realiza de conformidad con la legislación vigente y nuestra
+            <a href="/politica-privacidad" target="_blank">Política de Privacidad</a>.
+        </p>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>7. Modificaciones y Actualizaciones</h5>
+        <p>
+            QuipuERP puede actualizar estos Términos en cualquier momento. Las nuevas versiones serán comunicadas
+            al Cliente, quien tendrá la opción de aceptar o rechazar dichas modificaciones.
+        </p>
+    </section>
+
+    <section>
+        <h5 appTextBase bold>8. Vigencia y Terminación</h5>
+        <p>
+            Estos términos entran en vigor desde la aceptación y permanecen vigentes hasta la cancelación del servicio
+            o el acuerdo de rescisión mutua.
+        </p>
+    </section>
+</app-dialog-content>
+
+<app-dialog-actions justify="end">
+    <button appButton appDialogClose variant="primary" color="danger">Cancel</button>
+    <button appButton [appDialogClose]="true" variant="tertiary" appearance="outlined">Aceptar</button>
+</app-dialog-actions>

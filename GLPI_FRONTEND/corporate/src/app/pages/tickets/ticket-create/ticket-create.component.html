@@ -1,0 +1,195 @@
+<div class="ticket-create-page">
+  <!-- Page Header -->
+  <div class="ticket-create-hero">
+    <div class="ticket-create-title">
+      <span class="tickets-eyebrow">
+        <lucide-angular name="plus-circle" [size]="15"></lucide-angular>
+        Nuevo requerimiento
+      </span>
+      <h1 class="sm-page-title">Crear Nuevo Ticket</h1>
+      <p class="sm-page-sub">Registra una solicitud clara para que soporte pueda priorizar, asignar y responder sin perder contexto.</p>
+    </div>
+    <button class="btn btn-ghost btn-md" (click)="onGoBack()">
+      <lucide-angular name="undo-2" [size]="18"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+  </div>
+
+  @if (loadingMetadata()) {
+    <div class="full-page-loading">
+      <div class="sm-loading-container">
+        <lucide-angular name="loader" class="spinner" [size]="48"></lucide-angular>
+        <p>Preparando formulario de asistencia...</p>
+      </div>
+    </div>
+  } @else {
+    <div class="create-layout">
+      <!-- Formulario Principal -->
+      <div class="form-main-card">
+        <div class="card-header">
+          <div class="header-icon">
+            <lucide-angular name="file-text" [size]="20"></lucide-angular>
+          </div>
+          <div>
+            <h2 class="card-title">Información del Ticket</h2>
+            <p class="card-subtitle">Los campos con validación evitan tickets incompletos y reducen reprocesos.</p>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="create-progress">
+            <span class="create-step active"><b>1</b> Descripción</span>
+            <span class="create-step"><b>2</b> Clasificación</span>
+            <span class="create-step"><b>3</b> Confirmación</span>
+          </div>
+          <form [formGroup]="ticketForm" class="ticket-form">
+            <!-- Asunto -->
+            <div class="sm-field full-width">
+              <label class="sm-label">Asunto de la Solicitud</label>
+              <input class="sm-input input-lg" formControlName="subject" 
+                     placeholder="Ej: Problemas con el acceso al ERP"
+                     [class.input-error]="isFieldInvalid('subject')">
+              @if (getFieldError('subject', 'Asunto')) {
+                <span class="field-error">{{ getFieldError('subject', 'Asunto') }}</span>
+              }
+            </div>
+
+            <!-- Solicitante (Solo para internos) -->
+            @if (isInternal()) {
+              <div class="sm-field full-width">
+                <label class="sm-label">Solicitante (Abrir en nombre de...)</label>
+                <select class="sm-input" formControlName="requesterId" [class.input-error]="isFieldInvalid('requesterId')">
+                  <option [value]="null" disabled>Seleccione al usuario solicitante</option>
+                  @for (u of users(); track u.id) {
+                    <option [value]="u.id">{{ u.fullName }} · {{ u.company }} ({{ u.username }})</option>
+                  }
+                </select>
+                @if (isFieldInvalid('requesterId')) {
+                  <span class="field-error">Debe seleccionar un solicitante para el ticket.</span>
+                }
+              </div>
+            }
+
+            <!-- Descripción -->
+            <div class="sm-field full-width">
+              <label class="sm-label">Descripción Detallada</label>
+              <textarea class="sm-input role-textarea" formControlName="description" 
+                        placeholder="Proporcione todos los detalles posibles..." rows="5"
+                        [class.input-error]="isFieldInvalid('description')"></textarea>
+              @if (getFieldError('description', 'Descripción')) {
+                <span class="field-error">{{ getFieldError('description', 'Descripción') }}</span>
+              }
+            </div>
+
+            <!-- Categorización -->
+            <div class="form-row">
+              <div class="sm-field" [class.full-width]="!isInternal()">
+                <label class="sm-label">Tipo</label>
+                <select class="sm-input" formControlName="typeItemId" [class.input-error]="isFieldInvalid('typeItemId')">
+                  <option value="" disabled>Seleccione tipo</option>
+                  @for (t of ticketTypes(); track t.id) {
+                    <option [value]="t.id">{{ t.name }}</option>
+                  }
+                </select>
+                @if (getFieldError('typeItemId', 'Tipo')) {
+                  <span class="field-error">{{ getFieldError('typeItemId', 'Tipo') }}</span>
+                }
+              </div>
+
+              @if (isInternal()) {
+                <div class="sm-field">
+                  <label class="sm-label">Prioridad Sugerida</label>
+                  <select class="sm-input" formControlName="priorityItemId" [class.input-error]="isFieldInvalid('priorityItemId')">
+                    @for (p of priorities(); track p.id) {
+                      <option [value]="p.id">{{ p.name }}</option>
+                    }
+                  </select>
+                  @if (getFieldError('priorityItemId', 'Prioridad')) {
+                    <span class="field-error">{{ getFieldError('priorityItemId', 'Prioridad') }}</span>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Activo Vinculado -->
+            <div class="sm-field full-width">
+              <label class="sm-label">Activo Relacionado (Opcional)</label>
+              <select class="sm-input" formControlName="assetId">
+                <option value="">Sin activo vinculado</option>
+                @for (a of assets(); track a.id) {
+                  <option [value]="a.id">{{ a.assetTag }} - {{ a.typeName }}</option>
+                }
+              </select>
+              <span class="field-help">El activo pertenece al cliente del ticket y ayuda a soporte a identificar el equipo relacionado.</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn btn-ghost" (click)="onGoBack()">
+            <lucide-angular name="x" [size]="16"></lucide-angular>
+            <span>Cancelar</span>
+          </button>
+          <button class="btn btn-secondary btn-lg" (click)="onAnalyzeWithAI()" [disabled]="analyzing() || submitting()">
+            <lucide-angular [name]="analyzing() ? 'loader' : 'zap'" [class.spinner]="analyzing()" [size]="18"></lucide-angular>
+            <span>{{ analyzing() ? 'Analizando...' : 'Analizar con IA' }}</span>
+          </button>
+          <button class="btn btn-primary btn-lg" (click)="onSave()" [disabled]="ticketForm.invalid || submitting()">
+            <lucide-angular [name]="submitting() ? 'loader' : 'plus-circle'" [class.spinner]="submitting()" [size]="18"></lucide-angular>
+            <span>{{ submitting() ? 'Creando Ticket...' : 'Abrir Ticket de Soporte' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar Informativo -->
+      <div class="create-sidebar">
+        <div class="info-card process-card">
+          <div class="info-header">
+            <lucide-angular name="clipboard-list" [size]="18"></lucide-angular>
+            <span>Flujo de atención</span>
+          </div>
+          <div class="process-list">
+            <div><b>Abierto</b><span>El caso entra a la bandeja.</span></div>
+            <div><b>Asignado</b><span>Un técnico toma responsabilidad.</span></div>
+            <div><b>Resuelto</b><span>Soporte registra la solución.</span></div>
+            <div><b>Cerrado</b><span>El caso queda solo lectura.</span></div>
+          </div>
+        </div>
+        @if (aiResult()) {
+          <div class="info-card ai-suggestion-card">
+            <div class="info-header">
+              <lucide-angular name="zap" [size]="18"></lucide-angular>
+              <span>Sugerencia IA</span>
+            </div>
+            <p class="ai-summary">{{ aiResult()?.summary || 'La IA analizó el caso y generó una recomendación para soporte.' }}</p>
+            <div class="ai-tags">
+              @if (aiResult()?.category) {
+                <span class="badge is-info">{{ aiResult()?.category }}</span>
+              }
+              @if (aiResult()?.priority) {
+                <span class="badge is-warning">{{ aiResult()?.priority }}</span>
+              }
+            </div>
+            @if (aiResult()?.action) {
+              <div class="ai-next-step">
+                <lucide-angular name="check-circle" [size]="14"></lucide-angular>
+                <span>{{ aiResult()?.action }}</span>
+              </div>
+            }
+          </div>
+        }
+        <div class="info-card">
+          <div class="info-header">
+            <lucide-angular name="info" [size]="18"></lucide-angular>
+            <span>Recomendaciones</span>
+          </div>
+          <ul class="info-list">
+            <li>Sea específico en el asunto para una respuesta más rápida.</li>
+            <li>Adjunte capturas de pantalla si es posible (en el siguiente paso).</li>
+            <li>Verifique si su equipo está correctamente asignado en el inventario.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,16 @@
+<h3 appDialogTitle>Hola{{ nombreAdoptante ? ', ' + nombreAdoptante : '' }}</h3>
+<app-dialog-content>
+    <app-form-field>
+        <app-label>¿Cómo vas a llamar a tu cachorro?</app-label>
+        <input appInput type="text" [formControl]="cachorro">
+    </app-form-field>
+</app-dialog-content>
+<app-dialog-actions>
+    <button appDialogClose appButton variant="primary" color="danger">Cancelar</button>
+    <button [appDialogClose]="cachorro.value"
+        appButton variant="primary" color="main"
+        [disabled]="cachorro.invalid"
+    >
+        Adoptar
+    </button>
+</app-dialog-actions>

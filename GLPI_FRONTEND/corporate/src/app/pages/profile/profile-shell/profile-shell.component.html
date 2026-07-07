@@ -1,0 +1,65 @@
+<div class="pf-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div>
+      <h1 class="sm-page-title">Mi Perfil</h1>
+      <p class="sm-page-sub">Gestiona tu información personal y configuración de seguridad</p>
+    </div>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="pf-layout">
+    <!-- Col izquierda: card identidad -->
+    <div class="pf-identity-card sm-card">
+      <div class="pf-avatar" [style.background]="avatarColor()">
+        {{ initials() }}
+      </div>
+      <h2 class="pf-name">{{ fullName() }}</h2>
+      <span class="badge is-navy pf-role-badge">{{ userRole() }}</span>
+      <div class="pf-meta">
+        <div class="pf-meta-row">
+          <lucide-angular name="globe" [size]="14"></lucide-angular>
+          <span>{{ userEmail() }}</span>
+        </div>
+        <div class="pf-meta-row">
+          <lucide-angular name="map-pin" [size]="14"></lucide-angular>
+          <span>{{ companyLabel() }}</span>
+        </div>
+        <div class="pf-meta-row">
+          <lucide-angular name="clock" [size]="14"></lucide-angular>
+          <span>Miembro desde 2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Col derecha: tabs -->
+    <div class="pf-tabs-col">
+      <!-- Tab nav -->
+      <div class="sm-tabs">
+        <button class="sm-tab" [class.active]="activeTab() === 'info'" (click)="activeTab.set('info')">
+          <lucide-angular name="user" [size]="14"></lucide-angular>
+          Información
+        </button>
+        <button class="sm-tab" [class.active]="activeTab() === 'security'" (click)="activeTab.set('security')">
+          <lucide-angular name="shield" [size]="14"></lucide-angular>
+          Seguridad
+        </button>
+        <button class="sm-tab" [class.active]="activeTab() === 'sessions'" (click)="activeTab.set('sessions')">
+          <lucide-angular name="monitor" [size]="14"></lucide-angular>
+          Sesiones
+        </button>
+      </div>
+
+      <!-- Content sections -->
+      <div class="pf-tab-content">
+        @if (activeTab() === 'info') {
+          <app-profile-info [user]="userData()"></app-profile-info>
+        } @else if (activeTab() === 'security') {
+          <app-profile-security></app-profile-security>
+        } @else if (activeTab() === 'sessions') {
+          <app-profile-sessions></app-profile-sessions>
+        }
+      </div>
+    </div>
+  </div>
+</div>
