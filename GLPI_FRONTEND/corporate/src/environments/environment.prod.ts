@@ -4,5 +4,5 @@
 // El hub de SignalR se deriva automáticamente quitando el sufijo /api.
 export const environment = {
   production: true,
-  apiUrl: 'https://REEMPLAZAR-CON-TU-SERVICIO.onrender.com/api'
+  apiUrl: 'https://summit-glpi-api.onrender.com/api'
 };
