@@ -2,6 +2,8 @@ using ClosedXML.Excel;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using DocumentFormat.OpenXml.Packaging;
+using Wp = DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Glpi.Logic;
 
@@ -190,5 +192,142 @@ public static class ReportExporter
         using var ms = new MemoryStream();
         wb.SaveAs(ms);
         return ms.ToArray();
+    }
+
+    public static byte[] BuildWord(
+        string title,
+        DateTime? from,
+        DateTime? to,
+        string[] columns,
+        List<string[]> rows,
+        List<(string Label, string Value)> summary)
+    {
+        columns ??= Array.Empty<string>();
+        rows ??= new List<string[]>();
+        summary ??= new List<(string Label, string Value)>();
+
+        // MemoryStream.ToArray() sigue funcionando tras cerrar el documento,
+        // por eso se lee fuera del using que vuelca el paquete .docx.
+        var ms = new MemoryStream();
+        using (var doc = WordprocessingDocument.Create(
+                   ms, DocumentFormat.OpenXml.WordprocessingDocumentType.Document))
+        {
+            var mainPart = doc.AddMainDocumentPart();
+            var body = new Wp.Body();
+
+            // Titulo
+            body.AppendChild(TextParagraph(title ?? string.Empty, bold: true, halfPointSize: 32));
+
+            // Rango de fechas
+            body.AppendChild(TextParagraph(RangoTexto(from, to), halfPointSize: 18, color: "808080"));
+
+            // Resumen
+            if (summary.Count > 0)
+            {
+                body.AppendChild(TextParagraph("Resumen", bold: true, halfPointSize: 22));
+                foreach (var (label, value) in summary)
+                {
+                    var p = new Wp.Paragraph();
+                    var labelRun = new Wp.Run(
+                        new Wp.RunProperties(new Wp.Bold()),
+                        new Wp.Text($"{label}: ")
+                            { Space = DocumentFormat.OpenXml.SpaceProcessingModeValues.Preserve });
+                    var valueRun = new Wp.Run(
+                        new Wp.Text(value ?? string.Empty)
+                            { Space = DocumentFormat.OpenXml.SpaceProcessingModeValues.Preserve });
+                    p.AppendChild(labelRun);
+                    p.AppendChild(valueRun);
+                    body.AppendChild(p);
+                }
+            }
+
+            // Separador
+            body.AppendChild(new Wp.Paragraph());
+
+            // Tabla de datos
+            if (columns.Length > 0)
+            {
+                var table = new Wp.Table();
+                table.AppendChild(new Wp.TableProperties(
+                    new Wp.TableWidth { Type = Wp.TableWidthUnitValues.Pct, Width = "5000" },
+                    new Wp.TableBorders(
+                        new Wp.TopBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" },
+                        new Wp.BottomBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" },
+                        new Wp.LeftBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" },
+                        new Wp.RightBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" },
+                        new Wp.InsideHorizontalBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" },
+                        new Wp.InsideVerticalBorder { Val = Wp.BorderValues.Single, Size = 4, Color = "BFBFBF" })));
+
+                // Encabezado
+                var headerRow = new Wp.TableRow();
+                foreach (var c in columns)
+                    headerRow.AppendChild(BuildCell(c ?? string.Empty, header: true));
+                table.AppendChild(headerRow);
+
+                // Filas
+                foreach (var row in rows)
+                {
+                    var tr = new Wp.TableRow();
+                    for (int i = 0; i < columns.Length; i++)
+                    {
+                        var text = (row != null && i < row.Length) ? (row[i] ?? string.Empty) : string.Empty;
+                        tr.AppendChild(BuildCell(text));
+                    }
+                    table.AppendChild(tr);
+                }
+
+                body.AppendChild(table);
+            }
+
+            if (rows.Count == 0)
+            {
+                body.AppendChild(TextParagraph(
+                    "Sin datos para el periodo seleccionado.",
+                    halfPointSize: 18, color: "808080", italic: true));
+            }
+
+            mainPart.Document = new Wp.Document(body);
+            mainPart.Document.Save();
+        }
+
+        return ms.ToArray();
+    }
+
+    private static Wp.Paragraph TextParagraph(
+        string text,
+        bool bold = false,
+        int halfPointSize = 20,
+        string? color = null,
+        bool italic = false)
+    {
+        var runProps = new Wp.RunProperties();
+        if (bold) runProps.AppendChild(new Wp.Bold());
+        if (italic) runProps.AppendChild(new Wp.Italic());
+        if (!string.IsNullOrEmpty(color)) runProps.AppendChild(new Wp.Color { Val = color });
+        runProps.AppendChild(new Wp.FontSize { Val = halfPointSize.ToString() });
+
+        var run = new Wp.Run();
+        run.AppendChild(runProps);
+        run.AppendChild(new Wp.Text(text ?? string.Empty)
+            { Space = DocumentFormat.OpenXml.SpaceProcessingModeValues.Preserve });
+
+        return new Wp.Paragraph(run);
+    }
+
+    private static Wp.TableCell BuildCell(string text, bool header = false)
+    {
+        var cell = new Wp.TableCell();
+        if (header)
+        {
+            cell.AppendChild(new Wp.TableCellProperties(
+                new Wp.Shading
+                {
+                    Val = Wp.ShadingPatternValues.Clear,
+                    Color = "auto",
+                    Fill = "D9D9D9"
+                }));
+        }
+        cell.AppendChild(TextParagraph(text ?? string.Empty, bold: header, halfPointSize: 18));
+        return cell;
     }
 }

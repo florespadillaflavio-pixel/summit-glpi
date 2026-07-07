@@ -51,6 +51,7 @@
       <select class="sm-input" formControlName="format" [class.input-error]="getFieldError('format')">
         <option value="PDF">PDF</option>
         <option value="EXCEL">Excel</option>
+        <option value="WORD">Word</option>
       </select>
       @if (getFieldError('format')) { <span class="field-error">{{ getFieldError('format') }}</span> }
     </div>

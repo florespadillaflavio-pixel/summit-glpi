@@ -51,7 +51,7 @@ export interface ReportFilters {
   dateTo?: string;
 }
 
-export type ReportFormat = 'PDF' | 'EXCEL';
+export type ReportFormat = 'PDF' | 'EXCEL' | 'WORD';
 
 export interface AdHocReportRequest {
   dateFrom: string | null;

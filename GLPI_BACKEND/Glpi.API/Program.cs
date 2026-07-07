@@ -140,19 +140,24 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
+        // Expose Content-Disposition so the browser can read the download filename
+        // from report/export blob responses over CORS.
         if (allowedOrigins.Length > 0)
         {
-            policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()
+                  .WithExposedHeaders("Content-Disposition");
         }
         else if (builder.Environment.IsDevelopment())
         {
             // No origins configured: only wide-open in Development for local convenience.
-            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                  .WithExposedHeaders("Content-Disposition");
         }
         else
         {
             // Production with nothing configured: fail safe to an empty allow-list.
-            policy.WithOrigins(Array.Empty<string>()).AllowAnyHeader().AllowAnyMethod();
+            policy.WithOrigins(Array.Empty<string>()).AllowAnyHeader().AllowAnyMethod()
+                  .WithExposedHeaders("Content-Disposition");
         }
     });
 });

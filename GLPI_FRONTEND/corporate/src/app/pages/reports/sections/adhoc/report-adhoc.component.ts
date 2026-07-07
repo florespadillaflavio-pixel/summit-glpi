@@ -158,7 +158,7 @@ export class ReportAdhoc {
         }
       }
     }
-    const ext = format === 'PDF' ? 'pdf' : 'xlsx';
+    const ext = format === 'PDF' ? 'pdf' : format === 'WORD' ? 'docx' : 'xlsx';
     const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     return `reporte-${type}-${stamp}.${ext}`;
   }

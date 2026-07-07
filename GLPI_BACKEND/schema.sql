@@ -314,6 +314,9 @@ CREATE TABLE IF NOT EXISTS role (
     description TEXT         NOT NULL DEFAULT '',
     role_type   VARCHAR(30)  NOT NULL DEFAULT 'CUSTOM',
     is_system   BOOLEAN      NOT NULL DEFAULT FALSE,
+    -- is_internal: staff interno (mesa de ayuda) ve TODOS los tickets; los roles
+    -- Cliente (externos) solo ven los suyos. Lo usa fn_user_profile -> JWT IsInternal.
+    is_internal BOOLEAN      NOT NULL DEFAULT TRUE,
     is_active   BOOLEAN      NOT NULL DEFAULT TRUE,
     created_by  UUID,
     created_at  TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
@@ -1145,6 +1148,7 @@ DECLARE
     v_user RECORD;
     v_company RECORD;
     v_role TEXT;
+    v_is_internal BOOLEAN;
 BEGIN
     SELECT * INTO v_user
     FROM user_account
@@ -1159,7 +1163,7 @@ BEGIN
 
     SELECT * INTO v_company FROM company WHERE id = v_user.company_id;
 
-    SELECT r.name INTO v_role
+    SELECT r.name, COALESCE(r.is_internal, TRUE) INTO v_role, v_is_internal
     FROM user_role ur
     JOIN role r ON r.id = ur.role_id
     WHERE ur.user_id = p_user_id
@@ -1174,7 +1178,7 @@ BEGIN
         v_user.first_name::text,
         v_user.last_name::text,
         COALESCE(v_role, 'Usuario')::text,
-        COALESCE(v_company.is_owner, FALSE),
+        COALESCE(v_is_internal, FALSE),
         v_user.company_id,
         v_company.name::text;
 END;

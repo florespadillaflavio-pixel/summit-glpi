@@ -69,7 +69,7 @@ public class ReportLogic
     }
 
     // ------------------------------------------------------------------
-    // Reportes ad-hoc: tickets / assets / sla  ->  PDF o Excel
+    // Reportes ad-hoc: tickets / assets / sla  ->  PDF, Excel o Word
     // ------------------------------------------------------------------
 
     public ReturnValue<AdHocReportFile> GenerateAdHoc(string type, AdHocReportRequest req)
@@ -81,8 +81,8 @@ public class ReportLogic
                 return ReturnValue<AdHocReportFile>.Fail("Tipo de reporte inválido. Use tickets, assets o sla.");
 
             var formato = (req?.Format ?? "PDF").Trim().ToUpperInvariant();
-            if (formato != "PDF" && formato != "EXCEL")
-                return ReturnValue<AdHocReportFile>.Fail("Formato inválido. Use PDF o EXCEL.");
+            if (formato != "PDF" && formato != "EXCEL" && formato != "WORD")
+                return ReturnValue<AdHocReportFile>.Fail("Formato inválido. Use PDF, EXCEL o WORD.");
 
             var from = req?.DateFrom;
             var to = req?.DateTo;
@@ -182,6 +182,12 @@ public class ReportLogic
                 bytes = ReportExporter.BuildExcel(title, from, to, columns, rows, summary);
                 contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 ext = "xlsx";
+            }
+            else if (formato == "WORD")
+            {
+                bytes = ReportExporter.BuildWord(title, from, to, columns, rows, summary);
+                contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                ext = "docx";
             }
             else
             {
