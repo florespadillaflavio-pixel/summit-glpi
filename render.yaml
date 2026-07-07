@@ -1,0 +1,33 @@
+# Render Blueprint — API .NET 10 (Docker) de Summit GLPI
+# Los valores marcados `sync: false` se ingresan en el panel de Render (son secretos).
+services:
+  - type: web
+    name: summit-glpi-api
+    runtime: docker
+    rootDir: GLPI_BACKEND
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: GlpiAPI
+      - key: Jwt__Audience
+        value: GlpiApp
+      - key: Jwt__ExpireMinutes
+        value: "1440"
+      - key: Cloudinary__CloudName
+        sync: false
+      - key: Cloudinary__ApiKey
+        sync: false
+      - key: Cloudinary__ApiSecret
+        sync: false
+      - key: Cors__AllowedOrigins
+        sync: false
