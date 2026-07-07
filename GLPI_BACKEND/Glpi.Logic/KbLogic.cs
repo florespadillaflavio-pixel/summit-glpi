@@ -18,10 +18,16 @@ public class KbLogic
 
     public async Task<ReturnValue<List<KbCategory>>> GetCategoriesAsync()
     {
-        // Esto podría venir de un gen_man_kb_category_list. 
-        // Por simplicidad si no existe la función, devolvemos mock temporal 
-        // o pedimos la función. Asumiremos que el frontend pide artículos.
-        return ReturnValue<List<KbCategory>>.Ok(new List<KbCategory>());
+        try
+        {
+            var categories = _repo.ListarCategorias(_tenantService.CompanyId);
+            return ReturnValue<List<KbCategory>>.Ok(categories);
+        }
+        catch (Exception ex)
+        {
+            return HelpException.LogAndNotifyReturn(ex) as ReturnValue<List<KbCategory>>
+                   ?? ReturnValue<List<KbCategory>>.Fail(ex.Message);
+        }
     }
 
     public async Task<ReturnValue<List<KbArticle>>> GetAllArticlesAsync(string? query = null, Guid? categoryId = null)

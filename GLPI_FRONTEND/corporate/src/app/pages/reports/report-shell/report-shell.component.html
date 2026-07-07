@@ -7,7 +7,7 @@
     </div>
     @if (activeTab() === 'programados') {
       <div class="sm-page-actions">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" (click)="onNewReport()">
           <lucide-angular name="plus" class="btn-icon"></lucide-angular>
           Nuevo Reporte
         </button>
@@ -36,9 +36,9 @@
       <app-report-scheduled></app-report-scheduled>
     } @else if (activeTab() === 'ejecutados') {
       <div class="empty-tab">
-        <lucide-angular name="check-circle" class="empty-icon"></lucide-angular>
+        <lucide-angular name="clock" class="empty-icon"></lucide-angular>
         <p>Historial de reportes ejecutados</p>
-        <span class="empty-sub">Aquí aparecerán los reportes que han sido generados.</span>
+        <span class="empty-sub">Disponible próximamente. Aquí aparecerán los reportes que han sido generados.</span>
       </div>
     } @else if (activeTab() === 'adhoc') {
       <app-report-adhoc></app-report-adhoc>

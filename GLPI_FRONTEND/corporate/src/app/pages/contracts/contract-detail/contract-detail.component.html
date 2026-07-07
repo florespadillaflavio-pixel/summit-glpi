@@ -1,0 +1,92 @@
+<div class="sm-page">
+  <!-- Page Header -->
+  <div class="sm-page-header">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <button class="btn btn-ghost btn-sm" (click)="onGoBack()" title="Volver a contratos">
+        <lucide-angular name="arrow-left" [size]="16"></lucide-angular>
+        <span>Contratos</span>
+      </button>
+      <div>
+        <h1 class="sm-page-title">{{ contract()?.name || 'Detalle de Contrato' }}</h1>
+        <p class="sm-page-sub">Información del contrato</p>
+      </div>
+    </div>
+    @if (contract() && !loading()) {
+      <div class="sm-page-actions">
+        <button class="btn btn-primary" (click)="onEdit()">
+          <lucide-angular name="pencil" [size]="15"></lucide-angular>
+          <span>Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="sm-card" style="padding:40px; text-align:center; color:var(--ink-400);">
+      <lucide-angular name="loader" class="spinner" [size]="32"></lucide-angular>
+      <p style="margin-top:12px;">Cargando contrato...</p>
+    </div>
+  } @else if (notFound()) {
+    <div class="sm-card" style="padding:40px; text-align:center; color:var(--ink-400);">
+      <lucide-angular name="file-x" [size]="32"></lucide-angular>
+      <p style="margin-top:12px;">No se encontró el contrato solicitado.</p>
+      <button class="btn btn-ghost btn-sm" (click)="onGoBack()" style="margin-top:12px;">
+        <lucide-angular name="arrow-left" [size]="14"></lucide-angular>
+        <span>Volver a contratos</span>
+      </button>
+    </div>
+  } @else if (contract(); as c) {
+    <div class="sm-card" style="padding:var(--s-5);">
+      <div class="sm-card-header">
+        <h3 class="sm-card-title">
+          <lucide-angular name="file-text" [size]="16"></lucide-angular>
+          Datos del contrato
+        </h3>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s-4); margin-top:var(--s-4);">
+        <div class="sm-field">
+          <label class="sm-label">Nombre</label>
+          <p style="font-weight:600;">{{ c.name || '—' }}</p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Número de Contrato</label>
+          <p style="font-family:var(--font-mono);">{{ c.contractNumber || '—' }}</p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Proveedor</label>
+          <p>{{ c.vendorName || '—' }}</p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Valor</label>
+          <p style="font-weight:700; font-family:var(--font-mono);">{{ formatMoney(c.value) }} {{ c.currency || '' }}</p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Estado</label>
+          <p><span class="badge is-navy">{{ statusLabel() }}</span></p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Tipo</label>
+          <p><span class="badge is-pending">{{ typeLabel() }}</span></p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Fecha de Inicio</label>
+          <p>{{ formatDate(c.startDate) }}</p>
+        </div>
+        <div class="sm-field">
+          <label class="sm-label">Fecha de Fin</label>
+          <p>{{ formatDate(c.endDate) }}</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<!-- Formulario (Modal) -->
+@if (showForm() && contract()) {
+  <app-contract-form
+    [contract]="contract()"
+    (close)="onCloseForm()"
+    (saved)="onSaved()">
+  </app-contract-form>
+}

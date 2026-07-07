@@ -163,6 +163,10 @@ export function getControlError(control: AbstractControl | null, label: string):
     const required = errors['maxlength']?.requiredLength;
     return `${label} no puede superar los ${required} caracteres`;
   }
+  if (errors['min']) {
+    const min = errors['min']?.min;
+    return `${label} debe ser mayor o igual a ${min}`;
+  }
   if (errors['pattern']) {
     return `${label} contiene caracteres no permitidos`;
   }

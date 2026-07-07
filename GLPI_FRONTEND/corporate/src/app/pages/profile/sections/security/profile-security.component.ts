@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { LucideAngularModule } from 'lucide-angular';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { ReturnValue } from '../../../../core/models';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../../../core/services/auth.service';
+import { TokenService } from '../../../../core/services/token.service';
 import { MAXLEN } from '../../../../core/validators/app-validators';
 
 const strongPassword: ValidatorFn = (ctrl: AbstractControl): ValidationErrors | null => {
@@ -41,7 +41,8 @@ function calcStrength(pwd: string): number {
   templateUrl: './profile-security.component.html'
 })
 export class ProfileSecurity {
-  private http = inject(HttpClient);
+  private authService = inject(AuthService);
+  private tokenService = inject(TokenService);
 
   secLoading = signal(false);
   secSuccess = signal(false);
@@ -77,14 +78,22 @@ export class ProfileSecurity {
 
   onSave(): void {
     if (this.secForm.invalid) { this.secForm.markAllAsTouched(); return; }
+
+    const userId = this.tokenService.getUser()?.userId;
+    if (!userId) {
+      this.secError.set('No se pudo identificar al usuario.');
+      return;
+    }
+
     this.secLoading.set(true);
     this.secSuccess.set(false);
     this.secError.set('');
 
-    this.http.post<ReturnValue<unknown>>(`${environment.apiUrl}/auth/change-password`, {
-      currentPassword: this.secForm.value.currentPassword,
-      newPassword:     this.secForm.value.newPassword,
-    }).subscribe({
+    this.authService.changePassword(
+      userId,
+      this.secForm.value.currentPassword ?? '',
+      this.secForm.value.newPassword ?? ''
+    ).subscribe({
       next: (res) => {
         this.secLoading.set(false);
         if (res?.success === false) {

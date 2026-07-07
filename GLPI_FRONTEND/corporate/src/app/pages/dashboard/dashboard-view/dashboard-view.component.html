@@ -6,10 +6,17 @@
       <p class="sm-page-sub">Resumen ejecutivo de la mesa de ayuda</p>
     </div>
     <div class="sm-page-actions db-header-actions">
-      <div class="db-date-range">
-        <app-date-picker [compact]="true" [formControl]="dateFrom"></app-date-picker>
-        <span class="db-date-sep">—</span>
-        <app-date-picker [compact]="true" [formControl]="dateTo"></app-date-picker>
+      <div class="db-date-range-wrap">
+        <div class="db-date-range">
+          <app-date-picker [compact]="true" [formControl]="dateFrom"></app-date-picker>
+          <span class="db-date-sep">—</span>
+          <app-date-picker [compact]="true" [formControl]="dateTo"></app-date-picker>
+        </div>
+        @if (rangeError()) {
+          <span class="db-date-error" style="display:block;color:var(--danger,#dc2626);font-size:var(--t-xs);margin-top:4px;">
+            {{ rangeError() }}
+          </span>
+        }
       </div>
       <button class="btn btn-secondary" (click)="onReload()" [disabled]="loading()">
         <lucide-angular name="refresh-cw" [size]="15" [class.spinner]="loading() || syncing()"></lucide-angular>

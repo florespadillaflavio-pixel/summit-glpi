@@ -1,0 +1,78 @@
+<app-modal
+  [title]="article() ? 'Editar Artículo' : 'Nuevo Artículo'"
+  [subtitle]="'Redacta y organiza el contenido de la base de conocimiento'"
+  [icon]="article() ? 'pencil' : 'file-plus'"
+  [loading]="loading()"
+  [maxWidth]="720"
+  (close)="onClose()"
+>
+  <form [formGroup]="articleForm">
+    <app-input-field
+      label="Título"
+      icon="heading"
+      placeholder="Ej: Cómo restablecer tu contraseña"
+      formControlName="title"
+      [error]="getFieldError('title', 'El título')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Categoría</label>
+      <select
+        class="sm-input"
+        formControlName="categoryId"
+        [class.input-error]="getFieldError('categoryId', 'La categoría')"
+      >
+        <option value="" disabled>Selecciona una categoría...</option>
+        @for (cat of categorias(); track cat.id) {
+          <option [value]="cat.id">{{ cat.name }}</option>
+        }
+      </select>
+      @if (getFieldError('categoryId', 'La categoría')) {
+        <span class="field-error">{{ getFieldError('categoryId', 'La categoría') }}</span>
+      }
+    </div>
+
+    <app-input-field
+      label="Resumen"
+      icon="align-left"
+      placeholder="Breve descripción que aparece en el listado"
+      formControlName="summary"
+      [optional]="true"
+      [error]="getFieldError('summary', 'El resumen')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Contenido</label>
+      <textarea
+        class="sm-input role-textarea"
+        formControlName="content"
+        rows="10"
+        placeholder="Escribe el contenido completo del artículo..."
+        [class.input-error]="getFieldError('content', 'El contenido')"
+      ></textarea>
+      @if (getFieldError('content', 'El contenido')) {
+        <span class="field-error">{{ getFieldError('content', 'El contenido') }}</span>
+      }
+    </div>
+
+    <app-input-field
+      label="Etiquetas"
+      icon="tag"
+      placeholder="Separadas por comas: contraseña, acceso, seguridad"
+      formControlName="tags"
+      [optional]="true"
+      help="Escribe varias etiquetas separadas por comas."
+    ></app-input-field>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Cancelar</span>
+    </button>
+    <button class="btn btn-primary" (click)="saveArticle()" [disabled]="articleForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (article() ? 'Guardar Cambios' : 'Crear Artículo') }}</span>
+    </button>
+  </div>
+</app-modal>

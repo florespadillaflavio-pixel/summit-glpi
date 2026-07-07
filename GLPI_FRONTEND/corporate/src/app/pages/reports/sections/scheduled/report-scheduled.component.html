@@ -15,7 +15,7 @@
       @for (report of reports(); track report.id) {
         <tr>
           <td class="report-name">{{ report.name }}</td>
-          <td class="report-type">{{ report.type || 'Sencillo' }}</td>
+          <td class="report-type">{{ typeLabel(report.reportType) }}</td>
           <td>
             @if (report.frequency === 'DAILY') {
               <span class="badge is-navy">Diario</span>
@@ -25,7 +25,7 @@
               <span class="badge is-pending">Mensual</span>
             }
           </td>
-          <td class="report-next">{{ report.nextRun }}</td>
+          <td class="report-next">{{ report.nextRunAt ? (report.nextRunAt | date:'short') : '—' }}</td>
           <td>
             <div class="recipients-cell">
               <lucide-angular name="users" class="recipients-icon" [size]="14"></lucide-angular>
@@ -41,10 +41,10 @@
           </td>
           <td>
             <div class="actions-cell">
-              <button class="btn btn-ghost btn-sm" title="Ejecutar ahora" (click)="onRunNow(report.id)">
+              <button class="btn btn-ghost btn-sm" title="Ejecutar ahora" (click)="onRunNow()">
                 <lucide-angular name="play" [size]="14" class="btn-icon"></lucide-angular>
               </button>
-              <button class="btn btn-ghost btn-sm" title="Editar">
+              <button class="btn btn-ghost btn-sm" title="Editar" (click)="openEdit(report)">
                 <lucide-angular name="pencil" [size]="14" class="btn-icon"></lucide-angular>
               </button>
               <button class="btn btn-ghost btn-sm" title="Eliminar" (click)="onDelete(report.id)">
@@ -57,3 +57,11 @@
     </tbody>
   </table>
 </div>
+
+@if (showForm()) {
+  <app-scheduled-report-form
+    [report]="selectedReport()"
+    (close)="onCloseForm()"
+    (saved)="onSaved()"
+  ></app-scheduled-report-form>
+}

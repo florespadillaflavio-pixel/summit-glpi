@@ -10,9 +10,9 @@
       <p class="sm-page-sub">Prioriza, asigna y atiende solicitudes con seguimiento de SLA y conversación en tiempo real.</p>
     </div>
     <div class="sm-page-actions tickets-actions">
-      <button class="btn btn-secondary btn-md" (click)="onExport()">
-        <lucide-angular name="download" class="btn-icon"></lucide-angular>
-        <span>Exportar</span>
+      <button class="btn btn-secondary btn-md" (click)="onExport()" [disabled]="exporting()">
+        <lucide-angular [name]="exporting() ? 'loader' : 'download'" class="btn-icon" [class.spinner]="exporting()"></lucide-angular>
+        <span>{{ exporting() ? 'Exportando…' : 'Exportar' }}</span>
       </button>
       <button class="btn btn-primary btn-md" [routerLink]="['/tickets/new']">
         <lucide-angular name="plus" class="btn-icon"></lucide-angular>

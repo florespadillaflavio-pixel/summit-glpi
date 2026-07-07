@@ -6,7 +6,7 @@
       <p class="sm-page-sub">Gestión de contratos con proveedores y licencias</p>
     </div>
     <div class="sm-page-actions">
-      <button class="btn btn-primary">
+      <button class="btn btn-primary" (click)="onNuevoContrato()">
         <lucide-angular name="plus" [size]="15"></lucide-angular>
         <span>Nuevo Contrato</span>
       </button>
@@ -140,3 +140,12 @@
     </app-pagination>
   </div>
 </div>
+
+<!-- Formulario (Modal) -->
+@if (showForm()) {
+  <app-contract-form
+    [contract]="selectedContract()"
+    (close)="onCloseForm()"
+    (saved)="onContractSaved()">
+  </app-contract-form>
+}

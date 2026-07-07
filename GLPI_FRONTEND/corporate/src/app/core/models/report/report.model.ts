@@ -7,20 +7,34 @@ export interface Report {
   format: 'PDF' | 'EXCEL' | 'CSV';
 }
 
+export type ReportType = 'tickets' | 'assets' | 'sla';
+export type ReportFrequency = 'DAILY' | 'WEEKLY' | 'MONTHLY';
+
+/**
+ * Mirrors the backend `ScheduledReport` entity. Field names are aligned with
+ * what the API binds/returns: name, reportType, frequency, recipients, format,
+ * nextRunAt, isActive.
+ */
 export interface ScheduledReport {
   id: string;
-  reportId: string;
-  reportName: string;
-  frequency: 'DAILY' | 'WEEKLY' | 'MONTHLY';
+  name: string;
+  reportType: ReportType | string;
+  frequency: ReportFrequency;
   recipients: string[];
-  lastRun?: string;
-  nextRun: string;
+  format: ReportFormat;
+  nextRunAt?: string | null;
   isActive: boolean;
-  
-  // UI legacy compatibility
-  name?: string;
-  type?: string;
-  status?: string;
+}
+
+/** Exact body keyed for POST/PUT /report/scheduled. */
+export interface ScheduledReportPayload {
+  name: string;
+  reportType: ReportType | string;
+  frequency: ReportFrequency;
+  recipients: string[];
+  format: ReportFormat;
+  nextRunAt: string | null;
+  isActive: boolean;
 }
 
 export interface ReportHistory {

@@ -10,6 +10,7 @@ export interface KbArticle {
   title: string;
   summary: string;
   content: string;
+  categoryId?: string;
   categoryName: string;
   authorName: string;
   views: number;

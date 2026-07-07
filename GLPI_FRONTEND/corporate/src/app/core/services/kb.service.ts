@@ -17,23 +17,23 @@ export class KbService {
     if (filters?.category) params = params.set('category', filters.category);
     if (filters?.q) params = params.set('q', filters.q);
     if (filters?.status) params = params.set('status', filters.status);
-    return this.http.get<ReturnValue<KbArticle[]>>(`${this.apiUrl}/articles`, { params });
+    return this.http.get<ReturnValue<KbArticle[]>>(`${this.apiUrl}`, { params });
   }
 
   getArticleById(id: string): Observable<ReturnValue<KbArticle>> {
-    return this.http.get<ReturnValue<KbArticle>>(`${this.apiUrl}/articles/${id}`);
+    return this.http.get<ReturnValue<KbArticle>>(`${this.apiUrl}/${id}`);
   }
 
   createArticle(article: Partial<KbArticle>): Observable<ReturnValue> {
-    return this.http.post<ReturnValue>(`${this.apiUrl}/articles`, article);
+    return this.http.post<ReturnValue>(`${this.apiUrl}`, article);
   }
 
   updateArticle(id: string, article: Partial<KbArticle>): Observable<ReturnValue> {
-    return this.http.put<ReturnValue>(`${this.apiUrl}/articles/${id}`, article);
+    return this.http.put<ReturnValue>(`${this.apiUrl}/${id}`, article);
   }
 
   deleteArticle(id: string): Observable<ReturnValue> {
-    return this.http.delete<ReturnValue>(`${this.apiUrl}/articles/${id}`);
+    return this.http.delete<ReturnValue>(`${this.apiUrl}/${id}`);
   }
 
   publishArticle(id: string): Observable<ReturnValue> {

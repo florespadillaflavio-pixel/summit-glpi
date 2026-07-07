@@ -1,13 +1,15 @@
 import { Component, OnDestroy, OnInit, inject, signal, computed, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { LucideAngularModule } from 'lucide-angular';
 import { TicketService } from '../../../core/services/ticket.service';
 import { DashboardService } from '../../../core/services/dashboard.service';
 import { RealtimeService } from '../../../core/services/realtime.service';
 import { Ticket, DashboardKPIs, StatCard, ChartBar, RecentTicket } from '../../../core/models';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
+import { dateRangeValidator, getControlError } from '../../../core/validators/app-validators';
 
 function timeAgo(date: Date | string): string {
   const d   = date instanceof Date ? date : new Date(date);
@@ -49,8 +51,22 @@ export class DashboardView implements OnInit, OnDestroy {
   // Date controls
   private today    = new Date().toISOString().split('T')[0];
   private monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-  dateFrom = new FormControl(this.monthAgo);
-  dateTo   = new FormControl(this.today);
+  rangeForm = new FormGroup(
+    {
+      dateFrom: new FormControl(this.monthAgo),
+      dateTo:   new FormControl(this.today),
+    },
+    { validators: dateRangeValidator('dateFrom', 'dateTo') }
+  );
+  get dateFrom(): FormControl { return this.rangeForm.controls.dateFrom; }
+  get dateTo(): FormControl { return this.rangeForm.controls.dateTo; }
+
+  // Reactive range-validity so the error message and guards update on date changes.
+  private rangeStatus = toSignal(this.rangeForm.statusChanges, { initialValue: this.rangeForm.status });
+  rangeError = computed(() => {
+    this.rangeStatus();
+    return getControlError(this.rangeForm, 'El rango de fechas');
+  });
 
   // Signals
   loading       = signal(true);
@@ -241,6 +257,13 @@ export class DashboardView implements OnInit, OnDestroy {
   private onRealtimeTicketChange = () => this.loadData(false);
 
   private loadData(showSpinner = true): void {
+    if (this.rangeForm.invalid) {
+      this.rangeForm.markAllAsTouched();
+      this.errorMsg.set('Corrige el rango de fechas antes de continuar.');
+      this.loading.set(false);
+      this.syncing.set(false);
+      return;
+    }
     if (showSpinner) this.loading.set(true);
     this.syncing.set(!showSpinner);
     this.errorMsg.set('');

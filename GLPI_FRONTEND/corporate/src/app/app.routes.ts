@@ -69,6 +69,12 @@ export const routes: Routes = [
         data: { permission: 'CONTRACT_VIEW' },
         loadComponent: () => import('./pages/contracts/contract-list/contract-list.component').then(m => m.ContractList)
       },
+      {
+        path: 'contracts/:id',
+        canActivate: [permissionGuard],
+        data: { permission: 'CONTRACT_VIEW' },
+        loadComponent: () => import('./pages/contracts/contract-detail/contract-detail.component').then(m => m.ContractDetail)
+      },
       // Reportes
       {
         path: 'reports',

@@ -9,6 +9,12 @@ public class KbRepository
 {
     private string Conn => DbConfig.ConnectionString;
 
+    public List<KbCategory> ListarCategorias(Guid companyId)
+    {
+        return HelpNpg.Query<KbCategory>(Conn, "gen_man_kb_category_list",
+            HelpNpg.P("p_company_id", companyId));
+    }
+
     public List<KbArticle> Listar(Guid companyId, Guid? categoryId = null)
     {
         return HelpNpg.Query<KbArticle>(Conn, "gen_man_kb_article_list",

@@ -5,13 +5,14 @@ import { ContractService } from '../../../core/services/contract.service';
 import { Router } from '@angular/router';
 import { Contract, ReturnValue, ContractListItem, MesTimeline } from '../../../core/models';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { ContractForm } from '../contract-form/contract-form.component';
 
 const MESES_COLORS = ['#2faa6f', '#f79009', '#175cd3', '#143f5c', '#5aafb8', '#b42318'];
 
 @Component({
   selector: 'app-contract-list',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, PaginationComponent],
+  imports: [CommonModule, LucideAngularModule, PaginationComponent, ContractForm],
   templateUrl: './contract-list.component.html'
 })
 export class ContractList implements OnInit {
@@ -23,6 +24,10 @@ export class ContractList implements OnInit {
   loading       = signal(false);
   page          = signal(1);
   pageSize      = signal(10);
+
+  // Create/edit modal state
+  showForm         = signal(false);
+  selectedContract = signal<Contract | null>(null);
 
   readonly mesColors = MESES_COLORS;
 
@@ -36,13 +41,13 @@ export class ContractList implements OnInit {
           this.contratos.set(res.data.map((u: Contract) => ({
             id:       u.id,
             nombre:   u.name || '',
-            tipo:     '', // API doesn't seem to provide this yet
+            tipo:     u.type || '', // graceful default when the API omits it
             proveedor:u.vendorName || '',
             inicio:   u.startDate || '',
             fin:      u.endDate || '',
             valor:    u.value || 0,
             estado:   this.mapStatus(u.statusName),
-            activos:  0,
+            activos:  u.assetCount ?? 0, // graceful default when the API omits it
           })));
           this.buildTimeline();
         }
@@ -112,4 +117,19 @@ export class ContractList implements OnInit {
   }
 
   onIrAlDetalle(id: string | number) { this.router.navigate(['/contracts', id]); }
+
+  onNuevoContrato() {
+    this.selectedContract.set(null);
+    this.showForm.set(true);
+  }
+
+  onCloseForm() {
+    this.showForm.set(false);
+    this.selectedContract.set(null);
+  }
+
+  onContractSaved() {
+    this.onCloseForm();
+    this.load();
+  }
 }

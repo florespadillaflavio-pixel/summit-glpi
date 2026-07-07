@@ -1132,8 +1132,13 @@ END;
 $function$;
 
 -- fn_user_profile  (database_functions.sql)
+-- is_internal: TRUE si el usuario pertenece a la empresa dueña (company.is_owner).
+-- De aquí sale el claim JWT "IsInternal" (AuthLogic.GenerarToken) que decide si un
+-- usuario ve TODOS los tickets (interno: técnico/admin) o solo los suyos (cliente).
+-- Cambia la firma (columna is_internal nueva), por eso se hace DROP antes del CREATE.
+DROP FUNCTION IF EXISTS public.fn_user_profile(uuid);
 CREATE OR REPLACE FUNCTION public.fn_user_profile(p_user_id uuid)
- RETURNS TABLE(p_success boolean, p_message text, user_id uuid, username text, first_name text, last_name text, role text, company_id uuid, company_name text)
+ RETURNS TABLE(p_success boolean, p_message text, user_id uuid, username text, first_name text, last_name text, role text, is_internal boolean, company_id uuid, company_name text)
  LANGUAGE plpgsql
 AS $function$
 DECLARE
@@ -1148,7 +1153,7 @@ BEGIN
       AND (is_deleted = FALSE OR is_deleted IS NULL);
 
     IF NOT FOUND THEN
-        RETURN QUERY SELECT FALSE, 'Usuario no encontrado'::text, NULL::uuid, NULL::text, NULL::text, NULL::text, NULL::text, NULL::uuid, NULL::text;
+        RETURN QUERY SELECT FALSE, 'Usuario no encontrado'::text, NULL::uuid, NULL::text, NULL::text, NULL::text, NULL::text, FALSE, NULL::uuid, NULL::text;
         RETURN;
     END IF;
 
@@ -1169,6 +1174,7 @@ BEGIN
         v_user.first_name::text,
         v_user.last_name::text,
         COALESCE(v_role, 'Usuario')::text,
+        COALESCE(v_company.is_owner, FALSE),
         v_user.company_id,
         v_company.name::text;
 END;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ReturnValue, ScheduledReport, ReportHistory, AdHocReportRequest } from '../models';
+import { ReturnValue, ScheduledReport, ScheduledReportPayload, ReportHistory, AdHocReportRequest } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,12 @@ export class ReportService {
     return this.http.get<ReturnValue<ScheduledReport[]>>(`${this.apiUrl}/scheduled`);
   }
 
-  createScheduledReport(report: Partial<ScheduledReport>): Observable<ReturnValue> {
-    return this.http.post<ReturnValue>(`${this.apiUrl}/scheduled`, report);
+  createScheduledReport(payload: ScheduledReportPayload): Observable<ReturnValue> {
+    return this.http.post<ReturnValue>(`${this.apiUrl}/scheduled`, payload);
   }
 
-  updateScheduledReport(id: string, report: Partial<ScheduledReport>): Observable<ReturnValue> {
-    return this.http.put<ReturnValue>(`${this.apiUrl}/scheduled/${id}`, report);
+  updateScheduledReport(id: string, payload: ScheduledReportPayload): Observable<ReturnValue> {
+    return this.http.put<ReturnValue>(`${this.apiUrl}/scheduled/${id}`, payload);
   }
 
   deleteScheduledReport(id: string): Observable<ReturnValue> {

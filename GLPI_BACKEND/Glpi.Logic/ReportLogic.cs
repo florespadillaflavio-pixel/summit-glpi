@@ -43,6 +43,19 @@ public class ReportLogic
         }
     }
 
+    public async Task<ReturnValue> UpdateScheduledReportAsync(Guid id, ScheduledReport report)
+    {
+        try
+        {
+            report.Id = id;
+            return _repo.Actualizar(_tenantService.CompanyId, report);
+        }
+        catch (Exception ex)
+        {
+            return HelpException.LogAndNotifyReturn(ex);
+        }
+    }
+
     public async Task<ReturnValue> DeleteScheduledReportAsync(Guid id)
     {
         try

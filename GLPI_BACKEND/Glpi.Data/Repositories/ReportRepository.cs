@@ -154,6 +154,19 @@ public class ReportRepository
             HelpNpg.P("p_user_id",    userId));
     }
 
+    public ReturnValue Actualizar(Guid companyId, ScheduledReport dto)
+    {
+        return HelpNpg.QueryReturn(Conn, "gen_man_report_scheduled_upd",
+            HelpNpg.P("p_id",         dto.Id),
+            HelpNpg.P("p_company_id", companyId),
+            HelpNpg.P("p_name",       dto.Name),
+            HelpNpg.P("p_type",       dto.ReportType),
+            HelpNpg.P("p_frequency",  dto.Frequency),
+            HelpNpg.P("p_recipients", dto.Recipients),
+            HelpNpg.P("p_format",     dto.Format),
+            HelpNpg.P("p_is_active",  dto.IsActive));
+    }
+
     public ReturnValue Eliminar(Guid companyId, Guid id)
     {
         return HelpNpg.QueryReturn(Conn, "gen_man_report_scheduled_del",

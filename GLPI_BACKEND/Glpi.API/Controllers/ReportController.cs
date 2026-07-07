@@ -32,6 +32,13 @@ public class ReportController : ControllerBase
         return Ok(res);
     }
 
+    [HttpPut("scheduled/{id}")]
+    public async Task<ActionResult> UpdateScheduled(Guid id, [FromBody] ScheduledReport dto)
+    {
+        var res = await _logic.UpdateScheduledReportAsync(id, dto);
+        return Ok(res);
+    }
+
     [HttpDelete("scheduled/{id}")]
     public async Task<ActionResult> DeleteScheduled(Guid id)
     {

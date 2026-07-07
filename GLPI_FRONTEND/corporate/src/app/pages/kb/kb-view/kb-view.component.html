@@ -109,27 +109,43 @@
               <lucide-angular name="clock" [size]="16"></lucide-angular>
               Artículos
             </h2>
-            <span>{{ articulosFiltrados().length }} resultados disponibles</span>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span>{{ articulosFiltrados().length }} resultados disponibles</span>
+              <button type="button" class="btn btn-primary btn-sm" (click)="onNewArticle()" style="display: flex; align-items: center; gap: 6px;">
+                <lucide-angular name="plus" [size]="15"></lucide-angular>
+                <span>Nuevo Artículo</span>
+              </button>
+            </div>
           </div>
 
           <div class="kb-article-list">
             @for (a of articulosPagina(); track a.id) {
-              <button type="button" class="kb-article-card" (click)="onIrAlArticulo(a.id)">
-                <span class="kb-article-icon">{{ articleInitial(a) }}</span>
-                <div class="kb-article-content">
-                  <div class="kb-article-top">
-                    <span class="badge is-teal">{{ a.categoryName || 'General' }}</span>
-                    <small>{{ a.publishedAt | date:'dd/MM/yyyy' }}</small>
+              <div class="kb-article-row" style="position: relative;">
+                <button type="button" class="kb-article-card" (click)="onIrAlArticulo(a.id)">
+                  <span class="kb-article-icon">{{ articleInitial(a) }}</span>
+                  <div class="kb-article-content">
+                    <div class="kb-article-top">
+                      <span class="badge is-teal">{{ a.categoryName || 'General' }}</span>
+                      <small>{{ a.publishedAt | date:'dd/MM/yyyy' }}</small>
+                    </div>
+                    <strong>{{ a.title }}</strong>
+                    <p>{{ a.summary || a.content }}</p>
+                    <div class="kb-article-meta">
+                      <span><lucide-angular name="eye" [size]="12"></lucide-angular>{{ a.views | number }} vistas</span>
+                      <span><lucide-angular name="user" [size]="12"></lucide-angular>{{ a.authorName || 'Equipo soporte' }}</span>
+                    </div>
                   </div>
-                  <strong>{{ a.title }}</strong>
-                  <p>{{ a.summary || a.content }}</p>
-                  <div class="kb-article-meta">
-                    <span><lucide-angular name="eye" [size]="12"></lucide-angular>{{ a.views | number }} vistas</span>
-                    <span><lucide-angular name="user" [size]="12"></lucide-angular>{{ a.authorName || 'Equipo soporte' }}</span>
-                  </div>
+                  <lucide-angular name="chevron-right" [size]="17" class="kb-card-arrow"></lucide-angular>
+                </button>
+                <div class="kb-article-actions" style="position: absolute; top: 10px; right: 12px; display: flex; gap: 6px;">
+                  <button type="button" class="btn btn-ghost btn-sm" title="Editar artículo" (click)="onEditArticle(a, $event)" style="display: flex; align-items: center; gap: 4px;">
+                    <lucide-angular name="pencil" [size]="14"></lucide-angular>
+                  </button>
+                  <button type="button" class="btn btn-ghost btn-sm" title="Eliminar artículo" (click)="onDeleteArticle(a, $event)" style="display: flex; align-items: center; gap: 4px;">
+                    <lucide-angular name="trash-2" [size]="14"></lucide-angular>
+                  </button>
                 </div>
-                <lucide-angular name="chevron-right" [size]="17" class="kb-card-arrow"></lucide-angular>
-              </button>
+              </div>
             } @empty {
               <div class="kb-empty-state">
                 <lucide-angular name="search-x" [size]="38"></lucide-angular>
@@ -199,11 +215,29 @@
       }
     </article>
 
-    <div footer>
-      <button class="btn btn-primary btn-md" (click)="onCloseArticle()">
+    <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-ghost btn-md" (click)="onEditArticle(article)" style="display: flex; align-items: center; gap: 6px;">
+          <lucide-angular name="pencil" [size]="16"></lucide-angular>
+          <span>Editar</span>
+        </button>
+        <button class="btn btn-ghost btn-md" (click)="onDeleteArticle(article)" style="display: flex; align-items: center; gap: 6px;">
+          <lucide-angular name="trash-2" [size]="16"></lucide-angular>
+          <span>Eliminar</span>
+        </button>
+      </div>
+      <button class="btn btn-primary btn-md" (click)="onCloseArticle()" style="display: flex; align-items: center; gap: 6px;">
         <lucide-angular name="check-circle" [size]="16"></lucide-angular>
         <span>Entendido</span>
       </button>
     </div>
   </app-modal>
+}
+
+@if (showForm()) {
+  <app-kb-article-form
+    [article]="editingArticle()"
+    (close)="onFormClose()"
+    (saved)="onFormSaved()">
+  </app-kb-article-form>
 }

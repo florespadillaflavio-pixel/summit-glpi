@@ -2,11 +2,14 @@ import { Component, signal, computed, inject, OnInit, OnDestroy } from '@angular
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { finalize } from 'rxjs';
 import { LucideAngularModule } from 'lucide-angular';
 import { TicketService } from '../../../core/services/ticket.service';
 import { RealtimeService } from '../../../core/services/realtime.service';
+import { ReportService } from '../../../core/services/report.service';
 import { NotificationService } from '../../../core/services/ui/notification.service';
-import { Ticket, ReturnValue } from '../../../core/models';
+import { Ticket, ReturnValue, AdHocReportRequest } from '../../../core/models';
 import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
@@ -19,10 +22,12 @@ export class TicketList implements OnInit, OnDestroy {
   private router   = inject(Router);
   private ticketSvc = inject(TicketService);
   private realtimeSvc = inject(RealtimeService);
+  private reportSvc = inject(ReportService);
   private notifSvc = inject(NotificationService);
   private realtimeEvents = ['ticket-created', 'ticket-updated', 'ticket-status-changed', 'ticket-assigned', 'ticket-comment-added', 'ticket-note-added'];
 
   loading = signal(false);
+  exporting = signal(false);
   errorMsg = signal('');
   tickets = signal<Ticket[]>([]);
 
@@ -136,7 +141,57 @@ export class TicketList implements OnInit, OnDestroy {
   }
 
   goToDetail(id: string) { this.router.navigate(['/tickets', id]); }
-  onExport() { this.notifSvc.info('Preparando descarga de reporte...'); }
+
+  onExport() {
+    if (this.exporting()) return;
+    this.exporting.set(true);
+    this.notifSvc.info('Preparando descarga de reporte...');
+
+    const filters: AdHocReportRequest = { dateFrom: null, dateTo: null, format: 'EXCEL' };
+    this.reportSvc.generateTicketReport(filters)
+      .pipe(finalize(() => this.exporting.set(false)))
+      .subscribe({
+        next: (res) => this.handleExportDownload(res),
+        error: () => this.notifSvc.error('No se pudo generar el reporte. Inténtalo nuevamente.')
+      });
+  }
+
+  private handleExportDownload(res: HttpResponse<Blob>) {
+    const blob = res.body;
+    if (!blob || blob.size === 0) {
+      this.notifSvc.error('El reporte generado llegó vacío.');
+      return;
+    }
+
+    const filename = this.resolveExportFilename(res);
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+
+    this.notifSvc.success('Reporte generado correctamente.');
+  }
+
+  /** Prefer the server's Content-Disposition filename; fall back to a dated default. */
+  private resolveExportFilename(res: HttpResponse<Blob>): string {
+    const disposition = res.headers.get('Content-Disposition');
+    if (disposition) {
+      const match = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(disposition);
+      if (match?.[1]) {
+        try {
+          return decodeURIComponent(match[1].trim());
+        } catch {
+          return match[1].trim();
+        }
+      }
+    }
+    const stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    return `reporte-tickets-${stamp}.xlsx`;
+  }
 
   statusStage(code: string): string {
     if (code === 'RESOLVED') return 'Resuelto, falta cierre';

@@ -4,25 +4,31 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { KbService } from '../../../core/services/kb.service';
+import { NotificationService } from '../../../core/services/ui/notification.service';
 import { KbArticle, KbCategory, ReturnValue } from '../../../core/models';
 import { ModalComponent } from '../../../shared/components/modal/modal';
+import { KbArticleForm } from '../kb-article-form/kb-article-form.component';
 
 const PAGE_SIZE = 5;
 
 @Component({
   selector: 'app-kb-view',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, LucideAngularModule, ModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LucideAngularModule, ModalComponent, KbArticleForm],
   templateUrl: './kb-view.component.html'
 })
 export class KbView implements OnInit {
   private kbSvc  = inject(KbService);
+  private notifSvc = inject(NotificationService);
 
   articulos  = signal<KbArticle[]>([]);
   categorias = signal<KbCategory[]>([]);
   loading    = signal(false);
   detailLoading = signal(false);
   selectedArticle = signal<KbArticle | null>(null);
+
+  showForm = signal(false);
+  editingArticle = signal<KbArticle | null>(null);
 
   searchCtrl = new FormControl('');
   searchQuery = signal('');
@@ -107,6 +113,47 @@ export class KbView implements OnInit {
   onCloseArticle() {
     this.selectedArticle.set(null);
     this.detailLoading.set(false);
+  }
+
+  onNewArticle() {
+    this.editingArticle.set(null);
+    this.showForm.set(true);
+  }
+
+  onEditArticle(article: KbArticle, event?: Event) {
+    event?.stopPropagation();
+    this.onCloseArticle();
+    this.editingArticle.set(article);
+    this.showForm.set(true);
+  }
+
+  onDeleteArticle(article: KbArticle, event?: Event) {
+    event?.stopPropagation();
+    const confirmed = confirm(`¿Eliminar el artículo "${article.title}"? Esta acción no se puede deshacer.`);
+    if (!confirmed) return;
+
+    this.kbSvc.deleteArticle(article.id).subscribe({
+      next: (res: ReturnValue) => {
+        if (res.success) {
+          this.notifSvc.success(res.message || 'Artículo eliminado');
+          if (this.selectedArticle()?.id === article.id) this.onCloseArticle();
+          this.load();
+        } else {
+          this.notifSvc.error(res.message);
+        }
+      },
+      error: () => this.notifSvc.error('Error al eliminar el artículo'),
+    });
+  }
+
+  onFormClose() {
+    this.showForm.set(false);
+    this.editingArticle.set(null);
+  }
+
+  onFormSaved() {
+    this.onFormClose();
+    this.load();
   }
 
   articleInitial(article: KbArticle): string {

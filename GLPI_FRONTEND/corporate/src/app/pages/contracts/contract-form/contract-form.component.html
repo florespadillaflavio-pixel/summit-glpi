@@ -1,0 +1,103 @@
+<app-modal
+  [title]="contract() ? 'Editar Contrato' : 'Nuevo Contrato'"
+  [subtitle]="'Gestión de contratos con proveedores y licencias'"
+  [icon]="contract() ? 'pencil' : 'file-plus-2'"
+  [loading]="loading()"
+  [maxWidth]="640"
+  (close)="onClose()"
+>
+  <form [formGroup]="contractForm" class="asset-form-grid">
+    <app-input-field
+      label="Nombre del Contrato"
+      icon="file-text"
+      placeholder="Ej: Soporte anual de infraestructura"
+      formControlName="name"
+      [error]="getFieldError('name', 'El nombre')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Número de Contrato"
+      placeholder="Ej: CTR-2026-001"
+      formControlName="contractNumber"
+      [error]="getFieldError('contractNumber', 'El número de contrato')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Proveedor"
+      icon="building-2"
+      placeholder="Ej: Tech Solutions SAC"
+      formControlName="vendorName"
+      [error]="getFieldError('vendorName', 'El proveedor')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Valor"
+      type="number"
+      icon="dollar-sign"
+      placeholder="0.00"
+      formControlName="value"
+      [error]="getFieldError('value', 'El valor')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Fecha de Inicio"
+      type="date"
+      formControlName="startDate"
+      [error]="getFieldError('startDate', 'La fecha de inicio')"
+    ></app-input-field>
+
+    <app-input-field
+      label="Fecha de Fin"
+      type="date"
+      formControlName="endDate"
+      [error]="getFieldError('endDate', 'La fecha de fin')"
+    ></app-input-field>
+
+    @if (dateRangeError) {
+      <div class="sm-field full-width" style="margin-top:-8px;">
+        <span class="field-error">La fecha de inicio no puede ser mayor a la fecha de fin.</span>
+      </div>
+    }
+
+    <div class="sm-field">
+      <label class="sm-label">Moneda</label>
+      <select class="sm-input" formControlName="currency" [class.input-error]="isFieldInvalid('currency')">
+        @for (cur of currencies; track cur) {
+          <option [value]="cur">{{ cur }}</option>
+        }
+      </select>
+      @if (isFieldInvalid('currency')) { <span class="field-error">Requerido</span> }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Estado <span class="field-optional">(opcional)</span></label>
+      <select class="sm-input" formControlName="statusItemId">
+        <option value="">Sin definir</option>
+        @for (s of statuses(); track s.id) {
+          <option [value]="s.id">{{ s.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Tipo <span class="field-optional">(opcional)</span></label>
+      <select class="sm-input" formControlName="typeItemId">
+        <option value="">Sin definir</option>
+        @for (t of types(); track t.id) {
+          <option [value]="t.id">{{ t.name }}</option>
+        }
+      </select>
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="contractForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (contract() ? 'Guardar Cambios' : 'Registrar Contrato') }}</span>
+    </button>
+  </div>
+</app-modal>

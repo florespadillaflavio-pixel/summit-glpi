@@ -1,0 +1,84 @@
+<app-modal
+  [title]="report() ? 'Editar Reporte Programado' : 'Nuevo Reporte Programado'"
+  [subtitle]="'Define qué se genera, con qué frecuencia y a quién se envía'"
+  [icon]="report() ? 'pencil' : 'clock'"
+  [maxWidth]="600"
+  (close)="onClose()"
+>
+  <form [formGroup]="scheduleForm" class="tenant-form-grid">
+    <app-input-field
+      label="Nombre del Reporte"
+      icon="file-text"
+      placeholder="Ej: Tickets abiertos semanales"
+      formControlName="name"
+      [fullWidth]="true"
+      [error]="getFieldError('name')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Tipo de Reporte</label>
+      <select class="sm-input" formControlName="reportType" [class.input-error]="getFieldError('reportType')">
+        <option value="" disabled>Seleccione un tipo</option>
+        <option value="tickets">Tickets</option>
+        <option value="assets">Activos</option>
+        <option value="sla">SLA</option>
+      </select>
+      @if (getFieldError('reportType')) { <span class="field-error">{{ getFieldError('reportType') }}</span> }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Frecuencia</label>
+      <select class="sm-input" formControlName="frequency" [class.input-error]="getFieldError('frequency')">
+        <option value="DAILY">Diario</option>
+        <option value="WEEKLY">Semanal</option>
+        <option value="MONTHLY">Mensual</option>
+      </select>
+      @if (getFieldError('frequency')) { <span class="field-error">{{ getFieldError('frequency') }}</span> }
+    </div>
+
+    <app-input-field
+      label="Destinatarios"
+      icon="users"
+      placeholder="correo1@empresa.com, correo2@empresa.com"
+      formControlName="recipients"
+      [fullWidth]="true"
+      help="Separa varios correos con comas."
+      [error]="getFieldError('recipients')"
+    ></app-input-field>
+
+    <div class="sm-field">
+      <label class="sm-label">Formato</label>
+      <select class="sm-input" formControlName="format" [class.input-error]="getFieldError('format')">
+        <option value="PDF">PDF</option>
+        <option value="EXCEL">Excel</option>
+      </select>
+      @if (getFieldError('format')) { <span class="field-error">{{ getFieldError('format') }}</span> }
+    </div>
+
+    <div class="sm-field">
+      <label class="sm-label">Próxima ejecución <span class="field-optional">(opcional)</span></label>
+      <input type="date" class="sm-input" formControlName="nextRunAt" />
+    </div>
+
+    <div class="sm-field full-width">
+      <div class="switch-row">
+        <label class="sm-switch">
+          <input type="checkbox" formControlName="isActive">
+          <span class="sm-switch-slider"></span>
+        </label>
+        <span class="switch-text">{{ scheduleForm.get('isActive')?.value ? 'Activo' : 'Pausado' }}</span>
+      </div>
+    </div>
+  </form>
+
+  <div footer style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+    <button class="btn btn-ghost" (click)="onClose()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular name="undo-2" [size]="16"></lucide-angular>
+      <span>Regresar</span>
+    </button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="scheduleForm.invalid || saving()" style="display: flex; align-items: center; gap: 8px;">
+      <lucide-angular [name]="saving() ? 'loader' : 'save'" [class.spinner]="saving()" [size]="16"></lucide-angular>
+      <span>{{ saving() ? 'Guardando...' : (report() ? 'Guardar Cambios' : 'Programar Reporte') }}</span>
+    </button>
+  </div>
+</app-modal>
