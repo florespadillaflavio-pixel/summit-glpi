@@ -3216,12 +3216,13 @@ BEGIN
     RETURNING id INTO v_grp;
 
     INSERT INTO catalog_item (company_id, group_id, code, name, color, sort_order, is_system, is_default) VALUES
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'OPEN',        'Abierto',     '#2e90fa', 1, TRUE, TRUE),
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'IN_PROGRESS', 'En Progreso', '#f79009', 2, TRUE, FALSE),
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'PENDING',     'Pendiente',   '#94a3b1', 3, TRUE, FALSE),
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'RESOLVED',    'Resuelto',    '#2faa6f', 4, TRUE, FALSE),
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'CLOSED',      'Cerrado',     '#6c7e8d', 5, TRUE, FALSE),
-      ('00000000-0000-0000-0000-000000000001', v_grp, 'CANCELLED',   'Cancelado',   '#f04438', 6, TRUE, FALSE);
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'OPEN',        'Abierto',            '#2e90fa', 1, TRUE, TRUE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'IN_PROGRESS', 'En Progreso',        '#f79009', 2, TRUE, FALSE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'WAITING',     'Esperando respuesta','#7a5af8', 3, TRUE, FALSE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'PENDING',     'Pendiente',          '#94a3b1', 4, TRUE, FALSE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'RESOLVED',    'Resuelto',           '#2faa6f', 5, TRUE, FALSE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'CLOSED',      'Cerrado',            '#6c7e8d', 6, TRUE, FALSE),
+      ('00000000-0000-0000-0000-000000000001', v_grp, 'CANCELLED',   'Cancelado',          '#f04438', 7, TRUE, FALSE);
   END IF;
 END $$;
 
